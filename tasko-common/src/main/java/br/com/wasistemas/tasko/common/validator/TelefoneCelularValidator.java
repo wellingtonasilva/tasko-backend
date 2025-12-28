@@ -1,6 +1,6 @@
-package br.com.wasistemas.common.validator;
+package br.com.wasistemas.tasko.common.validator;
 
-import br.com.wasistemas.common.enumerations.TipoTelefoneBrasileiro;
+import br.com.wasistemas.tasko.common.enumerations.TipoTelefoneBrasileiro;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

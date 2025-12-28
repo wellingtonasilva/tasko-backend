@@ -1,4 +1,4 @@
-package br.com.wasistemas.vendedor.adapter.out.persistence.entity;
+package br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

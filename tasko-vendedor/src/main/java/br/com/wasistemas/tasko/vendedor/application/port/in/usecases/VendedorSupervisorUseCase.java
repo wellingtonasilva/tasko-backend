@@ -1,9 +1,9 @@
-package br.com.wasistemas.vendedor.application.port.in.usecases;
+package br.com.wasistemas.tasko.vendedor.application.port.in.usecases;
 
-import br.com.wasistemas.vendedor.domain.Paginacao;
-import br.com.wasistemas.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
-import br.com.wasistemas.vendedor.domain.supervisor.AtualizarVendedorSupervisor;
-import br.com.wasistemas.vendedor.domain.supervisor.VendedorSupervisor;
+import br.com.wasistemas.tasko.vendedor.domain.Paginacao;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.AtualizarVendedorSupervisor;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package br.com.wasistemas.vendedor.adapter.in.web.mapper;
+package br.com.wasistemas.tasko.vendedor.adapter.in.web.mapper;
 
-import br.com.wasistemas.vendedor.adapter.in.web.request.AdicionarVendedorRequest;
-import br.com.wasistemas.vendedor.domain.vendedor.AdicionarVendedor;
+import br.com.wasistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorRequest;
+import br.com.wasistemas.tasko.vendedor.domain.vendedor.AdicionarVendedor;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

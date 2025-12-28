@@ -1,6 +1,6 @@
-package br.com.wasistemas.common.exception;
+package br.com.wasistemas.tasko.common.exception;
 
-import br.com.wasistemas.common.response.GeneralApiResponse;
+import br.com.wasistemas.tasko.common.response.GeneralApiResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;

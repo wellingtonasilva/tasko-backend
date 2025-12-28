@@ -1,4 +1,4 @@
-package br.com.wasistemas.vendedor.domain.supervisor;
+package br.com.wasistemas.tasko.vendedor.domain.supervisor;
 
 import lombok.Value;
 

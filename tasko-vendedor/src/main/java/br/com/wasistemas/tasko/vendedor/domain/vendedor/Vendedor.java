@@ -1,8 +1,8 @@
-package br.com.wasistemas.vendedor.domain.vendedor;
+package br.com.wasistemas.tasko.vendedor.domain.vendedor;
 
-import br.com.wasistemas.vendedor.domain.Auditoria;
-import br.com.wasistemas.vendedor.domain.supervisor.VendedorSupervisor;
-import br.com.wasistemas.vendedor.domain.territorio.VendedorTerritorio;
+import br.com.wasistemas.tasko.vendedor.domain.Auditoria;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
+import br.com.wasistemas.tasko.vendedor.domain.territorio.VendedorTerritorio;
 import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDateTime;

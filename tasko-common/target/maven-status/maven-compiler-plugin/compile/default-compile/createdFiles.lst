@@ -1,0 +1,13 @@
+br/com/wasistemas/tasko/common/exception/GeneralExceptionHandler.class
+br/com/wasistemas/tasko/common/validator/TelefoneCelularValidator.class
+br/com/wasistemas/tasko/common/enumerations/TipoTelefoneBrasileiro.class
+br/com/wasistemas/tasko/common/response/GeneralApiResponse$GeneralApiResponseBuilder.class
+br/com/wasistemas/tasko/common/exception/ErrorDetails.class
+br/com/wasistemas/tasko/common/exception/ResourceDuplicateException.class
+br/com/wasistemas/tasko/common/response/GeneralApiResponse.class
+br/com/wasistemas/tasko/common/exception/ResourceNotFoundException.class
+br/com/wasistemas/tasko/common/exception/GeneralException.class
+br/com/wasistemas/tasko/common/validator/TelefoneCelular.class
+br/com/wasistemas/tasko/common/validator/NumeroCpfValidator.class
+br/com/wasistemas/tasko/common/validator/NumeroCpf.class
+br/com/wasistemas/tasko/common/exception/ParameterNotFoundException.class

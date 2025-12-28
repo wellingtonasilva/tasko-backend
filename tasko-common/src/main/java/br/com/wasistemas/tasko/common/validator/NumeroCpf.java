@@ -1,4 +1,4 @@
-package br.com.wasistemas.common.validator;
+package br.com.wasistemas.tasko.common.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

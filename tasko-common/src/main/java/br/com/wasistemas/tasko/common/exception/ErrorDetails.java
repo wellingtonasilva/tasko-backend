@@ -1,4 +1,4 @@
-package br.com.wasistemas.common.exception;
+package br.com.wasistemas.tasko.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package br.com.wasistemas.common.enumerations;
+package br.com.wasistemas.tasko.common.enumerations;
 
 public enum TipoTelefoneBrasileiro {
     UNDEFINED,

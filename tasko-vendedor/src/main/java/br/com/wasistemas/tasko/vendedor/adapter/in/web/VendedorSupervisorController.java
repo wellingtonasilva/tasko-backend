@@ -1,11 +1,11 @@
-package br.com.wasistemas.vendedor.adapter.in.web;
+package br.com.wasistemas.tasko.vendedor.adapter.in.web;
 
-import br.com.wasistemas.common.response.GeneralApiResponse;
-import br.com.wasistemas.vendedor.adapter.in.web.mapper.VendedorSupervisorWebMapper;
-import br.com.wasistemas.vendedor.adapter.in.web.request.AdicionarVendedorSupervisorRequest;
-import br.com.wasistemas.vendedor.application.port.in.usecases.VendedorSupervisorUseCase;
-import br.com.wasistemas.vendedor.domain.Paginacao;
-import br.com.wasistemas.vendedor.domain.supervisor.VendedorSupervisor;
+import br.com.wasistemas.tasko.common.response.GeneralApiResponse;
+import br.com.wasistemas.tasko.vendedor.adapter.in.web.mapper.VendedorSupervisorWebMapper;
+import br.com.wasistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorSupervisorRequest;
+import br.com.wasistemas.tasko.vendedor.application.port.in.usecases.VendedorSupervisorUseCase;
+import br.com.wasistemas.tasko.vendedor.domain.Paginacao;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

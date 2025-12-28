@@ -1,0 +1,12 @@
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/enumerations/TipoTelefoneBrasileiro.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/exception/ErrorDetails.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/exception/GeneralException.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/exception/GeneralExceptionHandler.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/exception/ParameterNotFoundException.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/exception/ResourceDuplicateException.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/exception/ResourceNotFoundException.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/response/GeneralApiResponse.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/validator/NumeroCpf.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/validator/NumeroCpfValidator.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/validator/TelefoneCelular.java
+/Users/wellingtona.silva/work/dev/tasko/tasko-backend/tasko-common/src/main/java/br/com/wasistemas/tasko/common/validator/TelefoneCelularValidator.java

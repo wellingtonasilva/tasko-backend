@@ -1,14 +1,14 @@
-package br.com.wasistemas.vendedor.adapter.out.persistence.mapper;
+package br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper;
 
-import br.com.wasistemas.vendedor.adapter.out.persistence.entity.AuditoriaEntity;
-import br.com.wasistemas.vendedor.adapter.out.persistence.entity.VendedorEntity;
-import br.com.wasistemas.vendedor.adapter.out.persistence.entity.VendedorSupervisorEntity;
-import br.com.wasistemas.vendedor.domain.*;
-import br.com.wasistemas.vendedor.domain.supervisor.VendedorSupervisor;
-import br.com.wasistemas.vendedor.domain.vendedor.AdicionarVendedor;
-import br.com.wasistemas.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
-import br.com.wasistemas.vendedor.domain.vendedor.AtualizarVendedor;
-import br.com.wasistemas.vendedor.domain.vendedor.Vendedor;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.AuditoriaEntity;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorEntity;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorSupervisorEntity;
+import br.com.wasistemas.tasko.vendedor.domain.Auditoria;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
+import br.com.wasistemas.tasko.vendedor.domain.vendedor.AdicionarVendedor;
+import br.com.wasistemas.tasko.vendedor.domain.vendedor.AtualizarVendedor;
+import br.com.wasistemas.tasko.vendedor.domain.vendedor.Vendedor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

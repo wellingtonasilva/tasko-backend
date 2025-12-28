@@ -1,4 +1,4 @@
-package br.com.wasistemas.common.response;
+package br.com.wasistemas.tasko.common.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
