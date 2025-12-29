@@ -1,6 +1,6 @@
 package br.com.wasistemas.tasko.vendedor.adapter.in.web.request;
 
-import br.com.wasistemas.tasko.vendedor.domain.Auditoria;
+import br.com.wasistemas.tasko.common.domain.Auditoria;
 import lombok.Value;
 
 @Value

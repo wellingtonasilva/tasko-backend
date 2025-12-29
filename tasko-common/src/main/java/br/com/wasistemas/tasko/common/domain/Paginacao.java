@@ -1,4 +1,4 @@
-package br.com.wasistemas.tasko.vendedor.domain;
+package br.com.wasistemas.tasko.common.domain;
 
 import lombok.Builder;
 import lombok.Value;

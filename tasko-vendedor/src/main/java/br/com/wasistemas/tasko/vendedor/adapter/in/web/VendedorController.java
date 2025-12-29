@@ -4,7 +4,7 @@ import br.com.wasistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wasistemas.tasko.vendedor.adapter.in.web.mapper.VendedorWebMapper;
 import br.com.wasistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorRequest;
 import br.com.wasistemas.tasko.vendedor.application.port.in.usecases.VendedorUseCases;
-import br.com.wasistemas.tasko.vendedor.domain.Paginacao;
+import br.com.wasistemas.tasko.common.domain.Paginacao;
 import br.com.wasistemas.tasko.vendedor.domain.vendedor.Vendedor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class VendedorController {
     public GeneralApiResponse<Vendedor> adicionar(@RequestBody AdicionarVendedorRequest request) {
         return GeneralApiResponse.<Vendedor>builder()
                 .status(HttpStatus.OK.value())
-                .data(vendedorUseCases.adicionarVendedor(vendedorWebMapper.toDomain(request)))
+                .data(vendedorUseCases.adicionar(vendedorWebMapper.toDomain(request)))
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class VendedorController {
                                                              @RequestParam(defaultValue = "asc") String sortDirection) {
         return GeneralApiResponse.<List<Vendedor>>builder()
                 .status(HttpStatus.OK.value())
-                .data(vendedorUseCases.listarVendedor(Paginacao.builder()
+                .data(vendedorUseCases.listar(Paginacao.builder()
                                 .page(page)
                                 .size(size)
                                 .sortBy(sortBy)
@@ -53,7 +53,7 @@ public class VendedorController {
 
     @DeleteMapping("/{id}")
     public GeneralApiResponse<Vendedor>  excluirById(@PathVariable Long id) {
-        vendedorUseCases.excluirById(id);
+        vendedorUseCases.excluirPorId(id);
         return GeneralApiResponse.<Vendedor>builder()
                 .status(HttpStatus.OK.value())
                 .build();

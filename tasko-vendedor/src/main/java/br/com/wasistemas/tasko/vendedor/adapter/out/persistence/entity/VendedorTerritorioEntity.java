@@ -1,5 +1,6 @@
 package br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity;
 
+import br.com.wasistemas.tasko.common.entity.AuditoriaEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;

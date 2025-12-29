@@ -1,7 +1,7 @@
 
 package br.com.wasistemas.tasko.vendedor.domain.territorio;
 
-import br.com.wasistemas.tasko.vendedor.domain.Auditoria;
+import br.com.wasistemas.tasko.common.domain.Auditoria;
 import br.com.wasistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
 import lombok.Builder;
 import lombok.Data;

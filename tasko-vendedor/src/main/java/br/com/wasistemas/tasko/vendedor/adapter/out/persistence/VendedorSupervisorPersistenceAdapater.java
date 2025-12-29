@@ -1,0 +1,58 @@
+package br.com.wasistemas.tasko.vendedor.adapter.out.persistence;
+
+import br.com.wasistemas.tasko.common.domain.Paginacao;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorMapper;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.repository.VendedorSupervisorRepository;
+import br.com.wasistemas.tasko.vendedor.application.port.out.supervisor.*;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.AtualizarVendedorSupervisor;
+import br.com.wasistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+
+@Component
+@RequiredArgsConstructor
+public class VendedorSupervisorPersistenceAdapater implements AdicionarVendedorSupervisorPort,
+        AtualizarVendedorSupervisorPort, ExcluirVendedorSupervisorPorIdPort, ObterVendedorSupervisorPorIdPort,
+        ListarVendedorSupervisorPort {
+
+    private final VendedorSupervisorRepository vendedorSupervisorRepository;
+    private final VendedorMapper vendedorMapper;
+
+    @Override
+    public VendedorSupervisor adicionarVendedorSupervisor(AdicionarVendedorSupervisor adicionarVendedorSupervisor) {
+        return null;
+    }
+
+    @Override
+    public VendedorSupervisor atualizarVendedorSupervisor(Long id, AtualizarVendedorSupervisor atualizarVendedorSupervisor) {
+        return null;
+    }
+
+    @Override
+    public void excluirVendedorSupervisorPorId(Long id) {
+        vendedorSupervisorRepository.deleteById(id);
+    }
+
+    @Override
+    public VendedorSupervisor obterVendedorSupervisorPorId(Long id) {
+        return vendedorMapper.toDomain(vendedorSupervisorRepository.findById(id).orElse(null));
+    }
+
+    @Override
+    public List<VendedorSupervisor> listarVendedorSupervisor(Paginacao paginacao) {
+        Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
+                ? Sort.Direction.DESC
+                : Sort.Direction.ASC;
+
+        Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
+                Sort.by(direction, paginacao.getSortBy()));
+
+        return vendedorSupervisorRepository.findAll(pageable).map(vendedorMapper::toDomain).toList();
+    }
+}

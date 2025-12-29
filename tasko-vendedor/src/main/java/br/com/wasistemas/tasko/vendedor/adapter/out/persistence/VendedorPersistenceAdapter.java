@@ -3,7 +3,7 @@ package br.com.wasistemas.tasko.vendedor.adapter.out.persistence;
 import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorMapper;
 import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.repository.VendedorRepository;
 import br.com.wasistemas.tasko.vendedor.application.port.out.vendedor.*;
-import br.com.wasistemas.tasko.vendedor.domain.Paginacao;
+import br.com.wasistemas.tasko.common.domain.Paginacao;
 import br.com.wasistemas.tasko.vendedor.domain.vendedor.AdicionarVendedor;
 import br.com.wasistemas.tasko.vendedor.domain.vendedor.AtualizarVendedor;
 import br.com.wasistemas.tasko.vendedor.domain.vendedor.Vendedor;

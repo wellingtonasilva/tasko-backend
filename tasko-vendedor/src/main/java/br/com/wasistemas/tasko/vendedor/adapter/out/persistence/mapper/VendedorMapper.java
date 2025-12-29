@@ -1,9 +1,9 @@
 package br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper;
 
-import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.AuditoriaEntity;
+import br.com.wasistemas.tasko.common.entity.AuditoriaEntity;
 import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorEntity;
 import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorSupervisorEntity;
-import br.com.wasistemas.tasko.vendedor.domain.Auditoria;
+import br.com.wasistemas.tasko.common.domain.Auditoria;
 import br.com.wasistemas.tasko.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
 import br.com.wasistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
 import br.com.wasistemas.tasko.vendedor.domain.vendedor.AdicionarVendedor;

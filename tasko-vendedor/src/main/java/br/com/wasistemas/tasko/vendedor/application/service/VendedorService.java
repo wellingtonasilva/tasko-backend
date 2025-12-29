@@ -2,7 +2,7 @@ package br.com.wasistemas.tasko.vendedor.application.service;
 
 import br.com.wasistemas.tasko.vendedor.application.port.in.usecases.VendedorUseCases;
 import br.com.wasistemas.tasko.vendedor.application.port.out.vendedor.*;
-import br.com.wasistemas.tasko.vendedor.domain.Paginacao;
+import br.com.wasistemas.tasko.common.domain.Paginacao;
 import br.com.wasistemas.tasko.vendedor.domain.vendedor.AdicionarVendedor;
 import br.com.wasistemas.tasko.vendedor.domain.vendedor.AtualizarVendedor;
 import br.com.wasistemas.tasko.vendedor.domain.vendedor.Vendedor;
@@ -23,14 +23,15 @@ public class VendedorService implements VendedorUseCases {
     private final ListarVendedorPort listarVendedorPort;
     private final ObterVendedorPorIdPort obterVendedorPorIdPort;
 
+
     @Override
-    public Vendedor adicionarVendedor(AdicionarVendedor adicionarVendedor) {
-        return adicionarVendedorPort.adicionarVendedor(adicionarVendedor);
+    public Vendedor adicionar(AdicionarVendedor adicionar) {
+        return adicionarVendedorPort.adicionarVendedor(adicionar);
     }
 
     @Override
-    public List<Vendedor> listarVendedor(Paginacao paginacao) {
-        return  listarVendedorPort.listarVendedor(paginacao);
+    public List<Vendedor> listar(Paginacao paginacao) {
+        return listarVendedorPort.listarVendedor(paginacao);
     }
 
     @Override
@@ -39,12 +40,12 @@ public class VendedorService implements VendedorUseCases {
     }
 
     @Override
-    public Vendedor atualizar(Long id, AtualizarVendedor atualizarVendedor) {
-        return atualizarVendedorPort.atualizar(id, atualizarVendedor);
+    public Vendedor atualizar(Long id, AtualizarVendedor atualizar) {
+        return atualizarVendedorPort.atualizar(id, atualizar);
     }
 
     @Override
-    public void excluirById(Long id) {
+    public void excluirPorId(Long id) {
         excluirVendedorPorIdPort.excluirById(id);
     }
 }
