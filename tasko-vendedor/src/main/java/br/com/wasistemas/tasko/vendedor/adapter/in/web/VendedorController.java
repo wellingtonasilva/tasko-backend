@@ -30,7 +30,7 @@ public class VendedorController {
     @GetMapping
     public GeneralApiResponse<List<Vendedor>> listarVendedor(@RequestParam(defaultValue = "0") int page,
                                                              @RequestParam(defaultValue = "10") int size,
-                                                             @RequestParam(defaultValue = "sortBy") String sortBy,
+                                                             @RequestParam(defaultValue = "id") String sortBy,
                                                              @RequestParam(defaultValue = "asc") String sortDirection) {
         return GeneralApiResponse.<List<Vendedor>>builder()
                 .status(HttpStatus.OK.value())
