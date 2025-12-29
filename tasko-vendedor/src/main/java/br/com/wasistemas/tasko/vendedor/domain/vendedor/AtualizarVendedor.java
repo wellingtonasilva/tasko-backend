@@ -1,12 +1,14 @@
 package br.com.wasistemas.tasko.vendedor.domain.vendedor;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Value;
 
 import java.time.LocalDateTime;
 
-@Data
+@Value
 @Builder
+@Getter
 public class AtualizarVendedor {
     private Long id;
     private String codigoVendedor;
@@ -18,6 +20,6 @@ public class AtualizarVendedor {
     private Float percentualComissao;
     private LocalDateTime ultimoSincronismo;
     private String codigoDispositivo;
-    private Long supervsupervisorIdisor;
+    private Long supervisorId;
     private Long territorioId;
 }
