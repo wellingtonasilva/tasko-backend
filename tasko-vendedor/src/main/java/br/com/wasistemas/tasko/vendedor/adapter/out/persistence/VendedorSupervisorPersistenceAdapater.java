@@ -26,12 +26,12 @@ public class VendedorSupervisorPersistenceAdapater implements AdicionarVendedorS
 
     @Override
     public VendedorSupervisor adicionarVendedorSupervisor(AdicionarVendedorSupervisor adicionarVendedorSupervisor) {
-        return null;
+        return vendedorMapper.toDomain(vendedorSupervisorRepository.save(vendedorMapper.toEntity(adicionarVendedorSupervisor)));
     }
 
     @Override
     public VendedorSupervisor atualizarVendedorSupervisor(Long id, AtualizarVendedorSupervisor atualizarVendedorSupervisor) {
-        return null;
+        return vendedorMapper.toDomain(vendedorSupervisorRepository.save(vendedorMapper.toEntity(id, atualizarVendedorSupervisor)));
     }
 
     @Override
