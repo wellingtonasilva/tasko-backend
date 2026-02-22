@@ -124,7 +124,6 @@ tmp/
 # Configuration files with sensitive data
 application-local.properties
 application-dev.properties
-application-prod.properties
 **/application-*.yml
 **/application-*.yaml
 !**/application.properties
