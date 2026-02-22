@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
@@ -33,10 +34,10 @@ public class VendedorEntity {
     private String numeroTelefone;
 
     @Column(name = "vend_vlmeta_mensal")
-    private Float valorMetaMensal;
+    private BigDecimal valorMetaMensal;
 
     @Column(name = "vend_per_comissao")
-    private Float percentualComissao;
+    private BigDecimal percentualComissao;
 
     @Column(name = "vend_tmultimo_sincronizmo")
     private LocalDateTime ultimoSincronismo;
