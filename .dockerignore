@@ -1,0 +1,51 @@
+# Build artifacts
+target/
+!target/tasko-application-*.jar
+*.class
+
+# IDE files
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Logs
+*.log
+logs/
+
+# Test files
+**/test/**
+**/*Test.java
+
+# Documentation
+*.md
+README.md
+docs/
+
+# Docker
+Dockerfile
+.dockerignore
+
+# Environment files
+.env
+.env.*
+

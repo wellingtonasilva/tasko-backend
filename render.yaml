@@ -1,0 +1,36 @@
+services:
+  # Tasko Backend Service
+  - type: web
+    name: tasko-backend
+    runtime: docker
+    plan: starter # Change to 'free' for free tier or 'standard' for production
+    region: oregon # Change to your preferred region
+    branch: main # Change to your default branch name
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tasko-db
+          property: connectionString
+      - key: DB_USERNAME
+        fromDatabase:
+          name: tasko-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: tasko-db
+          property: password
+      - key: JAVA_OPTS
+        value: "-Xms512m -Xmx1024m -XX:+UseG1GC"
+    healthCheckPath: /actuator/health
+
+  # PostgreSQL Database
+databases:
+  - name: tasko-db
+    databaseName: tasko
+    plan: starter # Change to 'free' for free tier
+    region: oregon # Should match the service region
+    ipAllowList: [] # Empty means accessible from anywhere (Render services included)
+
