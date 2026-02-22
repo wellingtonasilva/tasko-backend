@@ -1,9 +1,11 @@
 package br.com.wasistemas.tasko.vendedor.adapter.in.web.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Value;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Value
+@NoArgsConstructor
+@Data
 @Schema(description = "Dados para Adicioanr um Vendedor")
 public class AdicionarVendedorRequest {
     @Schema(description = "Código do Vendedor", example = "0009-1")

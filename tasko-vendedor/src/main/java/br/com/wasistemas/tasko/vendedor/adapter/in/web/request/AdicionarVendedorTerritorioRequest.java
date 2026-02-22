@@ -1,11 +1,11 @@
 
 package br.com.wasistemas.tasko.vendedor.adapter.in.web.request;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
-@Builder
 public class AdicionarVendedorTerritorioRequest {
     private String nomeTerritorio;
     private String descricaoTerritorio;
