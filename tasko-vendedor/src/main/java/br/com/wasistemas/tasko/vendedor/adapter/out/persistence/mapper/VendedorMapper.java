@@ -1,11 +1,11 @@
 package br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper;
 
 import br.com.wasistemas.tasko.common.entity.AuditoriaEntity;
-import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorEntity;
-import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorSupervisorEntity;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.*;
 import br.com.wasistemas.tasko.common.domain.Auditoria;
-import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorTerritorioCidadeEntity;
-import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorTerritorioEntity;
+import br.com.wasistemas.tasko.vendedor.domain.meta.AdicionarVendedorMeta;
+import br.com.wasistemas.tasko.vendedor.domain.meta.AtualizarVendedorMeta;
+import br.com.wasistemas.tasko.vendedor.domain.meta.VendedorMeta;
 import br.com.wasistemas.tasko.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
 import br.com.wasistemas.tasko.vendedor.domain.supervisor.AtualizarVendedorSupervisor;
 import br.com.wasistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
@@ -26,12 +26,11 @@ import org.mapstruct.Named;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface VendedorMapper {
     Auditoria toDomain(AuditoriaEntity entity);
-
     VendedorSupervisor toDomain(VendedorSupervisorEntity entity);
     VendedorTerritorio toDomain(VendedorTerritorioEntity entity);
     VendedorTerritorioCidade toDomain(VendedorTerritorioCidadeEntity entity);
-
     Vendedor toDomain(VendedorEntity entity);
+    VendedorMeta toDomain(VendedorMetaEntity entity);
 
     @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
@@ -76,6 +75,26 @@ public interface VendedorMapper {
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName="mapVendedorTerritorioId")
     VendedorTerritorioCidadeEntity toEntity(Long id, AtualizarVendedorTerritorioCidade domain);
+
+    @Mapping(target = "vendedor", source = "domain.vendedorId", qualifiedByName="mapVendedorId")
+    @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+    VendedorMetaEntity toEntity(AdicionarVendedorMeta domain);
+
+    @Mapping(target = "vendedor", source = "domain.vendedorId", qualifiedByName="mapVendedorId")
+    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+    VendedorMetaEntity toEntity(Long id, AtualizarVendedorMeta domain);
+
+    @Named("mapVendedorId")
+    default VendedorEntity mapVendedorId(Long vendedorId) {
+        if (vendedorId == null) {
+            return null;
+        }
+        VendedorEntity vendedor = new VendedorEntity();
+        vendedor.setId(vendedorId);
+        return vendedor;
+    }
 
     @Named("mapSupervisorId")
     default VendedorSupervisorEntity mapSupervisorId(Long supervisorId) {
