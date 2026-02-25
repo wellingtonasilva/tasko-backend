@@ -24,7 +24,7 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.Named;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
-public interface VendedorMapper {
+public interface VendedorEntityMapper {
     Auditoria toDomain(AuditoriaEntity entity);
     VendedorSupervisor toDomain(VendedorSupervisorEntity entity);
     VendedorTerritorio toDomain(VendedorTerritorioEntity entity);

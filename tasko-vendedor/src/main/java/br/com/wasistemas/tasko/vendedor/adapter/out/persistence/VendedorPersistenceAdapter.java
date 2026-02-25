@@ -1,6 +1,6 @@
 package br.com.wasistemas.tasko.vendedor.adapter.out.persistence;
 
-import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorMapper;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorEntityMapper;
 import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.repository.VendedorRepository;
 import br.com.wasistemas.tasko.vendedor.application.port.out.vendedor.*;
 import br.com.wasistemas.tasko.common.domain.Paginacao;
@@ -20,7 +20,7 @@ import java.util.List;
 public class VendedorPersistenceAdapter implements AdicionarVendedorPort, AtualizarVendedorPort,
         ExcluirVendedorPorIdPort, ListarVendedorPort, ObterVendedorPorIdPort {
     private final VendedorRepository vendedorRepository;
-    private final VendedorMapper vendedorMapper;
+    private final VendedorEntityMapper vendedorMapper;
 
     @Override
     public Vendedor adicionarVendedor(AdicionarVendedor adicionarVendedor) {

@@ -1,7 +1,7 @@
 package br.com.wasistemas.tasko.vendedor.adapter.out.persistence;
 
 import br.com.wasistemas.tasko.common.domain.Paginacao;
-import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorMapper;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorEntityMapper;
 import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.repository.VendedorSupervisorRepository;
 import br.com.wasistemas.tasko.vendedor.application.port.out.supervisor.*;
 import br.com.wasistemas.tasko.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
@@ -22,7 +22,7 @@ public class VendedorSupervisorPersistenceAdapater implements AdicionarVendedorS
         ListarVendedorSupervisorPort {
 
     private final VendedorSupervisorRepository vendedorSupervisorRepository;
-    private final VendedorMapper vendedorMapper;
+    private final VendedorEntityMapper vendedorMapper;
 
     @Override
     public VendedorSupervisor adicionarVendedorSupervisor(AdicionarVendedorSupervisor adicionarVendedorSupervisor) {
