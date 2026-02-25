@@ -39,7 +39,7 @@ public class VendedorMetaService implements VendedorMetaUseCase {
 
     @Override
     public VendedorMeta atualizar(Long id, AtualizarVendedorMeta atualizar) {
-        return atualizarVendedorMetaPort.atualizarVendedorMeta(atualizar);
+        return atualizarVendedorMetaPort.atualizarVendedorMeta(id, atualizar);
     }
 
     @Override

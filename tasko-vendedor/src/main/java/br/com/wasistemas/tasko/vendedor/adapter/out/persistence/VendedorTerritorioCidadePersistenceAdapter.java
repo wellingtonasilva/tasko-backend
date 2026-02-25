@@ -1,7 +1,7 @@
 package br.com.wasistemas.tasko.vendedor.adapter.out.persistence;
 
 import br.com.wasistemas.tasko.common.domain.Paginacao;
-import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorMapper;
+import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorEntityMapper;
 import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.repository.VendedorTerritorioCidadeRepository;
 import br.com.wasistemas.tasko.vendedor.application.port.out.territorio.cidade.*;
 import br.com.wasistemas.tasko.vendedor.domain.territorio.cidade.AdicionarVendedorTerritorioCidade;
@@ -22,7 +22,7 @@ public class VendedorTerritorioCidadePersistenceAdapter implements AdicionarVend
         ListarVendedorTerritorioCidadePort, ObterVendedorTerritorioCidadePorIdPort {
 
     private final VendedorTerritorioCidadeRepository vendedorTerritorioCidadeRepository;
-    private final VendedorMapper vendedorMapper;
+    private final VendedorEntityMapper vendedorMapper;
 
     @Override
     public VendedorTerritorioCidade adicionarVendedorTerritorioCidade(AdicionarVendedorTerritorioCidade adicionarVendedorTerritorioCidade) {
