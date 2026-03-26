@@ -28,6 +28,11 @@
     <modules>
         <module>tasko-common</module>
         <module>tasko-vendedor</module>
+        <module>tasko-cliente</module>
+        <module>tasko-produto</module>
+        <module>tasko-pedido</module>
+        <module>tasko-agenda</module>
+        <module>tasko-empresa</module>
         <module>tasko-application</module>
     </modules>
 
