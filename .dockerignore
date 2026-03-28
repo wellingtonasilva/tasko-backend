@@ -1,7 +1,8 @@
 # Build artifacts
 target/
-!target/tasko-application-*.jar
+*/target/
 *.class
+*.jar
 
 # IDE files
 .idea/
@@ -23,7 +24,7 @@ Thumbs.db
 .gitignore
 .gitattributes
 
-# Maven
+# Maven wrapper (não é necessário – imagem Maven já inclui)
 .mvn/
 mvnw
 mvnw.cmd
@@ -32,18 +33,18 @@ mvnw.cmd
 *.log
 logs/
 
-# Test files
-**/test/**
-**/*Test.java
-
 # Documentation
 *.md
-README.md
 docs/
 
-# Docker
+# Docker (evitar loop no build context)
 Dockerfile
+docker-compose.yml
 .dockerignore
+
+# Deploy / CI
+deploy.sh
+render.yaml
 
 # Environment files
 .env

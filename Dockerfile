@@ -1,59 +1,77 @@
+# =============================================================================
 # Multi-stage build for tasko-backend
-# Stage 1: Build the application
-FROM maven:3.9-eclipse-temurin-21 AS build
+# Módulos: common, vendedor, cliente, produto, pedido, agenda, empresa, application
+# =============================================================================
 
-# Set working directory
+# ---------------------------------------------------------------------------
+# Stage 1: Build – compila todos os módulos com Maven
+# ---------------------------------------------------------------------------
+FROM maven:3.9-eclipse-temurin-21-alpine AS build
+
 WORKDIR /app
 
-# Copy the parent pom.xml and module pom.xml files first (for better layer caching)
+# 1) Copiar apenas os pom.xml de cada módulo (layer de cache de dependências)
 COPY pom.xml .
-COPY tasko-common/pom.xml tasko-common/
-COPY tasko-vendedor/pom.xml tasko-vendedor/
+COPY tasko-common/pom.xml      tasko-common/
+COPY tasko-vendedor/pom.xml    tasko-vendedor/
+COPY tasko-cliente/pom.xml     tasko-cliente/
+COPY tasko-produto/pom.xml     tasko-produto/
+COPY tasko-pedido/pom.xml      tasko-pedido/
+COPY tasko-agenda/pom.xml      tasko-agenda/
+COPY tasko-empresa/pom.xml     tasko-empresa/
 COPY tasko-application/pom.xml tasko-application/
 
-# Download dependencies (this layer will be cached if pom.xml files don't change)
-RUN mvn dependency:go-offline -B
+# 2) Baixar dependências offline (cache – só invalida se algum pom.xml mudar)
+RUN mvn dependency:go-offline -B -q
 
-# Copy the source code
-COPY tasko-common/src tasko-common/src
-COPY tasko-vendedor/src tasko-vendedor/src
-COPY tasko-application/src tasko-application/src
+# 3) Copiar código-fonte de todos os módulos
+COPY tasko-common/src      tasko-common/src
+COPY tasko-vendedor/src     tasko-vendedor/src
+COPY tasko-cliente/src      tasko-cliente/src
+COPY tasko-produto/src      tasko-produto/src
+COPY tasko-pedido/src       tasko-pedido/src
+COPY tasko-agenda/src       tasko-agenda/src
+COPY tasko-empresa/src      tasko-empresa/src
+COPY tasko-application/src  tasko-application/src
 
-# Build the application (skip tests for faster builds in production)
-RUN mvn clean package -DskipTests -B
+# 4) Build do projeto (skip tests para builds de produção)
+RUN mvn clean package -DskipTests -B -q \
+    && mv /app/target/tasko-application-*.jar /app/app.jar
 
-# Stage 2: Create the runtime image
+# ---------------------------------------------------------------------------
+# Stage 2: Runtime – imagem enxuta apenas com JRE
+# ---------------------------------------------------------------------------
 FROM eclipse-temurin:21-jre-alpine
 
-# Install dumb-init and wget for proper signal handling and health checks
-RUN apk add --no-cache dumb-init wget
+# Instalar dumb-init (signal handling), curl (health checks) e criar usuário não-root
+RUN apk add --no-cache dumb-init curl \
+    && rm -rf /var/cache/apk/* \
+    && addgroup -g 1001 -S tasko \
+    && adduser -u 1001 -S tasko -G tasko
 
-# Create a non-root user for running the application
-RUN addgroup -g 1001 -S tasko && \
-    adduser -u 1001 -S tasko -G tasko
-
-# Set working directory
 WORKDIR /app
 
-# Copy the built JAR from the build stage
-COPY --from=build /app/target/tasko-application-*.jar app.jar
+# Copiar o fat-jar já renomeado do estágio de build
+COPY --from=build --chown=tasko:tasko /app/app.jar app.jar
 
-# Change ownership of the application files
-RUN chown -R tasko:tasko /app
-
-# Switch to non-root user
+# Não é necessário chown separado pois --chown já foi aplicado acima
 USER tasko
 
-# Expose the port (Render.com will set PORT environment variable)
 EXPOSE 8080
 
-# Set environment variables for production
-ENV JAVA_OPTS="-Xms512m -Xmx1024m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -XX:+HeapDumpOnOutOfMemoryError" \
+# Variáveis de ambiente padrão (podem ser sobrescritas em runtime)
+ENV JAVA_OPTS="-Xms512m -Xmx1024m \
+    -XX:+UseG1GC \
+    -XX:MaxGCPauseMillis=200 \
+    -XX:+HeapDumpOnOutOfMemoryError \
+    -XX:+UseStringDeduplication" \
     SPRING_PROFILES_ACTIVE=prod
 
-# Use dumb-init to handle signals properly
+# Health check embutido (funciona em Docker standalone, Compose e Render)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -sf http://localhost:${PORT:-8080}/actuator/health || exit 1
+
 ENTRYPOINT ["dumb-init", "--"]
 
-# Run the application with explicit Spring profile
 CMD ["sh", "-c", "java ${JAVA_OPTS} -Djava.security.egd=file:/dev/./urandom -Dserver.port=${PORT:-8080} -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE:-prod} -jar app.jar"]
 
