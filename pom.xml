@@ -33,6 +33,7 @@
         <module>tasko-pedido</module>
         <module>tasko-agenda</module>
         <module>tasko-empresa</module>
+        <module>tasko-usuario</module>
         <module>tasko-application</module>
     </modules>
 
