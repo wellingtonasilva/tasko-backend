@@ -4,5 +4,5 @@ import br.com.wasistemas.tasko.usuario.domain.usuario.AtualizarUsuario;
 import br.com.wasistemas.tasko.usuario.domain.usuario.Usuario;
 
 public interface AtualizarUsuarioPort {
-    Usuario atualizarUsuario(AtualizarUsuario usuario);
+    Usuario atualizarUsuario(Long id, AtualizarUsuario usuario);
 }

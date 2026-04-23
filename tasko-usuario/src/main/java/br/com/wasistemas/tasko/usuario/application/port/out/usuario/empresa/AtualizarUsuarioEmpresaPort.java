@@ -4,5 +4,5 @@ import br.com.wasistemas.tasko.usuario.domain.usuario.empresa.AtualizarUsuarioEm
 import br.com.wasistemas.tasko.usuario.domain.usuario.empresa.UsuarioEmpresa;
 
 public interface AtualizarUsuarioEmpresaPort {
-    UsuarioEmpresa atualizarUsuarioEmpresa(AtualizarUsuarioEmpresa atualizarUsuarioEmpresa);
+    UsuarioEmpresa atualizarUsuarioEmpresa(Long id, AtualizarUsuarioEmpresa atualizarUsuarioEmpresa);
 }

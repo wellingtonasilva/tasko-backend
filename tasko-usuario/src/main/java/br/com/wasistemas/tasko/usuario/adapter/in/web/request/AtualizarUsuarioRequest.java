@@ -7,6 +7,6 @@ public class AtualizarUsuarioRequest {
     Long id;
     String nomeUsuario;
     String senha;
-    // Adicione outros campos necessários para atualização
+    Long vendedorId;
 }
 

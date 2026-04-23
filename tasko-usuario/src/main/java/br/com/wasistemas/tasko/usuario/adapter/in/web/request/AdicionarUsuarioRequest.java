@@ -6,6 +6,6 @@ import lombok.Value;
 public class AdicionarUsuarioRequest {
     String nomeUsuario;
     String senha;
-    // Adicione outros campos necessários para criação
+    Long vendedorId;
 }
 
