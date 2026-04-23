@@ -19,6 +19,7 @@ COPY tasko-produto/pom.xml     tasko-produto/
 COPY tasko-pedido/pom.xml      tasko-pedido/
 COPY tasko-agenda/pom.xml      tasko-agenda/
 COPY tasko-empresa/pom.xml     tasko-empresa/
+COPY tasko-usuario/pom.xml     tasko-usuario/
 COPY tasko-application/pom.xml tasko-application/
 
 # 2) Baixar dependências offline (cache – só invalida se algum pom.xml mudar)
@@ -32,6 +33,7 @@ COPY tasko-produto/src      tasko-produto/src
 COPY tasko-pedido/src       tasko-pedido/src
 COPY tasko-agenda/src       tasko-agenda/src
 COPY tasko-empresa/src      tasko-empresa/src
+COPY tasko-usuario/src      tasko-usuario/src
 COPY tasko-application/src  tasko-application/src
 
 # 4) Build do projeto (skip tests para builds de produção)
@@ -60,7 +62,7 @@ USER tasko
 EXPOSE 8080
 
 # Variáveis de ambiente padrão (podem ser sobrescritas em runtime)
-ENV JAVA_OPTS="-Xms512m -Xmx1024m \
+ENV JAVA_OPTS="-Xms128m -Xmx512m \
     -XX:+UseG1GC \
     -XX:MaxGCPauseMillis=200 \
     -XX:+HeapDumpOnOutOfMemoryError \

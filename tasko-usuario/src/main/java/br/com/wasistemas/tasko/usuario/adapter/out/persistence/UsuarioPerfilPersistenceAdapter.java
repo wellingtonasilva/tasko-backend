@@ -58,6 +58,6 @@ public class UsuarioPerfilPersistenceAdapter implements AdicionarUsuarioPerfilPo
 
   @Override
   public UsuarioPerfil obterUsuarioPerfilPorId(Long id) {
-    return null;
+    return usuarioEntityMapper.toDomain(usuarioPerfilRepository.findById(id).orElse(null));
   }
 }
