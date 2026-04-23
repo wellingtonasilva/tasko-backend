@@ -29,17 +29,19 @@ public class UsuarioPerfilPersistenceAdapter implements AdicionarUsuarioPerfilPo
 
   @Override
   public UsuarioPerfil adicionarUsuarioPerfil(AdicionarUsuarioPerfil adicionar) {
-    return null;
+    return usuarioEntityMapper.toDomain(
+        usuarioPerfilRepository.save(usuarioEntityMapper.toEntity(adicionar)));
   }
 
   @Override
   public UsuarioPerfil atualizarUsuarioPerfil(Long id, AtualizarUsuarioPerfil atualizar) {
-    return null;
+    return usuarioEntityMapper.toDomain(
+        usuarioPerfilRepository.save(usuarioEntityMapper.toEntity(id, atualizar)));
   }
 
   @Override
-  public UsuarioPerfil excluirUsuarioPerfil(Long id) {
-    return null;
+  public void excluirUsuarioPerfil(Long id) {
+    usuarioPerfilRepository.deleteById(id);
   }
 
   @Override
