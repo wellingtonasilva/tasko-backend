@@ -19,14 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/usuarios")
+@RequestMapping("/api/v1/perfil-tipo")
 @RequiredArgsConstructor
 public class UsuarioPerfilTipoController {
 
   private final UsuarioPerfilTipoUseCases usuarioPerfilTipoUseCases;
   private final UsuarioWebMapper usuarioWebMapper;
 
-  @PostMapping("/{usuarioId}/perfil")
+  @PostMapping
   public GeneralApiResponse<UsuarioPerfilTipoResponse> adicionar(@PathVariable Long usuarioId,
       @RequestBody AdicionarUsuarioPerfilTipoRequest request) {
     return GeneralApiResponse.<UsuarioPerfilTipoResponse>builder().status(HttpStatus.OK.value()).data(
@@ -34,7 +34,7 @@ public class UsuarioPerfilTipoController {
             usuarioPerfilTipoUseCases.adicionar(usuarioWebMapper.toDomain(request)))).build();
   }
 
-  @GetMapping("/{usuarioId}/perfil")
+  @GetMapping
   public GeneralApiResponse<List<UsuarioPerfilTipoResponse>> listar(@PathVariable Long usuarioId,
       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
@@ -46,14 +46,14 @@ public class UsuarioPerfilTipoController {
                 .build()))).build();
   }
 
-  @GetMapping("/{usuarioId}/perfil/{id}")
+  @GetMapping("/{id}")
   public GeneralApiResponse<UsuarioPerfilTipoResponse> obterPorId(@PathVariable Long usuarioId,
       @PathVariable Long id) {
     return GeneralApiResponse.<UsuarioPerfilTipoResponse>builder().status(HttpStatus.OK.value())
         .data(usuarioWebMapper.toResponse(usuarioPerfilTipoUseCases.obterPorId(id))).build();
   }
 
-  @DeleteMapping("/{usuarioId}/perfil/{id}")
+  @DeleteMapping("/{id}")
   public GeneralApiResponse<Void> excluirPorId(@PathVariable Long usuarioId,
       @PathVariable Long id) {
     usuarioPerfilTipoUseCases.excluirPorId(id);
