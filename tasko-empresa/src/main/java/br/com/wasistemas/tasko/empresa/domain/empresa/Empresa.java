@@ -2,9 +2,22 @@ package br.com.wasistemas.tasko.empresa.domain.empresa;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Value;
 
-@Data
+@Value
 @Builder
+@Getter
 public class Empresa {
-    private Long id;
+
+  Long id;
+  String nomeEmpresa;
+  String numeroCnpj;
+  String email;
+  String logradouro;
+  String numero;
+  String nomeCidade;
+  String nomeBairro;
+  String uf;
+  String numeroTelefone;
 }

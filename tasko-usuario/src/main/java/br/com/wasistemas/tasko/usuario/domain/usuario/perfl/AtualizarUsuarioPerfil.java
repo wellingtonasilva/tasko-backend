@@ -1,5 +1,6 @@
 package br.com.wasistemas.tasko.usuario.domain.usuario.perfl;
 
+import br.com.wasistemas.tasko.common.enumerations.PerfilTipo;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,6 +8,6 @@ import lombok.Data;
 @Builder
 public class AtualizarUsuarioPerfil {
     private Long id;
-    private Long perfilTipoId;
+    private PerfilTipo perfilTipo;
     private Long usuarioId;
 }

@@ -9,6 +9,15 @@ import lombok.Value;
 @Builder
 @Getter
 public class AtualizarEmpresa {
-    Long id;
 
+  Long id;
+  String nomeEmpresa;
+  String numeroCnpj;
+  String email;
+  String logradouro;
+  String numero;
+  String nomeCidade;
+  String nomeBairro;
+  String uf;
+  String numeroTelefone;
 }

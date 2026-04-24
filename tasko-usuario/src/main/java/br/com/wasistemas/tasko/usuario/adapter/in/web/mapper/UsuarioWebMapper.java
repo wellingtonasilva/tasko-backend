@@ -8,10 +8,14 @@ import br.com.wasistemas.tasko.usuario.adapter.in.web.request.AtualizarUsuarioEm
 import br.com.wasistemas.tasko.usuario.adapter.in.web.request.AtualizarUsuarioPerfilRequest;
 import br.com.wasistemas.tasko.usuario.adapter.in.web.request.AtualizarUsuarioPerfilTipoRequest;
 import br.com.wasistemas.tasko.usuario.adapter.in.web.request.AtualizarUsuarioRequest;
+import br.com.wasistemas.tasko.usuario.adapter.in.web.request.LoginRequest;
 import br.com.wasistemas.tasko.usuario.adapter.in.web.response.UsuarioEmpresaResponse;
+import br.com.wasistemas.tasko.usuario.adapter.in.web.response.UsuarioLoginResponse;
 import br.com.wasistemas.tasko.usuario.adapter.in.web.response.UsuarioPerfilResponse;
 import br.com.wasistemas.tasko.usuario.adapter.in.web.response.UsuarioPerfilTipoResponse;
 import br.com.wasistemas.tasko.usuario.adapter.in.web.response.UsuarioResponse;
+import br.com.wasistemas.tasko.usuario.domain.login.Login;
+import br.com.wasistemas.tasko.usuario.domain.login.UsuarioLogin;
 import br.com.wasistemas.tasko.usuario.domain.perfil.AdicionarUsuarioPerfilTipo;
 import br.com.wasistemas.tasko.usuario.domain.perfil.UsuarioPerfilTipo;
 import br.com.wasistemas.tasko.usuario.domain.usuario.AdicionarUsuario;
@@ -49,4 +53,7 @@ public interface UsuarioWebMapper {
     AtualizarUsuarioPerfil toDomain(AtualizarUsuarioPerfilTipoRequest request);
     UsuarioPerfilTipoResponse toResponse(UsuarioPerfilTipo usuarioPerfil);
     List<UsuarioPerfilTipoResponse> toUsuarioPerfilTipoResponse(List<UsuarioPerfilTipo> usuarioPerfil);
+
+    Login toDomain(LoginRequest request);
+    UsuarioLoginResponse toResponse(UsuarioLogin login);
 }

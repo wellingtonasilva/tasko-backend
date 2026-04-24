@@ -27,35 +27,34 @@ public class UsuarioPerfilTipoController {
   private final UsuarioWebMapper usuarioWebMapper;
 
   @PostMapping
-  public GeneralApiResponse<UsuarioPerfilTipoResponse> adicionar(@PathVariable Long usuarioId,
+  public GeneralApiResponse<UsuarioPerfilTipoResponse> adicionar(
       @RequestBody AdicionarUsuarioPerfilTipoRequest request) {
-    return GeneralApiResponse.<UsuarioPerfilTipoResponse>builder().status(HttpStatus.OK.value()).data(
-        usuarioWebMapper.toResponse(
+    return GeneralApiResponse.<UsuarioPerfilTipoResponse>builder().status(HttpStatus.OK.value())
+        .data(usuarioWebMapper.toResponse(
             usuarioPerfilTipoUseCases.adicionar(usuarioWebMapper.toDomain(request)))).build();
   }
 
   @GetMapping
-  public GeneralApiResponse<List<UsuarioPerfilTipoResponse>> listar(@PathVariable Long usuarioId,
+  public GeneralApiResponse<List<UsuarioPerfilTipoResponse>> listar(
       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
       @RequestParam(defaultValue = "asc") String sortDirection) {
 
-    return GeneralApiResponse.<List<UsuarioPerfilTipoResponse>>builder().status(HttpStatus.OK.value())
-        .data(usuarioWebMapper.toUsuarioPerfilTipoResponse(usuarioPerfilTipoUseCases.listar(
-            Paginacao.builder().page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                .build()))).build();
+    return GeneralApiResponse.<List<UsuarioPerfilTipoResponse>>builder()
+        .status(HttpStatus.OK.value()).data(usuarioWebMapper.toUsuarioPerfilTipoResponse(
+            usuarioPerfilTipoUseCases.listar(
+                Paginacao.builder().page(page).size(size).sortBy(sortBy)
+                    .sortDirection(sortDirection).build()))).build();
   }
 
   @GetMapping("/{id}")
-  public GeneralApiResponse<UsuarioPerfilTipoResponse> obterPorId(@PathVariable Long usuarioId,
-      @PathVariable Long id) {
+  public GeneralApiResponse<UsuarioPerfilTipoResponse> obterPorId(@PathVariable Long id) {
     return GeneralApiResponse.<UsuarioPerfilTipoResponse>builder().status(HttpStatus.OK.value())
         .data(usuarioWebMapper.toResponse(usuarioPerfilTipoUseCases.obterPorId(id))).build();
   }
 
   @DeleteMapping("/{id}")
-  public GeneralApiResponse<Void> excluirPorId(@PathVariable Long usuarioId,
-      @PathVariable Long id) {
+  public GeneralApiResponse<Void> excluirPorId(@PathVariable Long id) {
     usuarioPerfilTipoUseCases.excluirPorId(id);
     return GeneralApiResponse.<Void>builder().status(HttpStatus.OK.value()).build();
   }

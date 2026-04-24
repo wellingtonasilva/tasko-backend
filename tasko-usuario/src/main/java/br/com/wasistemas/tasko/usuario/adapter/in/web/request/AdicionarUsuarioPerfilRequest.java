@@ -1,5 +1,6 @@
 package br.com.wasistemas.tasko.usuario.adapter.in.web.request;
 
+import br.com.wasistemas.tasko.common.enumerations.PerfilTipo;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,6 +8,6 @@ import lombok.Data;
 @Builder
 public class AdicionarUsuarioPerfilRequest
 {
-    private Long perfilTipoId;
+    private PerfilTipo perfilTipo;
     private Long usuarioId;
 }

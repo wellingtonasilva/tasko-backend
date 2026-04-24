@@ -4,6 +4,7 @@ import br.com.wasistemas.tasko.common.domain.Paginacao;
 import br.com.wasistemas.tasko.usuario.adapter.out.persistence.mapper.UsuarioEntityMapper;
 import br.com.wasistemas.tasko.usuario.adapter.out.persistence.repository.UsuarioRepository;
 import br.com.wasistemas.tasko.usuario.application.port.out.usuario.*;
+import br.com.wasistemas.tasko.usuario.domain.login.UsuarioLogin;
 import br.com.wasistemas.tasko.usuario.domain.usuario.AdicionarUsuario;
 import br.com.wasistemas.tasko.usuario.domain.usuario.AtualizarUsuario;
 import br.com.wasistemas.tasko.usuario.domain.usuario.Usuario;
@@ -18,7 +19,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, AtualizarUsuarioPort,
-    ExcluirUsuarioPort, ListarUsuarioPort, ObterUsuarioPort {
+    ExcluirUsuarioPort, ListarUsuarioPort, ObterUsuarioPort, ObterUsuarioPorNomeUsuarioPort {
 
   private final UsuarioRepository usuarioRepository;
   private final UsuarioEntityMapper usuarioMapper;
@@ -53,5 +54,12 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
   @Override
   public Usuario adicionarUsuario(AdicionarUsuario usuario) {
     return usuarioMapper.toDomain(usuarioRepository.save(usuarioMapper.toEntity(usuario)));
+  }
+
+  @Override
+  public UsuarioLogin obterUsuarioPorId(String nomeUsuario, String senha) {
+    return usuarioRepository.findByNomeUsuarioAndSenha(nomeUsuario, senha)
+        .map(usuarioMapper::toUsuarioLogin)
+        .orElse(null);
   }
 }
