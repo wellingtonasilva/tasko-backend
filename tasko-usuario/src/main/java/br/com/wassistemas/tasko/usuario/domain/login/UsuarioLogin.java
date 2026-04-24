@@ -2,11 +2,9 @@ package br.com.wassistemas.tasko.usuario.domain.login;
 
 import br.com.wassistemas.tasko.vendedor.domain.vendedor.Vendedor;
 import java.util.List;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
-@Builder
 public class UsuarioLogin {
   private Long id;
   private Vendedor vendedor;
@@ -14,4 +12,5 @@ public class UsuarioLogin {
   private String senha;
   private List<UsuarioLoginPerfil> perfis;
   private List<UsuarioLoginEmpresa> empresas;
+  private String token;
 }

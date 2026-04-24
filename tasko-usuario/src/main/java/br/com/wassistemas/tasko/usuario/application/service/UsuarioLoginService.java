@@ -1,9 +1,14 @@
 package br.com.wassistemas.tasko.usuario.application.service;
 
+import br.com.wassistemas.tasko.common.security.JwtTokenProvider;
 import br.com.wassistemas.tasko.usuario.application.port.in.usecases.UsuarioLoginUseCases;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuarioPorNomeUsuarioPort;
 import br.com.wassistemas.tasko.usuario.domain.login.Login;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLogin;
+import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLoginEmpresa;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,10 +17,31 @@ import org.springframework.stereotype.Service;
 public class UsuarioLoginService implements UsuarioLoginUseCases {
 
   private final ObterUsuarioPorNomeUsuarioPort obterUsuarioPorNomeUsuarioPort;
+  private final JwtTokenProvider jwtTokenProvider;
 
   @Override
   public UsuarioLogin login(Login login) {
-    return obterUsuarioPorNomeUsuarioPort.obterUsuarioPorId(login.getNomeUsuario(),
+    UsuarioLogin usuarioLogin = obterUsuarioPorNomeUsuarioPort.obterUsuarioPorId(
+        login.getNomeUsuario(),
         login.getSenha());
+    usuarioLogin.setToken(gerarToken(usuarioLogin));
+
+    return usuarioLogin;
+  }
+
+  private String gerarToken(UsuarioLogin usuarioLogin) {
+    Map<String, Object> claims = new HashMap<>();
+
+    if (Objects.nonNull(usuarioLogin.getEmpresas()) && !usuarioLogin.getEmpresas().isEmpty()) {
+      claims.put("empresas", usuarioLogin.getEmpresas()
+          .stream().map(UsuarioLoginEmpresa::getId).toList());
+    }
+
+    if (Objects.nonNull(usuarioLogin.getPerfis()) && !usuarioLogin.getPerfis().isEmpty()) {
+      claims.put("perfis", usuarioLogin.getPerfis()
+          .stream().map(perfilLogin -> perfilLogin.getPerfilTipo().name()).toList());
+    }
+
+    return jwtTokenProvider.generateToken(usuarioLogin.getNomeUsuario(), claims);
   }
 }
