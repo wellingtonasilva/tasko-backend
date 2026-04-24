@@ -1,0 +1,8 @@
+package br.com.wassistemas.tasko.pedido.application.port.out.pedidoitem;
+
+import br.com.wassistemas.tasko.pedido.domain.pedidoitem.AtualizarPedidoItem;
+import br.com.wassistemas.tasko.pedido.domain.pedidoitem.PedidoItem;
+
+public interface AtualizarPedidoItemPort {
+    PedidoItem atualizarPedidoItem(Long id, AtualizarPedidoItem atualizar);
+}

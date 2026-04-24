@@ -1,0 +1,7 @@
+package br.com.wassitemas.tasko.produto.application.port.out.produto;
+
+import br.com.wassitemas.tasko.produto.domain.produto.Produto;
+
+public interface ObterProdutoPorIdPort {
+    Produto obterProdutoPorId(Long id);
+}
