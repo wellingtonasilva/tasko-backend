@@ -16,6 +16,7 @@ public class UsuarioLoginResponse {
   private Vendedor vendedor;
   private String nomeUsuario;
   private String senha;
+  private String token;
   private List<UsuarioPerfil> perfis;
   private List<UsuarioEmpresa> empresas;
 }

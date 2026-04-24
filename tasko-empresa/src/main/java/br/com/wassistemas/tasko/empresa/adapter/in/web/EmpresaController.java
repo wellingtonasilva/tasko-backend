@@ -23,7 +23,7 @@ public class EmpresaController {
   private final EmpresaUseCases useCases;
   private final EmpresaWebMapper webMapper;
 
-  @PostMapping
+  @PostMapping("/criar")
   @Operation(summary = "Criar novo Empresas")
   public GeneralApiResponse<EmpresaResponse> adicionar(
       @RequestBody AdicionarEmpresaRequest request) {
