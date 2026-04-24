@@ -3,6 +3,7 @@ package br.com.wasistemas.tasko.usuario.adapter.out.persistence.entity;
 import br.com.wasistemas.tasko.common.entity.AuditoriaEntity;
 import br.com.wasistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorEntity;
 import jakarta.persistence.*;
+import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,12 @@ public class UsuarioEntity {
     @ManyToOne
     @JoinColumn(name = "vend_id", foreignKey = @ForeignKey(name = "xkf1_usuario_vendedor"))
     private VendedorEntity vendedor;
+
+    @OneToMany(mappedBy = "usuario")
+    List<UsuarioPerfilEntity> perfis;
+
+    @OneToMany(mappedBy = "usuario")
+    List<UsuarioEmpresaEntity> empresas;
 
     @Column(name = "usur_nmusuario")
     private String nomeUsuario;

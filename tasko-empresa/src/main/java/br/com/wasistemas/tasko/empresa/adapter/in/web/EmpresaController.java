@@ -4,8 +4,8 @@ import br.com.wasistemas.tasko.common.domain.Paginacao;
 import br.com.wasistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wasistemas.tasko.empresa.adapter.in.web.mapper.EmpresaWebMapper;
 import br.com.wasistemas.tasko.empresa.adapter.in.web.request.AdicionarEmpresaRequest;
+import br.com.wasistemas.tasko.empresa.adapter.in.web.response.EmpresaResponse;
 import br.com.wasistemas.tasko.empresa.application.port.in.usecases.EmpresaUseCases;
-import br.com.wasistemas.tasko.empresa.domain.empresa.Empresa;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -19,48 +19,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Empresas", description = "Gerenciamento de Empresas")
 public class EmpresaController {
-    private final EmpresaUseCases useCases;
-    private final EmpresaWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Empresas")
-    public GeneralApiResponse<Empresa> adicionar(@RequestBody AdicionarEmpresaRequest request) {
-        return GeneralApiResponse.<Empresa>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final EmpresaUseCases useCases;
+  private final EmpresaWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Empresas")
-    public GeneralApiResponse<List<Empresa>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<Empresa>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Empresas")
+  public GeneralApiResponse<EmpresaResponse> adicionar(
+      @RequestBody AdicionarEmpresaRequest request) {
+    return GeneralApiResponse.<EmpresaResponse>builder()
+        .status(HttpStatus.OK.value())
+        .data(webMapper.toResponse(useCases.adicionar(webMapper.toDomain(request))))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Empresas por ID")
-    public GeneralApiResponse<Empresa> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<Empresa>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Empresas")
+  public GeneralApiResponse<List<EmpresaResponse>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<EmpresaResponse>>builder()
+        .status(HttpStatus.OK.value())
+        .data(webMapper.toEmpresaResponse(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build())))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Empresas por ID")
-    public GeneralApiResponse<Empresa> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<Empresa>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Empresas por ID")
+  public GeneralApiResponse<EmpresaResponse> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<EmpresaResponse>builder()
+        .status(HttpStatus.OK.value())
+        .data(webMapper.toResponse(useCases.obterPorId(id)))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Empresas por ID")
+  public GeneralApiResponse<EmpresaResponse> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<EmpresaResponse>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

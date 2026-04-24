@@ -1,4 +1,4 @@
-package br.com.wasistemas.tasko.empresa.domain.empresa;
+package br.com.wasistemas.tasko.empresa.adapter.in.web.response;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -7,8 +7,9 @@ import lombok.Value;
 @Value
 @Builder
 @Getter
-public class AdicionarEmpresa {
+public class EmpresaResponse {
 
+  Long id;
   String nomeEmpresa;
   String numeroCnpj;
   String email;

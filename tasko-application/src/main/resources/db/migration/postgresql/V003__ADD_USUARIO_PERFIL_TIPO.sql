@@ -1,0 +1,4 @@
+INSERT INTO crm.usuario_perfil_tipo (uspt_id, uspt_nmperfil, uspt_tmcriado_em, uspt_tmatualizado_em, uspt_icativo) VALUES (0, 'ROLE_GUEST', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true);
+INSERT INTO crm.usuario_perfil_tipo (uspt_id, uspt_nmperfil, uspt_tmcriado_em, uspt_tmatualizado_em, uspt_icativo) VALUES (1, 'ROLE_ADMIN', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true);
+INSERT INTO crm.usuario_perfil_tipo (uspt_id, uspt_nmperfil, uspt_tmcriado_em, uspt_tmatualizado_em, uspt_icativo) VALUES (2, 'ROLE_STAFF', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true);
+INSERT INTO crm.usuario_perfil_tipo (uspt_id, uspt_nmperfil, uspt_tmcriado_em, uspt_tmatualizado_em, uspt_icativo) VALUES (3, 'ROLE_USER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, true);
