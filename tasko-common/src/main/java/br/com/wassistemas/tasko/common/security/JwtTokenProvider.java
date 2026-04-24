@@ -26,7 +26,7 @@ public class JwtTokenProvider {
     }
 
     public Jws<Claims> validateToken(String token) {
-        return ((io.jsonwebtoken.JwtParser) Jwts.parser().setSigningKey(KEY)).parseClaimsJws(token);
+        return Jwts.parser().setSigningKey(KEY).build().parseClaimsJws(token);
     }
 
     public String getUsernameFromToken(String token) {
