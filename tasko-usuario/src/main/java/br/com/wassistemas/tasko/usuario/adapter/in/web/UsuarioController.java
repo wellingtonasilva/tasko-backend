@@ -1,13 +1,20 @@
 package br.com.wassistemas.tasko.usuario.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.UserUnauthorizedException;
+import br.com.wassistemas.tasko.common.security.JwtTokenProvider;
+import br.com.wassistemas.tasko.common.security.JwtUtil;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AdicionarUsuarioRequest;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.mapper.UsuarioWebMapper;
 import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioUseCases;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
+import io.jsonwebtoken.Jwt;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -18,10 +25,13 @@ public class UsuarioController {
 
   private final UsuarioUseCases usuarioUseCases;
   private final UsuarioWebMapper usuarioWebMapper;
+  private final JwtTokenProvider jwtTokenProvider;
 
   @PostMapping
   public GeneralApiResponse<UsuarioResponse> adicionar(
-      @RequestBody AdicionarUsuarioRequest request) {
+      @RequestBody AdicionarUsuarioRequest request,
+      @RequestHeader("X-Empresa-Id") Integer empresaId,
+      Authentication authentication) {
     return GeneralApiResponse.<UsuarioResponse>builder()
         .status(HttpStatus.OK.value())
         .data(usuarioWebMapper.toResponse(
@@ -34,7 +44,11 @@ public class UsuarioController {
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
-      @RequestParam(defaultValue = "asc") String sortDirection) {
+      @RequestParam(defaultValue = "asc") String sortDirection,
+      @RequestHeader("X-Empresa-Id") Integer empresaId,
+      HttpServletRequest request) throws UserUnauthorizedException {
+
+    JwtUtil.validarPermissaoEmpresa(request, jwtTokenProvider, empresaId);
 
     return GeneralApiResponse.<List<UsuarioResponse>>builder()
         .status(HttpStatus.OK.value())
