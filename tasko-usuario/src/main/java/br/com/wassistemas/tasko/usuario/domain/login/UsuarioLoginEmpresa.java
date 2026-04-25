@@ -8,5 +8,5 @@ import lombok.Data;
 @Builder
 public class UsuarioLoginEmpresa {
     private Long id;
-    private Empresa empresa;
+    private Long empresaId;
 }

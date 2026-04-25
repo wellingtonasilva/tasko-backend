@@ -44,7 +44,7 @@ public class UsuarioLoginService implements UsuarioLoginUseCases {
 
     if (Objects.nonNull(usuarioLogin.getEmpresas()) && !usuarioLogin.getEmpresas().isEmpty()) {
       claims.put("empresas", usuarioLogin.getEmpresas()
-          .stream().map(UsuarioLoginEmpresa::getId).toList());
+          .stream().map(UsuarioLoginEmpresa::getEmpresaId).toList());
     }
 
     if (Objects.nonNull(usuarioLogin.getPerfis()) && !usuarioLogin.getPerfis().isEmpty()) {

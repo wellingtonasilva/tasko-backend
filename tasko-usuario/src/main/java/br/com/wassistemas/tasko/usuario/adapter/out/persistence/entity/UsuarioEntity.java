@@ -1,7 +1,6 @@
 package br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity;
 
 import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
-import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorEntity;
 import jakarta.persistence.*;
 import java.util.List;
 import lombok.Data;
@@ -18,9 +17,8 @@ public class UsuarioEntity {
     @Column(name = "usur_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "vend_id", foreignKey = @ForeignKey(name = "xkf1_usuario_vendedor"))
-    private VendedorEntity vendedor;
+    @Column(name = "vend_id")
+    private Long vendedorId;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<UsuarioPerfilEntity> perfis;
