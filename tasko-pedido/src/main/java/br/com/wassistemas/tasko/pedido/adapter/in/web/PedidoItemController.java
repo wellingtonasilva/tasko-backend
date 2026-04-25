@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.pedido.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.mapper.PedidoItemWebMapper;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.request.AdicionarPedidoItemRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Pedido Itens", description = "Gerenciamento de Itens do Pedido")
 public class PedidoItemController {
-    private final PedidoItemUseCases useCases;
-    private final PedidoItemWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Pedido Itens")
-    public GeneralApiResponse<PedidoItem> adicionar(@RequestBody AdicionarPedidoItemRequest request) {
-        return GeneralApiResponse.<PedidoItem>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final PedidoItemUseCases useCases;
+  private final PedidoItemWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Pedido Itens")
-    public GeneralApiResponse<List<PedidoItem>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<PedidoItem>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Pedido Itens")
+  public GeneralApiResponse<PedidoItem> adicionar(@RequestBody AdicionarPedidoItemRequest request)
+      throws ResourceDuplicateException {
+    return GeneralApiResponse.<PedidoItem>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Pedido Itens por ID")
-    public GeneralApiResponse<PedidoItem> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<PedidoItem>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Pedido Itens")
+  public GeneralApiResponse<List<PedidoItem>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<PedidoItem>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Pedido Itens por ID")
-    public GeneralApiResponse<PedidoItem> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<PedidoItem>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Pedido Itens por ID")
+  public GeneralApiResponse<PedidoItem> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<PedidoItem>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Pedido Itens por ID")
+  public GeneralApiResponse<PedidoItem> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<PedidoItem>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

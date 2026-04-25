@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.usuario.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.mapper.UsuarioWebMapper;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AdicionarUsuarioPerfilRequest;
@@ -28,7 +29,7 @@ public class UsuarioPerfilController {
 
   @PostMapping("/{usuarioId}/perfil")
   public GeneralApiResponse<UsuarioPerfilResponse> adicionar(@PathVariable Long usuarioId,
-      @RequestBody AdicionarUsuarioPerfilRequest request) {
+      @RequestBody AdicionarUsuarioPerfilRequest request) throws ResourceDuplicateException {
     return GeneralApiResponse.<UsuarioPerfilResponse>builder().status(HttpStatus.OK.value()).data(
         usuarioWebMapper.toResponse(
             usuarioPerfilUseCases.adicionar(usuarioWebMapper.toDomain(request)))).build();

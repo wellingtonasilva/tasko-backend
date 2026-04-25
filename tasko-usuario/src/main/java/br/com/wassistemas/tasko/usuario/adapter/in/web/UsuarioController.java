@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.usuario.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.exception.UserUnauthorizedException;
 import br.com.wassistemas.tasko.common.security.JwtTokenProvider;
 import br.com.wassistemas.tasko.common.security.JwtUtil;
@@ -31,7 +32,7 @@ public class UsuarioController {
   public GeneralApiResponse<UsuarioResponse> adicionar(
       @RequestBody AdicionarUsuarioRequest request,
       @RequestHeader("X-Empresa-Id") Integer empresaId,
-      Authentication authentication) {
+      Authentication authentication) throws ResourceDuplicateException {
     return GeneralApiResponse.<UsuarioResponse>builder()
         .status(HttpStatus.OK.value())
         .data(usuarioWebMapper.toResponse(

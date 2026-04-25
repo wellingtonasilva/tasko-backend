@@ -1,6 +1,7 @@
 package br.com.wassitemas.tasko.produto.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassitemas.tasko.produto.adapter.in.web.mapper.ProdutoWebMapper;
 import br.com.wassitemas.tasko.produto.adapter.in.web.request.AdicionarProdutoRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Produtos", description = "Gerenciamento de Produtos")
 public class ProdutoController {
-    private final ProdutoUseCases useCases;
-    private final ProdutoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Produtos")
-    public GeneralApiResponse<Produto> adicionar(@RequestBody AdicionarProdutoRequest request) {
-        return GeneralApiResponse.<Produto>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final ProdutoUseCases useCases;
+  private final ProdutoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Produtos")
-    public GeneralApiResponse<List<Produto>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<Produto>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Produtos")
+  public GeneralApiResponse<Produto> adicionar(@RequestBody AdicionarProdutoRequest request)
+      throws ResourceDuplicateException {
+    return GeneralApiResponse.<Produto>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Produtos por ID")
-    public GeneralApiResponse<Produto> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<Produto>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Produtos")
+  public GeneralApiResponse<List<Produto>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<Produto>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Produtos por ID")
-    public GeneralApiResponse<Produto> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<Produto>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Produtos por ID")
+  public GeneralApiResponse<Produto> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<Produto>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Produtos por ID")
+  public GeneralApiResponse<Produto> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<Produto>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

@@ -1,6 +1,7 @@
 package br.com.wassitemas.tasko.produto.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassitemas.tasko.produto.adapter.in.web.mapper.ProdutoGrupoWebMapper;
 import br.com.wassitemas.tasko.produto.adapter.in.web.request.AdicionarProdutoGrupoRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Produto Grupo", description = "Gerenciamento de Grupos de Produto")
 public class ProdutoGrupoController {
-    private final ProdutoGrupoUseCases useCases;
-    private final ProdutoGrupoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Produto Grupo")
-    public GeneralApiResponse<ProdutoGrupo> adicionar(@RequestBody AdicionarProdutoGrupoRequest request) {
-        return GeneralApiResponse.<ProdutoGrupo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final ProdutoGrupoUseCases useCases;
+  private final ProdutoGrupoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Produto Grupo")
-    public GeneralApiResponse<List<ProdutoGrupo>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<ProdutoGrupo>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Produto Grupo")
+  public GeneralApiResponse<ProdutoGrupo> adicionar(
+      @RequestBody AdicionarProdutoGrupoRequest request) throws ResourceDuplicateException {
+    return GeneralApiResponse.<ProdutoGrupo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Produto Grupo por ID")
-    public GeneralApiResponse<ProdutoGrupo> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<ProdutoGrupo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Produto Grupo")
+  public GeneralApiResponse<List<ProdutoGrupo>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<ProdutoGrupo>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Produto Grupo por ID")
-    public GeneralApiResponse<ProdutoGrupo> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<ProdutoGrupo>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Produto Grupo por ID")
+  public GeneralApiResponse<ProdutoGrupo> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<ProdutoGrupo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Produto Grupo por ID")
+  public GeneralApiResponse<ProdutoGrupo> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<ProdutoGrupo>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

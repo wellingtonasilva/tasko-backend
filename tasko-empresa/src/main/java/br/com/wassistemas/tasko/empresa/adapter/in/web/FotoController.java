@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.empresa.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.empresa.adapter.in.web.mapper.FotoWebMapper;
 import br.com.wassistemas.tasko.empresa.adapter.in.web.request.AdicionarFotoRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Fotos", description = "Gerenciamento de Fotos")
 public class FotoController {
-    private final FotoUseCases useCases;
-    private final FotoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Fotos")
-    public GeneralApiResponse<Foto> adicionar(@RequestBody AdicionarFotoRequest request) {
-        return GeneralApiResponse.<Foto>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final FotoUseCases useCases;
+  private final FotoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Fotos")
-    public GeneralApiResponse<List<Foto>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<Foto>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Fotos")
+  public GeneralApiResponse<Foto> adicionar(@RequestBody AdicionarFotoRequest request)
+      throws ResourceDuplicateException {
+    return GeneralApiResponse.<Foto>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Fotos por ID")
-    public GeneralApiResponse<Foto> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<Foto>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Fotos")
+  public GeneralApiResponse<List<Foto>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<Foto>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Fotos por ID")
-    public GeneralApiResponse<Foto> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<Foto>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Fotos por ID")
+  public GeneralApiResponse<Foto> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<Foto>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Fotos por ID")
+  public GeneralApiResponse<Foto> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<Foto>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

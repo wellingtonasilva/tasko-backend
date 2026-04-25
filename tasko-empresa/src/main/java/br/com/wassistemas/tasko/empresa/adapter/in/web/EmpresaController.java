@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.empresa.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.empresa.adapter.in.web.mapper.EmpresaWebMapper;
 import br.com.wassistemas.tasko.empresa.adapter.in.web.request.AdicionarEmpresaRequest;
@@ -26,7 +27,7 @@ public class EmpresaController {
   @PostMapping("/criar")
   @Operation(summary = "Criar novo Empresas")
   public GeneralApiResponse<EmpresaResponse> adicionar(
-      @RequestBody AdicionarEmpresaRequest request) {
+      @RequestBody AdicionarEmpresaRequest request) throws ResourceDuplicateException {
     return GeneralApiResponse.<EmpresaResponse>builder()
         .status(HttpStatus.OK.value())
         .data(webMapper.toResponse(useCases.adicionar(webMapper.toDomain(request))))

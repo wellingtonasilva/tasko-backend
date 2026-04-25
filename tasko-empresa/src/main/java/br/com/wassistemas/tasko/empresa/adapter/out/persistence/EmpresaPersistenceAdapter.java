@@ -5,6 +5,7 @@ import br.com.wassistemas.tasko.empresa.adapter.out.persistence.repository.Empre
 import br.com.wassistemas.tasko.empresa.application.port.out.empresa.AdicionarEmpresaPort;
 import br.com.wassistemas.tasko.empresa.application.port.out.empresa.AtualizarEmpresaPort;
 import br.com.wassistemas.tasko.empresa.application.port.out.empresa.ExcluirEmpresaPorIdPort;
+import br.com.wassistemas.tasko.empresa.application.port.out.empresa.ExisteEmpresaComDominioPort;
 import br.com.wassistemas.tasko.empresa.application.port.out.empresa.ListarEmpresaPort;
 import br.com.wassistemas.tasko.empresa.application.port.out.empresa.ObterEmpresaPorIdPort;
 import br.com.wassistemas.tasko.empresa.domain.empresa.AdicionarEmpresa;
@@ -22,7 +23,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class EmpresaPersistenceAdapter implements AdicionarEmpresaPort, AtualizarEmpresaPort,
-    ExcluirEmpresaPorIdPort, ListarEmpresaPort, ObterEmpresaPorIdPort {
+    ExcluirEmpresaPorIdPort, ListarEmpresaPort, ObterEmpresaPorIdPort, ExisteEmpresaComDominioPort {
 
     private final EmpresaRepository repository;
     private final EmpresaEntityMapper mapper;
@@ -54,5 +55,10 @@ public class EmpresaPersistenceAdapter implements AdicionarEmpresaPort, Atualiza
     @Override
     public Empresa obterEmpresaPorId(Long id) {
         return mapper.toDomain(repository.findById(id).orElse(null));
+    }
+
+    @Override
+    public Long existeEmpresaComDominio(String dominio) {
+        return repository.countByDominio(dominio);
     }
 }

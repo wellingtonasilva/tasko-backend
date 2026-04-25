@@ -1,6 +1,7 @@
 package br.com.wassitemas.tasko.produto.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassitemas.tasko.produto.adapter.in.web.mapper.ProdutoEstoqueLocalizacaoWebMapper;
 import br.com.wassitemas.tasko.produto.adapter.in.web.request.AdicionarProdutoEstoqueLocalizacaoRequest;
@@ -19,48 +20,51 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Produto Estoque", description = "Gerenciamento de Estoque por Localização")
 public class ProdutoEstoqueLocalizacaoController {
-    private final ProdutoEstoqueLocalizacaoUseCases useCases;
-    private final ProdutoEstoqueLocalizacaoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Produto Estoque")
-    public GeneralApiResponse<ProdutoEstoqueLocalizacao> adicionar(@RequestBody AdicionarProdutoEstoqueLocalizacaoRequest request) {
-        return GeneralApiResponse.<ProdutoEstoqueLocalizacao>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final ProdutoEstoqueLocalizacaoUseCases useCases;
+  private final ProdutoEstoqueLocalizacaoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Produto Estoque")
-    public GeneralApiResponse<List<ProdutoEstoqueLocalizacao>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<ProdutoEstoqueLocalizacao>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Produto Estoque")
+  public GeneralApiResponse<ProdutoEstoqueLocalizacao> adicionar(
+      @RequestBody AdicionarProdutoEstoqueLocalizacaoRequest request)
+      throws ResourceDuplicateException {
+    return GeneralApiResponse.<ProdutoEstoqueLocalizacao>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Produto Estoque por ID")
-    public GeneralApiResponse<ProdutoEstoqueLocalizacao> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<ProdutoEstoqueLocalizacao>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Produto Estoque")
+  public GeneralApiResponse<List<ProdutoEstoqueLocalizacao>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<ProdutoEstoqueLocalizacao>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Produto Estoque por ID")
-    public GeneralApiResponse<ProdutoEstoqueLocalizacao> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<ProdutoEstoqueLocalizacao>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Produto Estoque por ID")
+  public GeneralApiResponse<ProdutoEstoqueLocalizacao> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<ProdutoEstoqueLocalizacao>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Produto Estoque por ID")
+  public GeneralApiResponse<ProdutoEstoqueLocalizacao> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<ProdutoEstoqueLocalizacao>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

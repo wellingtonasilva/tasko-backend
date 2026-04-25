@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.agenda.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.agenda.adapter.in.web.mapper.AgendaVisitaStatusWebMapper;
 import br.com.wassistemas.tasko.agenda.adapter.in.web.request.AdicionarAgendaVisitaStatusRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Status de Visita", description = "Gerenciamento de Status de Visita")
 public class AgendaVisitaStatusController {
-    private final AgendaVisitaStatusUseCases useCases;
-    private final AgendaVisitaStatusWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Status de Visita")
-    public GeneralApiResponse<AgendaVisitaStatus> adicionar(@RequestBody AdicionarAgendaVisitaStatusRequest request) {
-        return GeneralApiResponse.<AgendaVisitaStatus>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final AgendaVisitaStatusUseCases useCases;
+  private final AgendaVisitaStatusWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Status de Visita")
-    public GeneralApiResponse<List<AgendaVisitaStatus>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<AgendaVisitaStatus>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Status de Visita")
+  public GeneralApiResponse<AgendaVisitaStatus> adicionar(
+      @RequestBody AdicionarAgendaVisitaStatusRequest request) throws ResourceDuplicateException {
+    return GeneralApiResponse.<AgendaVisitaStatus>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Status de Visita por ID")
-    public GeneralApiResponse<AgendaVisitaStatus> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<AgendaVisitaStatus>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Status de Visita")
+  public GeneralApiResponse<List<AgendaVisitaStatus>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<AgendaVisitaStatus>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Status de Visita por ID")
-    public GeneralApiResponse<AgendaVisitaStatus> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<AgendaVisitaStatus>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Status de Visita por ID")
+  public GeneralApiResponse<AgendaVisitaStatus> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<AgendaVisitaStatus>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Status de Visita por ID")
+  public GeneralApiResponse<AgendaVisitaStatus> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<AgendaVisitaStatus>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

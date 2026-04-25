@@ -11,6 +11,7 @@ import lombok.Value;
 public class AtualizarEmpresa {
 
   Long id;
+  String dominio;
   String nomeEmpresa;
   String numeroCnpj;
   String email;

@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Dados para Adicionar Empresa")
 public class AdicionarEmpresaRequest {
 
+  @Schema(description = "Sigla da Emprea. Sigla será utilizada na criação do Usuário.", example = "EMP1")
+  String dominio;
+
   @Schema(description = "Nome da Empresa", example = "Empresa Modelo")
   String nomeEmpresa;
 
