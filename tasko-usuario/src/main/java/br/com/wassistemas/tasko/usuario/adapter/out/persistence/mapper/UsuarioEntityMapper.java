@@ -1,7 +1,6 @@
 package br.com.wassistemas.tasko.usuario.adapter.out.persistence.mapper;
 
 import br.com.wassistemas.tasko.common.enumerations.PerfilTipo;
-import br.com.wassistemas.tasko.empresa.adapter.out.persistence.entity.EmpresaEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEmpresaEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilEntity;
@@ -21,7 +20,6 @@ import br.com.wassistemas.tasko.common.domain.usuario.empresa.UsuarioEmpresa;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.AdicionarUsuarioPerfil;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.AtualizarUsuarioPerfil;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfil;
-import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorEntity;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -38,7 +36,6 @@ public interface UsuarioEntityMapper {
   UsuarioEntity toEntity(AdicionarUsuario domain);
 
   @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-  @Mapping(target = "vendedor", source = "domain.vendedorId", qualifiedByName = "mapVendedorId")
   UsuarioEntity toEntity(Long id, AtualizarUsuario domain);
 
   UsuarioEntity toEntity(Usuario domain);
@@ -50,13 +47,11 @@ public interface UsuarioEntityMapper {
   @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
   @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
   @Mapping(target = "usuario", source = "domain.usuarioId", qualifiedByName = "mapUsuarioId")
-  @Mapping(target = "empresa", source = "domain.empresaId", qualifiedByName = "mapEmpresaId")
   @Mapping(target = "id", ignore = true)
   UsuarioEmpresaEntity toEntity(AdicionarUsuarioEmpresa domain);
 
   @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
   @Mapping(target = "usuario", source = "domain.usuarioId", qualifiedByName = "mapUsuarioId")
-  @Mapping(target = "empresa", source = "domain.empresaId", qualifiedByName = "mapEmpresaId")
   UsuarioEmpresaEntity toEntity(Long id, AtualizarUsuarioEmpresa domain);
 
   UsuarioEmpresa toDomain(UsuarioEmpresaEntity domain);
@@ -100,16 +95,6 @@ public interface UsuarioEntityMapper {
   UsuarioLoginEmpresa toUsuarioLoginEmpresa(UsuarioEmpresaEntity entity);
   List<UsuarioLoginEmpresa> toUsuarioLoginEmpresa(List<UsuarioEmpresaEntity> entity);
 
-  @Named("mapVendedorId")
-  default VendedorEntity mapVendedorId(Long vendedorId) {
-    if (vendedorId == null) {
-      return null;
-    }
-    VendedorEntity vendedor = new VendedorEntity();
-    vendedor.setId(vendedorId);
-    return vendedor;
-  }
-
   @Named("mapUsuarioId")
   default UsuarioEntity mapUsuarioId(Long usuarioId) {
     if (usuarioId == null) {
@@ -117,17 +102,6 @@ public interface UsuarioEntityMapper {
     }
     UsuarioEntity entity = new UsuarioEntity();
     entity.setId(usuarioId);
-
-    return entity;
-  }
-
-  @Named("mapEmpresaId")
-  default EmpresaEntity mapEmpresaId(Long empresaId) {
-    if (empresaId == null) {
-      return null;
-    }
-    EmpresaEntity entity = new EmpresaEntity();
-    entity.setId(empresaId);
 
     return entity;
   }

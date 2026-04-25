@@ -11,6 +11,7 @@ import br.com.wassistemas.tasko.common.domain.usuario.AdicionarUsuario;
 import br.com.wassistemas.tasko.common.domain.usuario.AtualizarUsuario;
 import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,34 +20,39 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioService implements UsuarioUseCases {
 
-    private final AdicionarUsuarioPort adicionarUsuarioPort;
-    private final AtualizarUsuarioPort atualizarUsuarioPort;
-    private final ListarUsuarioPort listarUsuarioPort;
-    private final ObterUsuarioPort obterUsuarioPort;
-    private final ExcluirUsuarioPort excluirUsuarioPort;
+  private final AdicionarUsuarioPort adicionarUsuarioPort;
+  private final AtualizarUsuarioPort atualizarUsuarioPort;
+  private final ListarUsuarioPort listarUsuarioPort;
+  private final ObterUsuarioPort obterUsuarioPort;
+  private final ExcluirUsuarioPort excluirUsuarioPort;
+  private final BCryptPasswordEncoder passwordEncoder;
 
-    @Override
-    public Usuario adicionar(AdicionarUsuario adicionar) {
-        return adicionarUsuarioPort.adicionarUsuario(adicionar);
-    }
+  @Override
+  public Usuario adicionar(AdicionarUsuario adicionar) {
+    return adicionarUsuarioPort.adicionarUsuario(AdicionarUsuario.builder()
+        .nomeUsuario(adicionar.getNomeUsuario())
+        .vendedorId(adicionar.getVendedorId())
+        .senha(passwordEncoder.encode(adicionar.getSenha()))
+        .build());
+  }
 
-    @Override
-    public List<Usuario> listar(Paginacao paginacao) {
-        return listarUsuarioPort.listarUsuario(paginacao);
-    }
+  @Override
+  public List<Usuario> listar(Paginacao paginacao) {
+    return listarUsuarioPort.listarUsuario(paginacao);
+  }
 
-    @Override
-    public Usuario obterPorId(Long id) {
-        return obterUsuarioPort.obterUsuarioPorId(id);
-    }
+  @Override
+  public Usuario obterPorId(Long id) {
+    return obterUsuarioPort.obterUsuarioPorId(id);
+  }
 
-    @Override
-    public Usuario atualizar(Long id, AtualizarUsuario atualizar) {
-        return atualizarUsuarioPort.atualizarUsuario(id, atualizar);
-    }
+  @Override
+  public Usuario atualizar(Long id, AtualizarUsuario atualizar) {
+    return atualizarUsuarioPort.atualizarUsuario(id, atualizar);
+  }
 
-    @Override
-    public void excluirPorId(Long id) {
-        excluirUsuarioPort.excluirUsuario(id);
-    }
+  @Override
+  public void excluirPorId(Long id) {
+    excluirUsuarioPort.excluirUsuario(id);
+  }
 }

@@ -1,7 +1,6 @@
 package br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity;
 
 import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
-import br.com.wassistemas.tasko.empresa.adapter.out.persistence.entity.EmpresaEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -23,9 +22,8 @@ public class UsuarioEmpresaEntity {
     @JoinColumn(name = "usur_id", foreignKey = @ForeignKey(name = "xfk2_usuario_empresa"))
     private UsuarioEntity usuario;
 
-    @ManyToOne
-    @JoinColumn(name = "emp_id", foreignKey = @ForeignKey(name = "xfk1_usuario_empresa"))
-    private EmpresaEntity empresa;
+    @Column(name = "emp_id")
+    private Long empresaId;
 
     @Embedded
     @AttributeOverride(name = "criadoEm", column = @Column(name = "usem_tmcriado_em"))
