@@ -1,4 +1,4 @@
-package br.com.wassistemas.tasko.usuario.domain.usuario.perfl;
+package br.com.wassistemas.tasko.common.domain.usuario.perfil;
 
 import br.com.wassistemas.tasko.common.enumerations.PerfilTipo;
 import lombok.Builder;

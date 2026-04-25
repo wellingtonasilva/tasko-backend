@@ -8,9 +8,9 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.Atu
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.ExcluirUsuarioEmpresaPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.ListarUsuarioEmpresaPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.ObterUsuarioEmpresaPort;
-import br.com.wassistemas.tasko.usuario.domain.usuario.empresa.AdicionarUsuarioEmpresa;
-import br.com.wassistemas.tasko.usuario.domain.usuario.empresa.AtualizarUsuarioEmpresa;
-import br.com.wassistemas.tasko.usuario.domain.usuario.empresa.UsuarioEmpresa;
+import br.com.wassistemas.tasko.common.domain.usuario.empresa.AdicionarUsuarioEmpresa;
+import br.com.wassistemas.tasko.common.domain.usuario.empresa.AtualizarUsuarioEmpresa;
+import br.com.wassistemas.tasko.common.domain.usuario.empresa.UsuarioEmpresa;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

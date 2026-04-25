@@ -5,7 +5,7 @@ import br.com.wassistemas.tasko.vendedor.adapter.in.web.mapper.VendedorSuperviso
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorSupervisorRequest;
 import br.com.wassistemas.tasko.vendedor.application.port.in.usecases.VendedorSupervisorUseCase;
 import br.com.wassistemas.tasko.common.domain.Paginacao;
-import br.com.wassistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
+import br.com.wassistemas.tasko.common.domain.vendedor.VendedorSupervisor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

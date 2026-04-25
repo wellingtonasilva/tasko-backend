@@ -1,7 +1,7 @@
 package br.com.wassistemas.tasko.vendedor.domain.meta;
 
 import br.com.wassistemas.tasko.common.domain.Auditoria;
-import br.com.wassistemas.tasko.vendedor.domain.vendedor.Vendedor;
+import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import lombok.Value;
 import java.math.BigDecimal;
 

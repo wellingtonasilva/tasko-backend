@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.usuario.application.service;
 
+import br.com.wassistemas.tasko.common.exception.ResourceNotFoundException;
 import br.com.wassistemas.tasko.common.security.JwtTokenProvider;
 import br.com.wassistemas.tasko.usuario.application.port.in.usecases.UsuarioLoginUseCases;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuarioPorNomeUsuarioPort;
@@ -20,12 +21,16 @@ public class UsuarioLoginService implements UsuarioLoginUseCases {
   private final JwtTokenProvider jwtTokenProvider;
 
   @Override
-  public UsuarioLogin login(Login login) {
+  public UsuarioLogin login(Login login) throws ResourceNotFoundException {
     UsuarioLogin usuarioLogin = obterUsuarioPorNomeUsuarioPort.obterUsuarioPorId(
         login.getNomeUsuario(),
         login.getSenha());
-    usuarioLogin.setToken(gerarToken(usuarioLogin));
 
+    if (Objects.isNull(usuarioLogin)) {
+      throw new ResourceNotFoundException("Usuário ou senha inválidos");
+    }
+
+    usuarioLogin.setToken(gerarToken(usuarioLogin));
     return usuarioLogin;
   }
 

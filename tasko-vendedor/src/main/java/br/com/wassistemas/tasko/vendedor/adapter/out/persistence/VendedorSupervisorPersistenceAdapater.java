@@ -10,7 +10,7 @@ import br.com.wassistemas.tasko.vendedor.application.port.out.supervisor.ListarV
 import br.com.wassistemas.tasko.vendedor.application.port.out.supervisor.ObterVendedorSupervisorPorIdPort;
 import br.com.wassistemas.tasko.vendedor.domain.supervisor.AdicionarVendedorSupervisor;
 import br.com.wassistemas.tasko.vendedor.domain.supervisor.AtualizarVendedorSupervisor;
-import br.com.wassistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
+import br.com.wassistemas.tasko.common.domain.vendedor.VendedorSupervisor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

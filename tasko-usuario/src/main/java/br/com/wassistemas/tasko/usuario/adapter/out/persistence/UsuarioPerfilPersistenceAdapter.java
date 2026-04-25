@@ -8,9 +8,9 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.Atua
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.ExcluirUsuarioPerfilPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.ListarUsuarioPerfilPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.ObterUsuarioPerfilPorIdPort;
-import br.com.wassistemas.tasko.usuario.domain.usuario.perfl.AdicionarUsuarioPerfil;
-import br.com.wassistemas.tasko.usuario.domain.usuario.perfl.AtualizarUsuarioPerfil;
-import br.com.wassistemas.tasko.usuario.domain.usuario.perfl.UsuarioPerfil;
+import br.com.wassistemas.tasko.common.domain.usuario.perfil.AdicionarUsuarioPerfil;
+import br.com.wassistemas.tasko.common.domain.usuario.perfil.AtualizarUsuarioPerfil;
+import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfil;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

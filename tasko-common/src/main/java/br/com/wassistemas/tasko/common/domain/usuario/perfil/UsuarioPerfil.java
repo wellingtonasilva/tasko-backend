@@ -1,8 +1,8 @@
-package br.com.wassistemas.tasko.usuario.domain.usuario.perfl;
+package br.com.wassistemas.tasko.common.domain.usuario.perfil;
 
 import br.com.wassistemas.tasko.common.domain.Auditoria;
 import br.com.wassistemas.tasko.common.enumerations.PerfilTipo;
-import br.com.wassistemas.tasko.usuario.domain.usuario.Usuario;
+import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;

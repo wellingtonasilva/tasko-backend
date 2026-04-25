@@ -5,7 +5,7 @@ import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.mapper.VendedorTerritorioWebMapper;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorTerritorioRequest;
 import br.com.wassistemas.tasko.vendedor.application.port.in.usecases.VendedorTerritorioUseCases;
-import br.com.wassistemas.tasko.vendedor.domain.territorio.VendedorTerritorio;
+import br.com.wassistemas.tasko.common.domain.vendedor.VendedorTerritorio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

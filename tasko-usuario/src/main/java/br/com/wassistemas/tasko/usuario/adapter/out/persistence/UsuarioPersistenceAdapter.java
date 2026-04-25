@@ -10,9 +10,9 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ListarUsuar
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuarioPorNomeUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuarioPort;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLogin;
-import br.com.wassistemas.tasko.usuario.domain.usuario.AdicionarUsuario;
-import br.com.wassistemas.tasko.usuario.domain.usuario.AtualizarUsuario;
-import br.com.wassistemas.tasko.usuario.domain.usuario.Usuario;
+import br.com.wassistemas.tasko.common.domain.usuario.AdicionarUsuario;
+import br.com.wassistemas.tasko.common.domain.usuario.AtualizarUsuario;
+import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

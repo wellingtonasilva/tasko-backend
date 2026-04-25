@@ -4,7 +4,7 @@ import br.com.wassistemas.tasko.common.domain.Paginacao;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AdicionarUsuarioRequest;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.mapper.UsuarioWebMapper;
-import br.com.wassistemas.tasko.usuario.application.port.in.usecases.UsuarioUseCases;
+import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioUseCases;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

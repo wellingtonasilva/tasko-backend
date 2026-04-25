@@ -9,7 +9,7 @@ import br.com.wassistemas.tasko.vendedor.application.port.out.territorio.ListarV
 import br.com.wassistemas.tasko.vendedor.application.port.out.territorio.ObterVendedorTerritorioPorIdPort;
 import br.com.wassistemas.tasko.vendedor.domain.territorio.AdicionarVendedorTerritorio;
 import br.com.wassistemas.tasko.vendedor.domain.territorio.AtualizarVendedorTerritorio;
-import br.com.wassistemas.tasko.vendedor.domain.territorio.VendedorTerritorio;
+import br.com.wassistemas.tasko.common.domain.vendedor.VendedorTerritorio;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

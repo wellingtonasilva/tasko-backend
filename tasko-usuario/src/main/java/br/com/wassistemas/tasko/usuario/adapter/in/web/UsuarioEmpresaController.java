@@ -5,7 +5,7 @@ import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.mapper.UsuarioWebMapper;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AdicionarUsuarioEmpresaRequest;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioEmpresaResponse;
-import br.com.wassistemas.tasko.usuario.application.port.in.usecases.UsuarioEmpresaUseCases;
+import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioEmpresaUseCases;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -6,7 +6,7 @@ import br.com.wassistemas.tasko.vendedor.adapter.in.web.mapper.VendedorMetaWebMa
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorMetaRequest;
 import br.com.wassistemas.tasko.vendedor.application.port.in.usecases.VendedorMetaUseCase;
 import br.com.wassistemas.tasko.vendedor.domain.meta.VendedorMeta;
-import br.com.wassistemas.tasko.vendedor.domain.vendedor.Vendedor;
+import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

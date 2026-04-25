@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.usuario.adapter.in.web;
 
+import br.com.wassistemas.tasko.common.exception.ResourceNotFoundException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.mapper.UsuarioWebMapper;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.LoginRequest;
@@ -21,7 +22,8 @@ public class UsuarioLoginController {
   private final UsuarioWebMapper usuarioWebMapper;
 
   @PostMapping
-  public GeneralApiResponse<UsuarioLoginResponse> login(@RequestBody LoginRequest request) {
+  public GeneralApiResponse<UsuarioLoginResponse> login(@RequestBody LoginRequest request)
+      throws ResourceNotFoundException {
     return GeneralApiResponse.<UsuarioLoginResponse>builder()
         .status(HttpStatus.OK.value())
         .data(usuarioWebMapper.toResponse(

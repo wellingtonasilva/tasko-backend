@@ -10,7 +10,7 @@ import br.com.wassistemas.tasko.usuario.application.port.out.perfil.ListarUsuari
 import br.com.wassistemas.tasko.usuario.application.port.out.perfil.ObterUsuarioPerfilTipoPort;
 import br.com.wassistemas.tasko.usuario.domain.perfil.AdicionarUsuarioPerfilTipo;
 import br.com.wassistemas.tasko.usuario.domain.perfil.AtualizarUsuarioPerfilTipo;
-import br.com.wassistemas.tasko.usuario.domain.perfil.UsuarioPerfilTipo;
+import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfilTipo;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

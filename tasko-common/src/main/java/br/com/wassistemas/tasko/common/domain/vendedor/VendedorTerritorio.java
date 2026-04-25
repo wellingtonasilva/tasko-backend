@@ -1,8 +1,7 @@
 
-package br.com.wassistemas.tasko.vendedor.domain.territorio;
+package br.com.wassistemas.tasko.common.domain.vendedor;
 
 import br.com.wassistemas.tasko.common.domain.Auditoria;
-import br.com.wassistemas.tasko.vendedor.domain.supervisor.VendedorSupervisor;
 import lombok.Builder;
 import lombok.Data;
 
