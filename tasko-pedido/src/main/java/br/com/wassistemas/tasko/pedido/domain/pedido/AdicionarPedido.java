@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Value
 public class AdicionarPedido {
     String numeroPedido;
+    Long empresaId;
     Long clienteId;
     Long vendedorId;
     Long pedidoStatusTipoId;

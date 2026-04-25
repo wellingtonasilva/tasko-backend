@@ -16,6 +16,9 @@ public class CondicaoPagamentoEntity {
     @Column(name = "cndp_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "cndp_dscondicao_pagamento")
     private String descricaoCondicaoPagamento;
 

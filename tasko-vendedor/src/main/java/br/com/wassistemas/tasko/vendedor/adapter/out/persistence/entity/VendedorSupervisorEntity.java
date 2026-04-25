@@ -15,6 +15,9 @@ public class VendedorSupervisorEntity {
     @Column(name = "supv_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "supv_nmsupervisor")
     private String nomeSupervisor;
 

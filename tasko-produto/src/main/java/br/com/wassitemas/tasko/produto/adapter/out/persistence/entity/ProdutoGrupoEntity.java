@@ -16,6 +16,9 @@ public class ProdutoGrupoEntity {
     @Column(name = "grup_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "grup_dsgrupo")
     private String descricaoGrupo;
 

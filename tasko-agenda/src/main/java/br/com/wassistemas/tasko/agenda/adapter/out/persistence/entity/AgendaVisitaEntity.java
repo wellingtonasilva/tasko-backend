@@ -17,6 +17,9 @@ public class AgendaVisitaEntity {
     @Column(name = "avis_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "avis_dtagendada")
     private LocalDateTime dataAgendada;
 

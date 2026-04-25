@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 public class AtualizarPedido {
     Long id;
+    Long empresaId;
     String numeroPedido;
     Long clienteId;
     Long vendedorId;

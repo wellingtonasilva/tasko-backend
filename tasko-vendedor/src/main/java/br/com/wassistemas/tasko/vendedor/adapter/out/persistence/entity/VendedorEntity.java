@@ -18,6 +18,9 @@ public class VendedorEntity {
     @Column(name = "vend_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "vend_cdvendedor")
     private String codigoVendedor;
 

@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 @Value
 public class AdicionarProduto {
+    Long empresaId;
     String nomeProduto;
     String descricaoProduto;
     Long unidadeMedidaId;

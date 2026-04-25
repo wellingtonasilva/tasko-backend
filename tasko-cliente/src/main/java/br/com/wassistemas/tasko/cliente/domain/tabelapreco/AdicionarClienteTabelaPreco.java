@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Value
 public class AdicionarClienteTabelaPreco {
+    Long empresaId;
     Long clienteId;
     Long tabelaPrecoId;
     LocalDate dataInicio;

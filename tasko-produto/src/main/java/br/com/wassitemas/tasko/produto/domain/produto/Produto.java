@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Builder
 public class Produto {
     private Long id;
+    private Long empresaId;
     private String nomeProduto;
     private String descricaoProduto;
     private Long unidadeMedidaId;

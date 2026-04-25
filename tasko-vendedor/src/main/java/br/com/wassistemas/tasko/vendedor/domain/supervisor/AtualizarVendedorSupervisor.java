@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 public class AtualizarVendedorSupervisor {
     private Long id;
+    private Long empresaId;
     private String nomeSupervisor;
     private Auditoria auditoria;
 }

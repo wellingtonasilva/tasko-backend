@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @Getter
 public class AtualizarProduto {
     Long id;
+    Long empresaId;
     String nomeProduto;
     String descricaoProduto;
     Long unidadeMedidaId;

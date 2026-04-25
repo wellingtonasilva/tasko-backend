@@ -16,6 +16,9 @@ public class FormaPagamentoEntity {
     @Column(name = "fpag_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "fpag_dsforma_pagamento")
     private String descricaoFormaPagamento;
 
