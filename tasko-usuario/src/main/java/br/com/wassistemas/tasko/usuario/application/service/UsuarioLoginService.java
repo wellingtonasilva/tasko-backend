@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,14 +20,18 @@ public class UsuarioLoginService implements UsuarioLoginUseCases {
 
   private final ObterUsuarioPorNomeUsuarioPort obterUsuarioPorNomeUsuarioPort;
   private final JwtTokenProvider jwtTokenProvider;
+  private final BCryptPasswordEncoder passwordEncoder;
 
   @Override
   public UsuarioLogin login(Login login) throws ResourceNotFoundException {
-    UsuarioLogin usuarioLogin = obterUsuarioPorNomeUsuarioPort.obterUsuarioPorId(
-        login.getNomeUsuario(),
-        login.getSenha());
+    UsuarioLogin usuarioLogin = obterUsuarioPorNomeUsuarioPort.obterUsuarioPorNomeUsuario(
+        login.getNomeUsuario());
 
     if (Objects.isNull(usuarioLogin)) {
+      throw new ResourceNotFoundException("Usuário ou senha inválidos");
+    }
+
+    if (!passwordEncoder.matches(login.getSenha(), usuarioLogin.getSenha())) {
       throw new ResourceNotFoundException("Usuário ou senha inválidos");
     }
 
