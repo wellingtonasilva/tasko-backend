@@ -1,15 +1,15 @@
 package br.com.wassistemas.tasko.usuario.application.service;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
-import br.com.wassistemas.tasko.usuario.application.port.in.usecases.UsuarioUseCases;
+import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioUseCases;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AdicionarUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AtualizarUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ExcluirUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ListarUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuarioPort;
-import br.com.wassistemas.tasko.usuario.domain.usuario.AdicionarUsuario;
-import br.com.wassistemas.tasko.usuario.domain.usuario.AtualizarUsuario;
-import br.com.wassistemas.tasko.usuario.domain.usuario.Usuario;
+import br.com.wassistemas.tasko.common.domain.usuario.AdicionarUsuario;
+import br.com.wassistemas.tasko.common.domain.usuario.AtualizarUsuario;
+import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

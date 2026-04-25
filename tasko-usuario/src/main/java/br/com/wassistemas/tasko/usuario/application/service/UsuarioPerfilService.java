@@ -9,7 +9,7 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.List
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.ObterUsuarioPerfilPorIdPort;
 import br.com.wassistemas.tasko.usuario.domain.usuario.perfl.AdicionarUsuarioPerfil;
 import br.com.wassistemas.tasko.usuario.domain.usuario.perfl.AtualizarUsuarioPerfil;
-import br.com.wassistemas.tasko.usuario.domain.usuario.perfl.UsuarioPerfil;
+import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

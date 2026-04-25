@@ -1,6 +1,6 @@
 package br.com.wassistemas.tasko.usuario.domain.login;
 
-import br.com.wassistemas.tasko.vendedor.domain.vendedor.Vendedor;
+import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import java.util.List;
 import lombok.Data;
 

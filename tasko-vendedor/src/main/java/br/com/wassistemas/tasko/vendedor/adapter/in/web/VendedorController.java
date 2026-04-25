@@ -5,7 +5,7 @@ import br.com.wassistemas.tasko.vendedor.adapter.in.web.mapper.VendedorWebMapper
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorRequest;
 import br.com.wassistemas.tasko.vendedor.application.port.in.usecases.VendedorUseCases;
 import br.com.wassistemas.tasko.common.domain.Paginacao;
-import br.com.wassistemas.tasko.vendedor.domain.vendedor.Vendedor;
+import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

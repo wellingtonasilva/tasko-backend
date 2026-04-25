@@ -6,9 +6,10 @@ import br.com.wassistemas.tasko.empresa.application.port.out.empresa.AtualizarEm
 import br.com.wassistemas.tasko.empresa.application.port.out.empresa.ExcluirEmpresaPorIdPort;
 import br.com.wassistemas.tasko.empresa.application.port.out.empresa.ListarEmpresaPort;
 import br.com.wassistemas.tasko.empresa.application.port.out.empresa.ObterEmpresaPorIdPort;
+import br.com.wassistemas.tasko.empresa.application.port.out.usuario.EmpresaUsuarioServicePort;
 import br.com.wassistemas.tasko.empresa.domain.empresa.AdicionarEmpresa;
 import br.com.wassistemas.tasko.empresa.domain.empresa.AtualizarEmpresa;
-import br.com.wassistemas.tasko.empresa.domain.empresa.Empresa;
+import br.com.wassistemas.tasko.common.domain.empresa.Empresa;
 import br.com.wassistemas.tasko.common.domain.Paginacao;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,10 +27,14 @@ public class EmpresaService implements EmpresaUseCases {
     private final ExcluirEmpresaPorIdPort excluirEmpresaPorIdPort;
     private final ListarEmpresaPort listarEmpresaPort;
     private final ObterEmpresaPorIdPort obterEmpresaPorIdPort;
+    private final EmpresaUsuarioServicePort empresaUsuarioServicePort;
 
     @Override
     public Empresa adicionar(AdicionarEmpresa adicionar) {
-        return adicionarEmpresaPort.adicionarEmpresa(adicionar);
+        Empresa empresa = adicionarEmpresaPort.adicionarEmpresa(adicionar);
+        empresaUsuarioServicePort.criarUsuarioParaEmpresa(empresa);
+
+        return empresa;
     }
 
     @Override

@@ -19,11 +19,13 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GeneralExceptionHandler {
 
-  private static final Logger logger = LoggerFactory.getLogger(GeneralExceptionHandler.class.getName());
+  private static final Logger logger = LoggerFactory.getLogger(
+      GeneralExceptionHandler.class.getName());
 
   @ExceptionHandler(ResourceNotFoundException.class)
-  public ResponseEntity<GeneralApiResponse<Object>> resourceNotFoundException(ResourceNotFoundException ex,
-                                                                              WebRequest request) {
+  public ResponseEntity<GeneralApiResponse<Object>> resourceNotFoundException(
+      ResourceNotFoundException ex,
+      WebRequest request) {
     logger.error(ex.getMessage());
 
     return new ResponseEntity<>(GeneralApiResponse
@@ -36,7 +38,8 @@ public class GeneralExceptionHandler {
   }
 
   @ExceptionHandler({ParameterNotFoundException.class})
-  public ResponseEntity<GeneralApiResponse<Object>> parameterNotFoundExceptionHandler(ParameterNotFoundException ex,
+  public ResponseEntity<GeneralApiResponse<Object>> parameterNotFoundExceptionHandler(
+      ParameterNotFoundException ex,
       WebRequest request) {
     logger.error(ex.getMessage());
 
@@ -50,20 +53,22 @@ public class GeneralExceptionHandler {
   }
 
   @ExceptionHandler({ResourceDuplicateException.class})
-  public ResponseEntity<GeneralApiResponse<Object>> duplicateExceptionHandler(ResourceDuplicateException ex, WebRequest request) {
+  public ResponseEntity<GeneralApiResponse<Object>> duplicateExceptionHandler(
+      ResourceDuplicateException ex, WebRequest request) {
     logger.error(ex.getMessage());
 
     return new ResponseEntity<>(GeneralApiResponse
-            .builder()
-            .errors(List.of(ex.getMessage()))
-            .status(HttpStatus.BAD_REQUEST.value())
-            .build(),
-            new HttpHeaders(),
-            HttpStatus.BAD_REQUEST);
+        .builder()
+        .errors(List.of(ex.getMessage()))
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build(),
+        new HttpHeaders(),
+        HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler({MethodArgumentNotValidException.class})
-  public ResponseEntity<GeneralApiResponse<Object>> handleValidationErrors(MethodArgumentNotValidException ex) {
+  public ResponseEntity<GeneralApiResponse<Object>> handleValidationErrors(
+      MethodArgumentNotValidException ex) {
     List<String> errors = ex.getBindingResult()
         .getFieldErrors()
         .stream()
@@ -78,8 +83,9 @@ public class GeneralExceptionHandler {
         HttpStatus.BAD_REQUEST);
   }
 
-  @ExceptionHandler({ GeneralException.class })
-  public ResponseEntity<GeneralApiResponse<Object>> globalExceptionHandler(GeneralException ex, WebRequest request) {
+  @ExceptionHandler({GeneralException.class})
+  public ResponseEntity<GeneralApiResponse<Object>> globalExceptionHandler(GeneralException ex,
+      WebRequest request) {
     logger.error(ex.getMessage());
 
     return new ResponseEntity<>(GeneralApiResponse.builder()
@@ -91,26 +97,28 @@ public class GeneralExceptionHandler {
   }
 
   @ExceptionHandler({DataIntegrityViolationException.class})
-  public ResponseEntity<GeneralApiResponse<Object>> handleDataIntegrityViolationExceptionHandler(DataIntegrityViolationException ex) {
+  public ResponseEntity<GeneralApiResponse<Object>> handleDataIntegrityViolationExceptionHandler(
+      DataIntegrityViolationException ex) {
     logger.error(ex.getMessage());
 
     return new ResponseEntity<>(GeneralApiResponse.builder()
-            .errors(List.of(ex.getMessage()))
-            .status(HttpStatus.BAD_REQUEST.value())
-            .build(),
-            new HttpHeaders(),
-            HttpStatus.BAD_REQUEST);
+        .errors(List.of(ex.getMessage()))
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build(),
+        new HttpHeaders(),
+        HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler({IllegalArgumentException.class})
-  public ResponseEntity<GeneralApiResponse<Object>> handleIllegalArgumentExceptionHandler(IllegalArgumentException ex) {
+  public ResponseEntity<GeneralApiResponse<Object>> handleIllegalArgumentExceptionHandler(
+      IllegalArgumentException ex) {
     logger.error(ex.getMessage());
 
     return new ResponseEntity<>(GeneralApiResponse.builder()
-            .errors(List.of(ex.getMessage()))
-            .status(HttpStatus.BAD_REQUEST.value())
-            .build(),
-            new HttpHeaders(),
-            HttpStatus.BAD_REQUEST);
+        .errors(List.of(ex.getMessage()))
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build(),
+        new HttpHeaders(),
+        HttpStatus.BAD_REQUEST);
   }
 }

@@ -1,6 +1,6 @@
 package br.com.wassistemas.tasko.usuario.domain.login;
 
-import br.com.wassistemas.tasko.empresa.domain.empresa.Empresa;
+import br.com.wassistemas.tasko.common.domain.empresa.Empresa;
 import lombok.Builder;
 import lombok.Data;
 

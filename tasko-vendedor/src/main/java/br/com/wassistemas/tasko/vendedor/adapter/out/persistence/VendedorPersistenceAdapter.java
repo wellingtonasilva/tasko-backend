@@ -10,7 +10,7 @@ import br.com.wassistemas.tasko.vendedor.application.port.out.vendedor.ListarVen
 import br.com.wassistemas.tasko.vendedor.application.port.out.vendedor.ObterVendedorPorIdPort;
 import br.com.wassistemas.tasko.vendedor.domain.vendedor.AdicionarVendedor;
 import br.com.wassistemas.tasko.vendedor.domain.vendedor.AtualizarVendedor;
-import br.com.wassistemas.tasko.vendedor.domain.vendedor.Vendedor;
+import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
