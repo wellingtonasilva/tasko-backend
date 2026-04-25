@@ -62,8 +62,8 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
   }
 
   @Override
-  public UsuarioLogin obterUsuarioPorId(String nomeUsuario, String senha) {
-    return usuarioRepository.findByNomeUsuarioAndSenha(nomeUsuario, senha)
+  public UsuarioLogin obterUsuarioPorNomeUsuario(String nomeUsuario) {
+    return usuarioRepository.findByNomeUsuario(nomeUsuario)
         .map(usuarioMapper::toUsuarioLogin)
         .orElse(null);
   }

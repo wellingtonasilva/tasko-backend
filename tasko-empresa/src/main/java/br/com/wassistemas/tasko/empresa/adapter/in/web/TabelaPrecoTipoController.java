@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.empresa.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.empresa.adapter.in.web.mapper.TabelaPrecoTipoWebMapper;
 import br.com.wassistemas.tasko.empresa.adapter.in.web.request.AdicionarTabelaPrecoTipoRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Tabela de Preço Tipo", description = "Gerenciamento de Tipos de Tabela de Preço")
 public class TabelaPrecoTipoController {
-    private final TabelaPrecoTipoUseCases useCases;
-    private final TabelaPrecoTipoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Tabela de Preço Tipo")
-    public GeneralApiResponse<TabelaPrecoTipo> adicionar(@RequestBody AdicionarTabelaPrecoTipoRequest request) {
-        return GeneralApiResponse.<TabelaPrecoTipo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final TabelaPrecoTipoUseCases useCases;
+  private final TabelaPrecoTipoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Tabela de Preço Tipo")
-    public GeneralApiResponse<List<TabelaPrecoTipo>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<TabelaPrecoTipo>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Tabela de Preço Tipo")
+  public GeneralApiResponse<TabelaPrecoTipo> adicionar(
+      @RequestBody AdicionarTabelaPrecoTipoRequest request) throws ResourceDuplicateException {
+    return GeneralApiResponse.<TabelaPrecoTipo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Tabela de Preço Tipo por ID")
-    public GeneralApiResponse<TabelaPrecoTipo> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<TabelaPrecoTipo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Tabela de Preço Tipo")
+  public GeneralApiResponse<List<TabelaPrecoTipo>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<TabelaPrecoTipo>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Tabela de Preço Tipo por ID")
-    public GeneralApiResponse<TabelaPrecoTipo> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<TabelaPrecoTipo>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Tabela de Preço Tipo por ID")
+  public GeneralApiResponse<TabelaPrecoTipo> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<TabelaPrecoTipo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Tabela de Preço Tipo por ID")
+  public GeneralApiResponse<TabelaPrecoTipo> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<TabelaPrecoTipo>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

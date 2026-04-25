@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.agenda.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.agenda.adapter.in.web.mapper.AgendaVisitaCheckinWebMapper;
 import br.com.wassistemas.tasko.agenda.adapter.in.web.request.AdicionarAgendaVisitaCheckinRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Checkins de Visita", description = "Gerenciamento de Checkins de Visita")
 public class AgendaVisitaCheckinController {
-    private final AgendaVisitaCheckinUseCases useCases;
-    private final AgendaVisitaCheckinWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Checkins de Visita")
-    public GeneralApiResponse<AgendaVisitaCheckin> adicionar(@RequestBody AdicionarAgendaVisitaCheckinRequest request) {
-        return GeneralApiResponse.<AgendaVisitaCheckin>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final AgendaVisitaCheckinUseCases useCases;
+  private final AgendaVisitaCheckinWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Checkins de Visita")
-    public GeneralApiResponse<List<AgendaVisitaCheckin>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<AgendaVisitaCheckin>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Checkins de Visita")
+  public GeneralApiResponse<AgendaVisitaCheckin> adicionar(
+      @RequestBody AdicionarAgendaVisitaCheckinRequest request) throws ResourceDuplicateException {
+    return GeneralApiResponse.<AgendaVisitaCheckin>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Checkins de Visita por ID")
-    public GeneralApiResponse<AgendaVisitaCheckin> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<AgendaVisitaCheckin>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Checkins de Visita")
+  public GeneralApiResponse<List<AgendaVisitaCheckin>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<AgendaVisitaCheckin>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Checkins de Visita por ID")
-    public GeneralApiResponse<AgendaVisitaCheckin> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<AgendaVisitaCheckin>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Checkins de Visita por ID")
+  public GeneralApiResponse<AgendaVisitaCheckin> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<AgendaVisitaCheckin>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Checkins de Visita por ID")
+  public GeneralApiResponse<AgendaVisitaCheckin> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<AgendaVisitaCheckin>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

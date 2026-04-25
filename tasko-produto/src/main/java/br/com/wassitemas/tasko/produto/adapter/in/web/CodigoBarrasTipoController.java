@@ -1,6 +1,7 @@
 package br.com.wassitemas.tasko.produto.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassitemas.tasko.produto.adapter.in.web.mapper.CodigoBarrasTipoWebMapper;
 import br.com.wassitemas.tasko.produto.adapter.in.web.request.AdicionarCodigoBarrasTipoRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Código de Barras Tipo", description = "Gerenciamento de Tipos de Código de Barras")
 public class CodigoBarrasTipoController {
-    private final CodigoBarrasTipoUseCases useCases;
-    private final CodigoBarrasTipoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Código de Barras Tipo")
-    public GeneralApiResponse<CodigoBarrasTipo> adicionar(@RequestBody AdicionarCodigoBarrasTipoRequest request) {
-        return GeneralApiResponse.<CodigoBarrasTipo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final CodigoBarrasTipoUseCases useCases;
+  private final CodigoBarrasTipoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Código de Barras Tipo")
-    public GeneralApiResponse<List<CodigoBarrasTipo>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<CodigoBarrasTipo>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Código de Barras Tipo")
+  public GeneralApiResponse<CodigoBarrasTipo> adicionar(
+      @RequestBody AdicionarCodigoBarrasTipoRequest request) throws ResourceDuplicateException {
+    return GeneralApiResponse.<CodigoBarrasTipo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Código de Barras Tipo por ID")
-    public GeneralApiResponse<CodigoBarrasTipo> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<CodigoBarrasTipo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Código de Barras Tipo")
+  public GeneralApiResponse<List<CodigoBarrasTipo>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<CodigoBarrasTipo>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Código de Barras Tipo por ID")
-    public GeneralApiResponse<CodigoBarrasTipo> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<CodigoBarrasTipo>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Código de Barras Tipo por ID")
+  public GeneralApiResponse<CodigoBarrasTipo> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<CodigoBarrasTipo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Código de Barras Tipo por ID")
+  public GeneralApiResponse<CodigoBarrasTipo> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<CodigoBarrasTipo>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

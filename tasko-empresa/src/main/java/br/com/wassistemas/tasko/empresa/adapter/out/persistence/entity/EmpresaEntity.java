@@ -15,6 +15,9 @@ public class EmpresaEntity {
     @Column(name = "emp_id")
     private Long id;
 
+    @Column(name = "emp_dsdominio", length = 4)
+    private String dominio;
+
     @Column(name = "emp_nmempresa")
     private String nomeEmpresa;
 

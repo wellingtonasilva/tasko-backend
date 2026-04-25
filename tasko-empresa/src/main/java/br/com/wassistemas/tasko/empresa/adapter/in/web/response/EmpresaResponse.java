@@ -10,6 +10,7 @@ import lombok.Value;
 public class EmpresaResponse {
 
   Long id;
+  String dominio;
   String nomeEmpresa;
   String numeroCnpj;
   String email;

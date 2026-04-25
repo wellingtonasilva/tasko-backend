@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.pedido.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.mapper.PedidoWebMapper;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.request.AdicionarPedidoRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Pedidos", description = "Gerenciamento de Pedidos")
 public class PedidoController {
-    private final PedidoUseCases useCases;
-    private final PedidoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Pedidos")
-    public GeneralApiResponse<Pedido> adicionar(@RequestBody AdicionarPedidoRequest request) {
-        return GeneralApiResponse.<Pedido>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final PedidoUseCases useCases;
+  private final PedidoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Pedidos")
-    public GeneralApiResponse<List<Pedido>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<Pedido>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Pedidos")
+  public GeneralApiResponse<Pedido> adicionar(@RequestBody AdicionarPedidoRequest request)
+      throws ResourceDuplicateException {
+    return GeneralApiResponse.<Pedido>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Pedidos por ID")
-    public GeneralApiResponse<Pedido> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<Pedido>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Pedidos")
+  public GeneralApiResponse<List<Pedido>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<Pedido>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Pedidos por ID")
-    public GeneralApiResponse<Pedido> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<Pedido>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Pedidos por ID")
+  public GeneralApiResponse<Pedido> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<Pedido>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Pedidos por ID")
+  public GeneralApiResponse<Pedido> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<Pedido>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

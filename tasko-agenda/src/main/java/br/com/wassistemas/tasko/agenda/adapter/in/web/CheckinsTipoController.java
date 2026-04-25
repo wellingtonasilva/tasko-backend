@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.agenda.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.agenda.adapter.in.web.mapper.CheckinsTipoWebMapper;
 import br.com.wassistemas.tasko.agenda.adapter.in.web.request.AdicionarCheckinsTipoRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Checkin Tipo", description = "Gerenciamento de Tipos de Checkin")
 public class CheckinsTipoController {
-    private final CheckinsTipoUseCases useCases;
-    private final CheckinsTipoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Checkin Tipo")
-    public GeneralApiResponse<CheckinsTipo> adicionar(@RequestBody AdicionarCheckinsTipoRequest request) {
-        return GeneralApiResponse.<CheckinsTipo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final CheckinsTipoUseCases useCases;
+  private final CheckinsTipoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Checkin Tipo")
-    public GeneralApiResponse<List<CheckinsTipo>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<CheckinsTipo>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Checkin Tipo")
+  public GeneralApiResponse<CheckinsTipo> adicionar(
+      @RequestBody AdicionarCheckinsTipoRequest request) throws ResourceDuplicateException {
+    return GeneralApiResponse.<CheckinsTipo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Checkin Tipo por ID")
-    public GeneralApiResponse<CheckinsTipo> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<CheckinsTipo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Checkin Tipo")
+  public GeneralApiResponse<List<CheckinsTipo>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<CheckinsTipo>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Checkin Tipo por ID")
-    public GeneralApiResponse<CheckinsTipo> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<CheckinsTipo>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Checkin Tipo por ID")
+  public GeneralApiResponse<CheckinsTipo> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<CheckinsTipo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Checkin Tipo por ID")
+  public GeneralApiResponse<CheckinsTipo> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<CheckinsTipo>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

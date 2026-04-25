@@ -1,6 +1,7 @@
 package br.com.wassitemas.tasko.produto.adapter.in.web;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassitemas.tasko.produto.adapter.in.web.mapper.ProdutoSubgrupoWebMapper;
 import br.com.wassitemas.tasko.produto.adapter.in.web.request.AdicionarProdutoSubgrupoRequest;
@@ -19,48 +20,50 @@ import java.util.List;
 @RequiredArgsConstructor
 @Tag(name = "Produto Subgrupo", description = "Gerenciamento de Subgrupos de Produto")
 public class ProdutoSubgrupoController {
-    private final ProdutoSubgrupoUseCases useCases;
-    private final ProdutoSubgrupoWebMapper webMapper;
 
-    @PostMapping
-    @Operation(summary = "Criar novo Produto Subgrupo")
-    public GeneralApiResponse<ProdutoSubgrupo> adicionar(@RequestBody AdicionarProdutoSubgrupoRequest request) {
-        return GeneralApiResponse.<ProdutoSubgrupo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.adicionar(webMapper.toDomain(request)))
-                .build();
-    }
+  private final ProdutoSubgrupoUseCases useCases;
+  private final ProdutoSubgrupoWebMapper webMapper;
 
-    @GetMapping
-    @Operation(summary = "Listar Produto Subgrupo")
-    public GeneralApiResponse<List<ProdutoSubgrupo>> listar(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<ProdutoSubgrupo>>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.listar(Paginacao.builder()
-                        .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  @Operation(summary = "Criar novo Produto Subgrupo")
+  public GeneralApiResponse<ProdutoSubgrupo> adicionar(
+      @RequestBody AdicionarProdutoSubgrupoRequest request) throws ResourceDuplicateException {
+    return GeneralApiResponse.<ProdutoSubgrupo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    @Operation(summary = "Buscar Produto Subgrupo por ID")
-    public GeneralApiResponse<ProdutoSubgrupo> obterPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<ProdutoSubgrupo>builder()
-                .status(HttpStatus.OK.value())
-                .data(useCases.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  @Operation(summary = "Listar Produto Subgrupo")
+  public GeneralApiResponse<List<ProdutoSubgrupo>> listar(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<ProdutoSubgrupo>>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.listar(Paginacao.builder()
+            .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Excluir Produto Subgrupo por ID")
-    public GeneralApiResponse<ProdutoSubgrupo> excluirPorId(@PathVariable Long id) {
-        useCases.excluirPorId(id);
-        return GeneralApiResponse.<ProdutoSubgrupo>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  @Operation(summary = "Buscar Produto Subgrupo por ID")
+  public GeneralApiResponse<ProdutoSubgrupo> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<ProdutoSubgrupo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  @Operation(summary = "Excluir Produto Subgrupo por ID")
+  public GeneralApiResponse<ProdutoSubgrupo> excluirPorId(@PathVariable Long id) {
+    useCases.excluirPorId(id);
+    return GeneralApiResponse.<ProdutoSubgrupo>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }

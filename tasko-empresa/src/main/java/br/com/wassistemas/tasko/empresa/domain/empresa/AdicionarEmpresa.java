@@ -9,6 +9,7 @@ import lombok.Value;
 @Getter
 public class AdicionarEmpresa {
 
+  String dominio;
   String nomeEmpresa;
   String numeroCnpj;
   String email;

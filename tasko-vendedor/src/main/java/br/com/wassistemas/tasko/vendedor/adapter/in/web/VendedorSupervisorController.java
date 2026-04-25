@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.vendedor.adapter.in.web;
 
+import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.mapper.VendedorSupervisorWebMapper;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorSupervisorRequest;
@@ -16,47 +17,51 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/supervisores")
 public class VendedorSupervisorController {
-    private final VendedorSupervisorUseCase vendedorSupervisorUseCase;
-    private final VendedorSupervisorWebMapper vendedorSupervisorWebMapper;
 
-    @PostMapping
-    public GeneralApiResponse<VendedorSupervisor> adicionarVendedorSupervisor(
-            @RequestBody AdicionarVendedorSupervisorRequest request) {
-        return GeneralApiResponse.<VendedorSupervisor>builder()
-                .status(HttpStatus.OK.value())
-                .data(vendedorSupervisorUseCase.adicionar(vendedorSupervisorWebMapper.toDomain(request)))
-                .build();
-    }
+  private final VendedorSupervisorUseCase vendedorSupervisorUseCase;
+  private final VendedorSupervisorWebMapper vendedorSupervisorWebMapper;
 
-    @GetMapping
-    public GeneralApiResponse<List<VendedorSupervisor>> listarVendedorSupervisor(@RequestParam(defaultValue = "0") int page,
-                                                                                 @RequestParam(defaultValue = "10") int size,
-                                                                                 @RequestParam(defaultValue = "id") String sortBy,
-                                                                                 @RequestParam(defaultValue = "asc") String sortDirection) {
-        return GeneralApiResponse.<List<VendedorSupervisor>>builder()
-                .status(HttpStatus.OK.value())
-                .data(vendedorSupervisorUseCase.listar(Paginacao.builder()
-                        .page(page)
-                        .size(size)
-                        .sortBy(sortBy)
-                        .sortDirection(sortDirection)
-                        .build()))
-                .build();
-    }
+  @PostMapping
+  public GeneralApiResponse<VendedorSupervisor> adicionarVendedorSupervisor(
+      @RequestBody AdicionarVendedorSupervisorRequest request) throws ResourceDuplicateException {
+    return GeneralApiResponse.<VendedorSupervisor>builder()
+        .status(HttpStatus.OK.value())
+        .data(vendedorSupervisorUseCase.adicionar(vendedorSupervisorWebMapper.toDomain(request)))
+        .build();
+  }
 
-    @GetMapping("/{id}")
-    public GeneralApiResponse<VendedorSupervisor>  obterVendedorSupervisorPorId(@PathVariable Long id) {
-        return GeneralApiResponse.<VendedorSupervisor>builder()
-                .status(HttpStatus.OK.value())
-                .data(vendedorSupervisorUseCase.obterPorId(id))
-                .build();
-    }
+  @GetMapping
+  public GeneralApiResponse<List<VendedorSupervisor>> listarVendedorSupervisor(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size,
+      @RequestParam(defaultValue = "id") String sortBy,
+      @RequestParam(defaultValue = "asc") String sortDirection) {
+    return GeneralApiResponse.<List<VendedorSupervisor>>builder()
+        .status(HttpStatus.OK.value())
+        .data(vendedorSupervisorUseCase.listar(Paginacao.builder()
+            .page(page)
+            .size(size)
+            .sortBy(sortBy)
+            .sortDirection(sortDirection)
+            .build()))
+        .build();
+  }
 
-    @DeleteMapping("/{id}")
-    public GeneralApiResponse<VendedorSupervisor>  excluirVendedorSupervisorById(@PathVariable Long id) {
-        vendedorSupervisorUseCase.excluirPorId(id);
-        return GeneralApiResponse.<VendedorSupervisor>builder()
-                .status(HttpStatus.OK.value())
-                .build();
-    }
+  @GetMapping("/{id}")
+  public GeneralApiResponse<VendedorSupervisor> obterVendedorSupervisorPorId(
+      @PathVariable Long id) {
+    return GeneralApiResponse.<VendedorSupervisor>builder()
+        .status(HttpStatus.OK.value())
+        .data(vendedorSupervisorUseCase.obterPorId(id))
+        .build();
+  }
+
+  @DeleteMapping("/{id}")
+  public GeneralApiResponse<VendedorSupervisor> excluirVendedorSupervisorById(
+      @PathVariable Long id) {
+    vendedorSupervisorUseCase.excluirPorId(id);
+    return GeneralApiResponse.<VendedorSupervisor>builder()
+        .status(HttpStatus.OK.value())
+        .build();
+  }
 }
