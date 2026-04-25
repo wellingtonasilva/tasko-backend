@@ -9,6 +9,7 @@ import lombok.Data;
 @Builder
 public class CondicaoPagamento {
     private Long id;
+    private Long empresaId;
     private String descricaoCondicaoPagamento;
     private String condicaoPagamento;
     private Auditoria auditoria;

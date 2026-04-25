@@ -16,6 +16,9 @@ public class ProdutoSubgrupoEntity {
     @Column(name = "subg_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "subg_dssubgrupo")
     private String descricaoSubgrupo;
 

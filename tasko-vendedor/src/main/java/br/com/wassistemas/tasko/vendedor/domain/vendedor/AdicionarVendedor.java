@@ -4,6 +4,7 @@ import lombok.Value;
 
 @Value
 public class AdicionarVendedor {
+    Long empresaId;
     String codigoVendedor;
     String nomeVendedor;
     String numeroCPF;

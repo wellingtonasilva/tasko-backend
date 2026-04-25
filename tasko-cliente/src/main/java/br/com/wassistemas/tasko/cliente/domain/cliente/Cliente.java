@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Builder
 public class Cliente {
     private Long id;
+    private Long empresaId;
     private Long vendedorId;
     private String codigoCliente;
     private String razaoSocial;

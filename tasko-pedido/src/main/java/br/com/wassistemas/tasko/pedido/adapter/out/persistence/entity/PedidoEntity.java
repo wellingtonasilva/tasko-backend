@@ -18,6 +18,9 @@ public class PedidoEntity {
     @Column(name = "pedi_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "pedi_nnpedido")
     private String numeroPedido;
 

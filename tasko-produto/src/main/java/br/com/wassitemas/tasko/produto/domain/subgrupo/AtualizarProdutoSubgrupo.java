@@ -10,5 +10,6 @@ import lombok.Value;
 @Getter
 public class AtualizarProdutoSubgrupo {
     Long id;
+    Long empresaId;
     String descricaoSubgrupo;
 }

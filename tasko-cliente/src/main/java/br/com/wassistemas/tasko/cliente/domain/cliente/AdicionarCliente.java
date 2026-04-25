@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 @Value
 public class AdicionarCliente {
+    Long empresaId;
     Long vendedorId;
     String codigoCliente;
     String razaoSocial;

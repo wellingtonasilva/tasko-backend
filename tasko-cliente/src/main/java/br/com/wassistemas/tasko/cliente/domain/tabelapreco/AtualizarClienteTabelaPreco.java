@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Getter
 public class AtualizarClienteTabelaPreco {
     Long id;
+    Long empresaId;
     Long clienteId;
     Long tabelaPrecoId;
     LocalDate dataInicio;

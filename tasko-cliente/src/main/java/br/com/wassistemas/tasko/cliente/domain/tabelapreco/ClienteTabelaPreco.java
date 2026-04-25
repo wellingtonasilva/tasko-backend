@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Builder
 public class ClienteTabelaPreco {
     private Long id;
+    private Long empresaId;
     private Long clienteId;
     private Long tabelaPrecoId;
     private LocalDate dataInicio;

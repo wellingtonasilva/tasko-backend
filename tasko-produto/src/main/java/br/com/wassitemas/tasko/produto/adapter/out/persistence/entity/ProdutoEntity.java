@@ -16,6 +16,9 @@ public class ProdutoEntity {
     @Column(name = "prod_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "prod_nmproduto")
     private String nomeProduto;
 

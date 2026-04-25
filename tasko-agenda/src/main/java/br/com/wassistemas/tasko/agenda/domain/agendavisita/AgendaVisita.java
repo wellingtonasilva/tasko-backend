@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Builder
 public class AgendaVisita {
     private Long id;
+    private Long empresaId;
     private LocalDateTime dataAgendada;
     private LocalDateTime dataRealizada;
     private Integer duracaoPrevista;

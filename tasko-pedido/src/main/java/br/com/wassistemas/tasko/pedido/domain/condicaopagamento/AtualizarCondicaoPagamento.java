@@ -10,6 +10,7 @@ import lombok.Value;
 @Getter
 public class AtualizarCondicaoPagamento {
     Long id;
+    Long empresaId;
     String descricaoCondicaoPagamento;
     String condicaoPagamento;
 }

@@ -5,5 +5,6 @@ import lombok.Value;
 
 @Value
 public class AdicionarProdutoSubgrupo {
+    Long empresaId;
     String descricaoSubgrupo;
 }
