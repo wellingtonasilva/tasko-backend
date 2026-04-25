@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -120,5 +121,34 @@ public class GeneralExceptionHandler {
         .build(),
         new HttpHeaders(),
         HttpStatus.BAD_REQUEST);
+  }
+
+  //
+  @ExceptionHandler({MissingRequestHeaderException.class})
+  public ResponseEntity<GeneralApiResponse<Object>> missingRequestHeaderHandler(
+      MissingRequestHeaderException ex, WebRequest request) {
+    logger.error(ex.getMessage());
+
+    return new ResponseEntity<>(GeneralApiResponse
+        .builder()
+        .errors(List.of(ex.getMessage()))
+        .status(HttpStatus.BAD_REQUEST.value())
+        .build(),
+        new HttpHeaders(),
+        HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler({UserUnauthorizedException.class})
+  public ResponseEntity<GeneralApiResponse<Object>> userUnauthorizedHandler(
+      UserUnauthorizedException ex, WebRequest request) {
+    logger.error(ex.getMessage());
+
+    return new ResponseEntity<>(GeneralApiResponse
+        .builder()
+        .errors(List.of(ex.getMessage()))
+        .status(HttpStatus.UNAUTHORIZED.value())
+        .build(),
+        new HttpHeaders(),
+        HttpStatus.UNAUTHORIZED);
   }
 }
