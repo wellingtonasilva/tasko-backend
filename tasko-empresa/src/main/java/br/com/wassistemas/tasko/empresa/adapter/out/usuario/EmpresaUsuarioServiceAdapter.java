@@ -10,9 +10,8 @@ import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioEmpresaUseCases;
 import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioPerfilUseCases;
 import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioUseCases;
 import br.com.wassistemas.tasko.empresa.application.port.out.usuario.EmpresaUsuarioServicePort;
-import br.com.wassistemas.tasko.common.domain.empresa.Empresa;
+import br.com.wassistemas.tasko.empresa.domain.empresa.CriarEmpresa;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,20 +21,18 @@ public class EmpresaUsuarioServiceAdapter implements EmpresaUsuarioServicePort {
   private final UsuarioUseCases usuarioUseCases;
   private final UsuarioEmpresaUseCases usuarioEmpresaUseCases;
   private final UsuarioPerfilUseCases usuarioPerfilUseCases;
-  private final BCryptPasswordEncoder passwordEncoder;
 
   @Override
-  public void criarUsuarioParaEmpresa(Empresa empresa) throws ResourceDuplicateException {
-    //TODO: Adicionar lógica para gerar senha aleatória e enviar email para o usuário com as credenciais de acesso
+  public void criarUsuarioParaEmpresa(Long empresaId, CriarEmpresa criarEmpresa) throws ResourceDuplicateException {
     AdicionarUsuario adicionarUsuario = AdicionarUsuario.builder()
-        .nomeUsuario(empresa.getDominio() + ".admin")
-        .senha(passwordEncoder.encode("senha123"))
+        .nomeUsuario(criarEmpresa.getEmail())
+        .senha(criarEmpresa.getSenha())
         .build();
     Usuario usuario = usuarioUseCases.adicionar(adicionarUsuario);
 
     AdicionarUsuarioEmpresa adicionarUsuarioEmpresa = AdicionarUsuarioEmpresa.builder()
         .usuarioId(usuario.getId())
-        .empresaId(empresa.getId())
+        .empresaId(empresaId)
         .build();
     usuarioEmpresaUseCases.adicionar(adicionarUsuarioEmpresa);
 
