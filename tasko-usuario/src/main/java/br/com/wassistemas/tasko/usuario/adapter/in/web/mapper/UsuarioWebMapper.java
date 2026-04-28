@@ -9,12 +9,16 @@ import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AtualizarUsuarioP
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AtualizarUsuarioPerfilTipoRequest;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AtualizarUsuarioRequest;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.LoginRequest;
+import br.com.wassistemas.tasko.usuario.adapter.in.web.request.ResetarSenhaRequest;
+import br.com.wassistemas.tasko.usuario.adapter.in.web.request.SolicitacaoRecuperarSenhaRequest;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioEmpresaResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioLoginResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioPerfilResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioPerfilTipoResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioResponse;
 import br.com.wassistemas.tasko.usuario.domain.login.Login;
+import br.com.wassistemas.tasko.usuario.domain.login.ResetarSenha;
+import br.com.wassistemas.tasko.usuario.domain.login.SolicitacaoRecuperarSenha;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLogin;
 import br.com.wassistemas.tasko.usuario.domain.perfil.AdicionarUsuarioPerfilTipo;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfilTipo;
@@ -56,4 +60,8 @@ public interface UsuarioWebMapper {
 
     Login toDomain(LoginRequest request);
     UsuarioLoginResponse toResponse(UsuarioLogin login);
+
+    SolicitacaoRecuperarSenha toDomain(SolicitacaoRecuperarSenhaRequest request);
+
+    ResetarSenha toDomain(ResetarSenhaRequest request);
 }

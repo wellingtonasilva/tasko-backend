@@ -5,9 +5,12 @@ import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEm
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilTipoEntity;
+import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioResetTokenEntity;
+import br.com.wassistemas.tasko.usuario.domain.login.CriarResetToken;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLogin;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLoginEmpresa;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLoginPerfil;
+import br.com.wassistemas.tasko.usuario.domain.login.UsuarioResetToken;
 import br.com.wassistemas.tasko.usuario.domain.perfil.AdicionarUsuarioPerfilTipo;
 import br.com.wassistemas.tasko.usuario.domain.perfil.AtualizarUsuarioPerfilTipo;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfilTipo;
@@ -94,6 +97,13 @@ public interface UsuarioEntityMapper {
 
   UsuarioLoginEmpresa toUsuarioLoginEmpresa(UsuarioEmpresaEntity entity);
   List<UsuarioLoginEmpresa> toUsuarioLoginEmpresa(List<UsuarioEmpresaEntity> entity);
+
+  @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+  UsuarioResetTokenEntity toEntity(CriarResetToken domain);
+
+  UsuarioResetToken toDomain(UsuarioResetTokenEntity entity);
 
   @Named("mapUsuarioId")
   default UsuarioEntity mapUsuarioId(Long usuarioId) {
