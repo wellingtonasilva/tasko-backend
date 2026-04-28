@@ -8,6 +8,7 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AdicionarUs
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AdicionarUsuarioResetTokenPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AtualizarUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AtualizarUsuarioResetTokenPort;
+import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AtualizarUsuarioSenhaPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ExcluirUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ListarUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuarioPorNomeUsuarioPort;
@@ -33,7 +34,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, AtualizarUsuarioPort,
     ExcluirUsuarioPort, ListarUsuarioPort, ObterUsuarioPort, ObterUsuarioPorNomeUsuarioPort,
-    AdicionarUsuarioResetTokenPort, AtualizarUsuarioResetTokenPort, ObterUsuarioTokenPorTokenPort {
+    AdicionarUsuarioResetTokenPort, AtualizarUsuarioResetTokenPort, ObterUsuarioTokenPorTokenPort,
+    AtualizarUsuarioSenhaPort {
 
   private final UsuarioRepository usuarioRepository;
   private final UsuarioEntityMapper usuarioMapper;
@@ -100,6 +102,14 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
   @Override
   public UsuarioResetToken obterUsuarioTokenPorToken(String token) {
     return usuarioResetTokenRepository.findByToken(token)
+        .map(usuarioMapper::toDomain)
+        .orElse(null);
+  }
+
+  @Override
+  public Usuario atualizarUsuarioSenha(Long id, String novaSenha) {
+    usuarioRepository.atualizarSenha(id, novaSenha, LocalDateTime.now());
+    return usuarioRepository.findById(id)
         .map(usuarioMapper::toDomain)
         .orElse(null);
   }

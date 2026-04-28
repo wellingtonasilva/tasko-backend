@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UsuarioLoginService implements UsuarioLoginUseCases {
 
   private final ObterUsuarioPorNomeUsuarioPort obterUsuarioPorNomeUsuarioPort;
@@ -72,7 +73,6 @@ public class UsuarioLoginService implements UsuarioLoginUseCases {
     enviarEmailRecuperacaoSenhaPort.enviarEmailRecuperacaoSenha(usuarioResetToken);
   }
 
-  @Transactional
   @Override
   public void resetarSenha(ResetarSenha resetarSenha) throws ResourceNotFoundException {
     UsuarioResetToken usuarioResetToken = obterUsuarioTokenPorTokenPort.obterUsuarioTokenPorToken(

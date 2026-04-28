@@ -11,7 +11,7 @@ public interface UsuarioResetTokenRepository extends JpaRepository<UsuarioResetT
 
   @Modifying
   @Query("UPDATE UsuarioResetTokenEntity SET utilizado =:utilizado, auditoria.atualizadoEm =:atualizadoEm WHERE id = :id")
-  void atualizarUsuarioResetToken(Long usuarioId, Boolean utilizado, LocalDateTime atualizadoEm);
+  void atualizarUsuarioResetToken(Long id, Boolean utilizado, LocalDateTime atualizadoEm);
 
   Optional<UsuarioResetTokenEntity> findByToken(String token);
 }
