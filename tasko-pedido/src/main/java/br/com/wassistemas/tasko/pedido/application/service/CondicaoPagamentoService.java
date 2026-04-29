@@ -28,27 +28,27 @@ public class CondicaoPagamentoService implements CondicaoPagamentoUseCases {
     private final ObterCondicaoPagamentoPorIdPort obterCondicaoPagamentoPorIdPort;
 
     @Override
-    public CondicaoPagamento adicionar(AdicionarCondicaoPagamento adicionar) {
+    public CondicaoPagamento adicionar(Long empresaId, AdicionarCondicaoPagamento adicionar) {
         return adicionarCondicaoPagamentoPort.adicionarCondicaoPagamento(adicionar);
     }
 
     @Override
-    public List<CondicaoPagamento> listar(Paginacao paginacao) {
+    public List<CondicaoPagamento> listar(Long empresaId, Paginacao paginacao) {
         return listarCondicaoPagamentoPort.listarCondicaoPagamento(paginacao);
     }
 
     @Override
-    public CondicaoPagamento obterPorId(Long id) {
+    public CondicaoPagamento obterPorId(Long empresaId, Long id) {
         return obterCondicaoPagamentoPorIdPort.obterCondicaoPagamentoPorId(id);
     }
 
     @Override
-    public CondicaoPagamento atualizar(Long id, AtualizarCondicaoPagamento atualizar) {
+    public CondicaoPagamento atualizar(Long empresaId, Long id, AtualizarCondicaoPagamento atualizar) {
         return atualizarCondicaoPagamentoPort.atualizarCondicaoPagamento(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirCondicaoPagamentoPorIdPort.excluirCondicaoPagamentoPorId(id);
     }
 }

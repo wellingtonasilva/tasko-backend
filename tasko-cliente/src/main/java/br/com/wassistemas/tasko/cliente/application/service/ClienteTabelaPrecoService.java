@@ -28,27 +28,27 @@ public class ClienteTabelaPrecoService implements ClienteTabelaPrecoUseCases {
     private final ObterClienteTabelaPrecoPorIdPort obterPort;
 
     @Override
-    public ClienteTabelaPreco adicionar(AdicionarClienteTabelaPreco adicionar) {
+    public ClienteTabelaPreco adicionar(Long empresaId, AdicionarClienteTabelaPreco adicionar) {
         return adicionarPort.adicionarClienteTabelaPreco(adicionar);
     }
 
     @Override
-    public List<ClienteTabelaPreco> listar(Paginacao paginacao) {
+    public List<ClienteTabelaPreco> listar(Long empresaId, Paginacao paginacao) {
         return listarPort.listarClienteTabelaPreco(paginacao);
     }
 
     @Override
-    public ClienteTabelaPreco obterPorId(Long id) {
+    public ClienteTabelaPreco obterPorId(Long empresaId, Long id) {
         return obterPort.obterClienteTabelaPrecoPorId(id);
     }
 
     @Override
-    public ClienteTabelaPreco atualizar(Long id, AtualizarClienteTabelaPreco atualizar) {
+    public ClienteTabelaPreco atualizar(Long empresaId, Long id, AtualizarClienteTabelaPreco atualizar) {
         return atualizarPort.atualizarClienteTabelaPreco(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirPort.excluirClienteTabelaPrecoPorId(id);
     }
 }

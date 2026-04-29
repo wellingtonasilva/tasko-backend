@@ -28,27 +28,27 @@ public class FotoService implements FotoUseCases {
     private final ObterFotoPorIdPort obterFotoPorIdPort;
 
     @Override
-    public Foto adicionar(AdicionarFoto adicionar) {
+    public Foto adicionar(Long empresaId, AdicionarFoto adicionar) {
         return adicionarFotoPort.adicionarFoto(adicionar);
     }
 
     @Override
-    public List<Foto> listar(Paginacao paginacao) {
+    public List<Foto> listar(Long empresaId, Paginacao paginacao) {
         return listarFotoPort.listarFoto(paginacao);
     }
 
     @Override
-    public Foto obterPorId(Long id) {
+    public Foto obterPorId(Long empresaId, Long id) {
         return obterFotoPorIdPort.obterFotoPorId(id);
     }
 
     @Override
-    public Foto atualizar(Long id, AtualizarFoto atualizar) {
+    public Foto atualizar(Long empresaId, Long id, AtualizarFoto atualizar) {
         return atualizarFotoPort.atualizarFoto(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirFotoPorIdPort.excluirFotoPorId(id);
     }
 }

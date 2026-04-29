@@ -7,5 +7,5 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface VendedorWebMapper {
-    AdicionarVendedor toDomain(AdicionarVendedorRequest request);
+    AdicionarVendedor toDomain(Long empresaId, AdicionarVendedorRequest request);
 }

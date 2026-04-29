@@ -29,27 +29,27 @@ public class VendedorService implements VendedorUseCases {
 
 
     @Override
-    public Vendedor adicionar(AdicionarVendedor adicionar) {
+    public Vendedor adicionar(Long empresaId, AdicionarVendedor adicionar) {
         return adicionarVendedorPort.adicionarVendedor(adicionar);
     }
 
     @Override
-    public List<Vendedor> listar(Paginacao paginacao) {
-        return listarVendedorPort.listarVendedor(paginacao);
+    public List<Vendedor> listar(Long empresaId, Paginacao paginacao) {
+        return listarVendedorPort.listarVendedor(empresaId, paginacao);
     }
 
     @Override
-    public Vendedor obterPorId(Long id) {
-        return obterVendedorPorIdPort.obterPorId(id);
+    public Vendedor obterPorId(Long empresaId, Long id) {
+        return obterVendedorPorIdPort.obterPorId(empresaId, id);
     }
 
     @Override
-    public Vendedor atualizar(Long id, AtualizarVendedor atualizar) {
+    public Vendedor atualizar(Long empresaId, Long id, AtualizarVendedor atualizar) {
         return atualizarVendedorPort.atualizar(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
-        excluirVendedorPorIdPort.excluirById(id);
+    public void excluirPorId(Long empresaId, Long id) {
+        excluirVendedorPorIdPort.excluirById(empresaId, id);
     }
 }

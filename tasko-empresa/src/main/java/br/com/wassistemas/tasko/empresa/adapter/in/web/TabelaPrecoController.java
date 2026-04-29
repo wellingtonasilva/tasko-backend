@@ -26,11 +26,12 @@ public class TabelaPrecoController {
 
   @PostMapping
   @Operation(summary = "Criar novo Tabela de Preço")
-  public GeneralApiResponse<TabelaPreco> adicionar(@RequestBody AdicionarTabelaPrecoRequest request)
+  public GeneralApiResponse<TabelaPreco> adicionar(@RequestBody AdicionarTabelaPrecoRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId)
       throws ResourceDuplicateException {
     return GeneralApiResponse.<TabelaPreco>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
         .build();
   }
 
@@ -40,10 +41,11 @@ public class TabelaPrecoController {
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
-      @RequestParam(defaultValue = "asc") String sortDirection) {
+      @RequestParam(defaultValue = "asc") String sortDirection,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<List<TabelaPreco>>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.listar(Paginacao.builder()
+        .data(useCases.listar(empresaId, Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
             .build()))
         .build();
@@ -51,17 +53,19 @@ public class TabelaPrecoController {
 
   @GetMapping("/{id}")
   @Operation(summary = "Buscar Tabela de Preço por ID")
-  public GeneralApiResponse<TabelaPreco> obterPorId(@PathVariable Long id) {
+  public GeneralApiResponse<TabelaPreco> obterPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<TabelaPreco>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.obterPorId(id))
+        .data(useCases.obterPorId(empresaId, id))
         .build();
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Excluir Tabela de Preço por ID")
-  public GeneralApiResponse<TabelaPreco> excluirPorId(@PathVariable Long id) {
-    useCases.excluirPorId(id);
+  public GeneralApiResponse<TabelaPreco> excluirPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    useCases.excluirPorId(empresaId, id);
     return GeneralApiResponse.<TabelaPreco>builder()
         .status(HttpStatus.OK.value())
         .build();

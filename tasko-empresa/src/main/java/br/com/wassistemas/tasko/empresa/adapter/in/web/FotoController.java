@@ -26,11 +26,12 @@ public class FotoController {
 
   @PostMapping
   @Operation(summary = "Criar novo Fotos")
-  public GeneralApiResponse<Foto> adicionar(@RequestBody AdicionarFotoRequest request)
+  public GeneralApiResponse<Foto> adicionar(@RequestBody AdicionarFotoRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId)
       throws ResourceDuplicateException {
     return GeneralApiResponse.<Foto>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
         .build();
   }
 
@@ -40,10 +41,11 @@ public class FotoController {
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
-      @RequestParam(defaultValue = "asc") String sortDirection) {
+      @RequestParam(defaultValue = "asc") String sortDirection,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<List<Foto>>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.listar(Paginacao.builder()
+        .data(useCases.listar(empresaId, Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
             .build()))
         .build();
@@ -51,17 +53,19 @@ public class FotoController {
 
   @GetMapping("/{id}")
   @Operation(summary = "Buscar Fotos por ID")
-  public GeneralApiResponse<Foto> obterPorId(@PathVariable Long id) {
+  public GeneralApiResponse<Foto> obterPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<Foto>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.obterPorId(id))
+        .data(useCases.obterPorId(empresaId, id))
         .build();
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Excluir Fotos por ID")
-  public GeneralApiResponse<Foto> excluirPorId(@PathVariable Long id) {
-    useCases.excluirPorId(id);
+  public GeneralApiResponse<Foto> excluirPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    useCases.excluirPorId(empresaId, id);
     return GeneralApiResponse.<Foto>builder()
         .status(HttpStatus.OK.value())
         .build();

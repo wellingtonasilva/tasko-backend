@@ -4,5 +4,7 @@ import br.com.wassistemas.tasko.vendedor.domain.supervisor.AdicionarVendedorSupe
 import br.com.wassistemas.tasko.common.domain.vendedor.VendedorSupervisor;
 
 public interface AdicionarVendedorSupervisorPort {
-    VendedorSupervisor adicionarVendedorSupervisor(AdicionarVendedorSupervisor adicionarVendedorSupervisor);
+
+  VendedorSupervisor adicionarVendedorSupervisor(
+      AdicionarVendedorSupervisor adicionarVendedorSupervisor);
 }

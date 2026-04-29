@@ -5,5 +5,6 @@ import br.com.wassistemas.tasko.common.domain.vendedor.VendedorSupervisor;
 import java.util.List;
 
 public interface ListarVendedorSupervisorPort {
-    List<VendedorSupervisor> listarVendedorSupervisor(Paginacao paginacao);
+
+  List<VendedorSupervisor> listarVendedorSupervisor(Long empresaId, Paginacao paginacao);
 }

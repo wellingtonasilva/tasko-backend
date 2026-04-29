@@ -24,9 +24,15 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(HttpSecurity http, JwtTokenProvider jwtTokenProvider)
       throws Exception {
     http
-        .csrf(csrf -> csrf.disable())
+        .csrf(csrf -> csrf.ignoringRequestMatchers(
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/swagger-ui.html"
+        ))
         .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/api/v1/empresas/criar", "/api/v1/login/**").permitAll()
+            .requestMatchers("/api/v1/empresas/criar", "/api/v1/login/**", "/swagger-ui/**",
+                "/v3/api-docs/**",
+                "/swagger-ui.html").permitAll()
             .anyRequest().authenticated()
         ).addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
             UsernamePasswordAuthenticationFilter.class);

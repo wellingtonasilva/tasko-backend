@@ -28,27 +28,27 @@ public class ClienteService implements ClienteUseCases {
     private final ObterClientePorIdPort obterClientePorIdPort;
 
     @Override
-    public Cliente adicionar(AdicionarCliente adicionar) {
+    public Cliente adicionar(Long empresaId, AdicionarCliente adicionar) {
         return adicionarClientePort.adicionarCliente(adicionar);
     }
 
     @Override
-    public List<Cliente> listar(Paginacao paginacao) {
+    public List<Cliente> listar(Long empresaId, Paginacao paginacao) {
         return listarClientePort.listarCliente(paginacao);
     }
 
     @Override
-    public Cliente obterPorId(Long id) {
+    public Cliente obterPorId(Long empresaId, Long id) {
         return obterClientePorIdPort.obterClientePorId(id);
     }
 
     @Override
-    public Cliente atualizar(Long id, AtualizarCliente atualizar) {
+    public Cliente atualizar(Long empresaId, Long id, AtualizarCliente atualizar) {
         return atualizarClientePort.atualizarCliente(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirClientePorIdPort.excluirClientePorId(id);
     }
 }

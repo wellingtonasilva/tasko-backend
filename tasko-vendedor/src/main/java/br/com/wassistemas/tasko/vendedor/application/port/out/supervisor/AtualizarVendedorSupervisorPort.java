@@ -4,5 +4,7 @@ import br.com.wassistemas.tasko.vendedor.domain.supervisor.AtualizarVendedorSupe
 import br.com.wassistemas.tasko.common.domain.vendedor.VendedorSupervisor;
 
 public interface AtualizarVendedorSupervisorPort {
-    VendedorSupervisor atualizarVendedorSupervisor(Long id, AtualizarVendedorSupervisor atualizarVendedorSupervisor);
+
+  VendedorSupervisor atualizarVendedorSupervisor(Long id,
+      AtualizarVendedorSupervisor atualizarVendedorSupervisor);
 }

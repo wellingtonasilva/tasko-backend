@@ -4,5 +4,7 @@ import br.com.wassistemas.tasko.vendedor.domain.territorio.cidade.AdicionarVende
 import br.com.wassistemas.tasko.vendedor.domain.territorio.cidade.VendedorTerritorioCidade;
 
 public interface AdicionarVendedorTerritorioCidadePort {
-    VendedorTerritorioCidade adicionarVendedorTerritorioCidade(AdicionarVendedorTerritorioCidade adicionarVendedorTerritorioCidade);
+
+  VendedorTerritorioCidade adicionarVendedorTerritorioCidade(
+      AdicionarVendedorTerritorioCidade adicionarVendedorTerritorioCidade);
 }
