@@ -25,6 +25,7 @@ public class SecurityConfig {
       throws Exception {
     http
         .csrf(csrf -> csrf.ignoringRequestMatchers(
+            "/api/v1/empresas/criar", "/api/v1/login/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/swagger-ui.html"
