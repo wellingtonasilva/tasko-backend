@@ -6,5 +6,5 @@ import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import java.util.List;
 
 public interface ListarVendedorPort {
-    List<Vendedor> listarVendedor(Paginacao paginacao);
+    List<Vendedor> listarVendedor(Long empresaId, Paginacao paginacao);
 }

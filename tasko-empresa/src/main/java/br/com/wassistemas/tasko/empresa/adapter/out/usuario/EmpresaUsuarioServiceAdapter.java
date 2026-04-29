@@ -28,13 +28,13 @@ public class EmpresaUsuarioServiceAdapter implements EmpresaUsuarioServicePort {
         .nomeUsuario(criarEmpresa.getEmail())
         .senha(criarEmpresa.getSenha())
         .build();
-    Usuario usuario = usuarioUseCases.adicionar(adicionarUsuario);
+    Usuario usuario = usuarioUseCases.adicionar(empresaId, adicionarUsuario);
 
     AdicionarUsuarioEmpresa adicionarUsuarioEmpresa = AdicionarUsuarioEmpresa.builder()
         .usuarioId(usuario.getId())
         .empresaId(empresaId)
         .build();
-    usuarioEmpresaUseCases.adicionar(adicionarUsuarioEmpresa);
+    usuarioEmpresaUseCases.adicionar(empresaId, adicionarUsuarioEmpresa);
 
     usuarioPerfilUseCases.adicionar(AdicionarUsuarioPerfil.builder()
         .usuarioId(usuario.getId())

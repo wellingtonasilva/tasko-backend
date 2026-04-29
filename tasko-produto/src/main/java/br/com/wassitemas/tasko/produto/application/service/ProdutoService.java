@@ -28,27 +28,27 @@ public class ProdutoService implements ProdutoUseCases {
     private final ObterProdutoPorIdPort obterProdutoPorIdPort;
 
     @Override
-    public Produto adicionar(AdicionarProduto adicionar) {
+    public Produto adicionar(Long empresaId, AdicionarProduto adicionar) {
         return adicionarProdutoPort.adicionarProduto(adicionar);
     }
 
     @Override
-    public List<Produto> listar(Paginacao paginacao) {
+    public List<Produto> listar(Long empresaId, Paginacao paginacao) {
         return listarProdutoPort.listarProduto(paginacao);
     }
 
     @Override
-    public Produto obterPorId(Long id) {
+    public Produto obterPorId(Long empresaId, Long id) {
         return obterProdutoPorIdPort.obterProdutoPorId(id);
     }
 
     @Override
-    public Produto atualizar(Long id, AtualizarProduto atualizar) {
+    public Produto atualizar(Long empresaId, Long id, AtualizarProduto atualizar) {
         return atualizarProdutoPort.atualizarProduto(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirProdutoPorIdPort.excluirProdutoPorId(id);
     }
 }

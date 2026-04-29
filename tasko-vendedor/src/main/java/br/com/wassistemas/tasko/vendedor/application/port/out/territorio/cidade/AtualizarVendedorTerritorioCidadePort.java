@@ -4,5 +4,7 @@ import br.com.wassistemas.tasko.vendedor.domain.territorio.cidade.AtualizarVende
 import br.com.wassistemas.tasko.vendedor.domain.territorio.cidade.VendedorTerritorioCidade;
 
 public interface AtualizarVendedorTerritorioCidadePort {
-    VendedorTerritorioCidade AtualizarVendedorTerritorioCidade(Long id, AtualizarVendedorTerritorioCidade atualizarVendedorTerritorioCidade);
+
+  VendedorTerritorioCidade AtualizarVendedorTerritorioCidade(Long id,
+      AtualizarVendedorTerritorioCidade atualizarVendedorTerritorioCidade);
 }

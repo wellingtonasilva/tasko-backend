@@ -37,12 +37,12 @@ public class VendedorPersistenceAdapter implements AdicionarVendedorPort, Atuali
     }
 
     @Override
-    public void excluirById(Long id) {
+    public void excluirById(Long empresaId, Long id) {
         vendedorRepository.deleteById(id);
     }
 
     @Override
-    public List<Vendedor> listarVendedor(Paginacao paginacao) {
+    public List<Vendedor> listarVendedor(Long empresaId, Paginacao paginacao) {
         Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
                 ? Sort.Direction.DESC
                 : Sort.Direction.ASC;
@@ -54,7 +54,7 @@ public class VendedorPersistenceAdapter implements AdicionarVendedorPort, Atuali
     }
 
     @Override
-    public Vendedor obterPorId(Long id) {
+    public Vendedor obterPorId(Long empresaId, Long id) {
         return vendedorMapper.toDomain(vendedorRepository.findById(id).orElse(null));
     }
 }

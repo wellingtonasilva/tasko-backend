@@ -28,27 +28,27 @@ public class TabelaPrecoService implements TabelaPrecoUseCases {
     private final ObterTabelaPrecoPorIdPort obterTabelaPrecoPorIdPort;
 
     @Override
-    public TabelaPreco adicionar(AdicionarTabelaPreco adicionar) {
+    public TabelaPreco adicionar(Long empresaId, AdicionarTabelaPreco adicionar) {
         return adicionarTabelaPrecoPort.adicionarTabelaPreco(adicionar);
     }
 
     @Override
-    public List<TabelaPreco> listar(Paginacao paginacao) {
+    public List<TabelaPreco> listar(Long empresaId, Paginacao paginacao) {
         return listarTabelaPrecoPort.listarTabelaPreco(paginacao);
     }
 
     @Override
-    public TabelaPreco obterPorId(Long id) {
+    public TabelaPreco obterPorId(Long empresaId, Long id) {
         return obterTabelaPrecoPorIdPort.obterTabelaPrecoPorId(id);
     }
 
     @Override
-    public TabelaPreco atualizar(Long id, AtualizarTabelaPreco atualizar) {
+    public TabelaPreco atualizar(Long empresaId, Long id, AtualizarTabelaPreco atualizar) {
         return atualizarTabelaPrecoPort.atualizarTabelaPreco(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirTabelaPrecoPorIdPort.excluirTabelaPrecoPorId(id);
     }
 }

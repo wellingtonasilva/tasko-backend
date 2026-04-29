@@ -27,27 +27,27 @@ public class VendedorSupervisorService implements VendedorSupervisorUseCase {
     private final ListarVendedorSupervisorPort listarVendedorSupervisorPort;
 
     @Override
-    public VendedorSupervisor adicionar(AdicionarVendedorSupervisor adicionar) {
+    public VendedorSupervisor adicionar(Long empresaId, AdicionarVendedorSupervisor adicionar) {
         return adicionarVendedorSupervisorPort.adicionarVendedorSupervisor(adicionar);
     }
 
     @Override
-    public List<VendedorSupervisor> listar(Paginacao paginacao) {
-        return listarVendedorSupervisorPort.listarVendedorSupervisor(paginacao);
+    public List<VendedorSupervisor> listar(Long empresaId, Paginacao paginacao) {
+        return listarVendedorSupervisorPort.listarVendedorSupervisor(empresaId, paginacao);
     }
 
     @Override
-    public VendedorSupervisor obterPorId(Long id) {
-        return obterVendedorSupervisorPorIdPort.obterVendedorSupervisorPorId(id);
+    public VendedorSupervisor obterPorId(Long empresaId, Long id) {
+        return obterVendedorSupervisorPorIdPort.obterVendedorSupervisorPorId(empresaId, id);
     }
 
     @Override
-    public VendedorSupervisor atualizar(Long id, AtualizarVendedorSupervisor atualizar) {
+    public VendedorSupervisor atualizar(Long empresaId, Long id, AtualizarVendedorSupervisor atualizar) {
         return atualizarVendedorSupervisorPort.atualizarVendedorSupervisor(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
-        excluirVendedorSupervisorPorIdPort.excluirVendedorSupervisorPorId(id);
+    public void excluirPorId(Long empresaId, Long id) {
+        excluirVendedorSupervisorPorIdPort.excluirVendedorSupervisorPorId(empresaId, id);
     }
 }

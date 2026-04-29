@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,35 +30,39 @@ public class UsuarioEmpresaController {
 
   @PostMapping("/{usuarioId}/empresas")
   public GeneralApiResponse<UsuarioEmpresaResponse> adicionar(@PathVariable Long usuarioId,
-      @RequestBody AdicionarUsuarioEmpresaRequest request) throws ResourceDuplicateException {
+      @RequestBody AdicionarUsuarioEmpresaRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) throws ResourceDuplicateException {
     return GeneralApiResponse.<UsuarioEmpresaResponse>builder().status(HttpStatus.OK.value()).data(
-        usuarioWebMapper.toResponse(
-            usuarioEmpresaUseCases.adicionar(usuarioWebMapper.toDomain(request)))).build();
+            usuarioWebMapper.toResponse(
+                usuarioEmpresaUseCases.adicionar(empresaId, usuarioWebMapper.toDomain(request))))
+        .build();
   }
 
   @GetMapping("/{usuarioId}/empresas")
   public GeneralApiResponse<List<UsuarioEmpresaResponse>> listar(@PathVariable Long usuarioId,
       @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
-      @RequestParam(defaultValue = "asc") String sortDirection) {
+      @RequestParam(defaultValue = "asc") String sortDirection,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
 
     return GeneralApiResponse.<List<UsuarioEmpresaResponse>>builder().status(HttpStatus.OK.value())
-        .data(usuarioWebMapper.toUsuarioEmpresaResponse(usuarioEmpresaUseCases.listar(
+        .data(usuarioWebMapper.toUsuarioEmpresaResponse(usuarioEmpresaUseCases.listar(empresaId,
             Paginacao.builder().page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
                 .build()))).build();
   }
 
   @GetMapping("/{usuarioId}/empresas/{id}")
   public GeneralApiResponse<UsuarioEmpresaResponse> obterPorId(@PathVariable Long usuarioId,
-      @PathVariable Long id) {
+      @PathVariable Long id, @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<UsuarioEmpresaResponse>builder().status(HttpStatus.OK.value())
-        .data(usuarioWebMapper.toResponse(usuarioEmpresaUseCases.obterPorId(id))).build();
+        .data(usuarioWebMapper.toResponse(usuarioEmpresaUseCases.obterPorId(empresaId, id)))
+        .build();
   }
 
   @DeleteMapping("/{usuarioId}/empresas/{id}")
   public GeneralApiResponse<Void> excluirPorId(@PathVariable Long usuarioId,
-      @PathVariable Long id) {
-    usuarioEmpresaUseCases.excluirPorId(id);
+      @PathVariable Long id, @RequestHeader("X-Empresa-Id") Long empresaId) {
+    usuarioEmpresaUseCases.excluirPorId(empresaId, id);
     return GeneralApiResponse.<Void>builder().status(HttpStatus.OK.value()).build();
   }
 }

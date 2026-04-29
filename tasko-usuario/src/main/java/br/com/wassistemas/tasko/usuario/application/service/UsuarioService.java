@@ -28,7 +28,7 @@ public class UsuarioService implements UsuarioUseCases {
   private final BCryptPasswordEncoder passwordEncoder;
 
   @Override
-  public Usuario adicionar(AdicionarUsuario adicionar) {
+  public Usuario adicionar(Long empresaId, AdicionarUsuario adicionar) {
     return adicionarUsuarioPort.adicionarUsuario(AdicionarUsuario.builder()
         .nomeUsuario(adicionar.getNomeUsuario())
         .vendedorId(adicionar.getVendedorId())
@@ -37,22 +37,22 @@ public class UsuarioService implements UsuarioUseCases {
   }
 
   @Override
-  public List<Usuario> listar(Paginacao paginacao) {
+  public List<Usuario> listar(Long empresaId, Paginacao paginacao) {
     return listarUsuarioPort.listarUsuario(paginacao);
   }
 
   @Override
-  public Usuario obterPorId(Long id) {
+  public Usuario obterPorId(Long empresaId, Long id) {
     return obterUsuarioPort.obterUsuarioPorId(id);
   }
 
   @Override
-  public Usuario atualizar(Long id, AtualizarUsuario atualizar) {
+  public Usuario atualizar(Long empresaId, Long id, AtualizarUsuario atualizar) {
     return atualizarUsuarioPort.atualizarUsuario(id, atualizar);
   }
 
   @Override
-  public void excluirPorId(Long id) {
+  public void excluirPorId(Long empresaId, Long id) {
     excluirUsuarioPort.excluirUsuario(id);
   }
 }

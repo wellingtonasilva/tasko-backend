@@ -27,7 +27,7 @@ public class JwtUtil {
    * @return lista de IDs de empresas
    * @throws UserUnauthorizedException se o claim estiver ausente ou inválido
    */
-  public static List<Integer> getEmpresas(HttpServletRequest request, JwtTokenProvider jwtTokenProvider)
+  public static List<Long> getEmpresas(HttpServletRequest request, JwtTokenProvider jwtTokenProvider)
       throws UserUnauthorizedException {
     String jwt = getBearerToken(request);
     Object empresasClaim = jwtTokenProvider.getClaimFromToken(jwt, "empresas");
@@ -36,10 +36,10 @@ public class JwtUtil {
     }
     if (empresasClaim instanceof List<?> lista) {
       try {
-        List<Integer> empresas = new java.util.ArrayList<>();
+        List<Long> empresas = new java.util.ArrayList<>();
         for (Object e : lista) {
-          if (e instanceof Integer i) empresas.add(i);
-          else if (e instanceof Number n) empresas.add(n.intValue());
+          if (e instanceof Long i) empresas.add(i);
+          else if (e instanceof Number n) empresas.add(n.longValue());
           else throw new UserUnauthorizedException("Formato do claim 'empresas' inválido no JWT.");
         }
         return empresas;
@@ -61,9 +61,9 @@ public class JwtUtil {
    * @throws UserUnauthorizedException se não tiver permissão
    */
   public static void validarPermissaoEmpresa(HttpServletRequest request,
-      JwtTokenProvider jwtTokenProvider, Integer empresaId)
+      JwtTokenProvider jwtTokenProvider, Long empresaId)
       throws UserUnauthorizedException {
-    List<Integer> empresas = getEmpresas(request, jwtTokenProvider);
+    List<Long> empresas = getEmpresas(request, jwtTokenProvider);
     if (!empresas.contains(empresaId)) {
       throw new UserUnauthorizedException("Usuário não tem permissão para acessar esta empresa.");
     }

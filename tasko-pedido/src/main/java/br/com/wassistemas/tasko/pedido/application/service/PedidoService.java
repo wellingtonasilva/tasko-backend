@@ -28,27 +28,27 @@ public class PedidoService implements PedidoUseCases {
     private final ObterPedidoPorIdPort obterPedidoPorIdPort;
 
     @Override
-    public Pedido adicionar(AdicionarPedido adicionar) {
+    public Pedido adicionar(Long empresaId, AdicionarPedido adicionar) {
         return adicionarPedidoPort.adicionarPedido(adicionar);
     }
 
     @Override
-    public List<Pedido> listar(Paginacao paginacao) {
+    public List<Pedido> listar(Long empresaId, Paginacao paginacao) {
         return listarPedidoPort.listarPedido(paginacao);
     }
 
     @Override
-    public Pedido obterPorId(Long id) {
+    public Pedido obterPorId(Long empresaId, Long id) {
         return obterPedidoPorIdPort.obterPedidoPorId(id);
     }
 
     @Override
-    public Pedido atualizar(Long id, AtualizarPedido atualizar) {
+    public Pedido atualizar(Long empresaId, Long id, AtualizarPedido atualizar) {
         return atualizarPedidoPort.atualizarPedido(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirPedidoPorIdPort.excluirPedidoPorId(id);
     }
 }

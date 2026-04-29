@@ -28,27 +28,27 @@ public class ProdutoSubgrupoService implements ProdutoSubgrupoUseCases {
     private final ObterProdutoSubgrupoPorIdPort obterProdutoSubgrupoPorIdPort;
 
     @Override
-    public ProdutoSubgrupo adicionar(AdicionarProdutoSubgrupo adicionar) {
+    public ProdutoSubgrupo adicionar(Long empresaId, AdicionarProdutoSubgrupo adicionar) {
         return adicionarProdutoSubgrupoPort.adicionarProdutoSubgrupo(adicionar);
     }
 
     @Override
-    public List<ProdutoSubgrupo> listar(Paginacao paginacao) {
+    public List<ProdutoSubgrupo> listar(Long empresaId, Paginacao paginacao) {
         return listarProdutoSubgrupoPort.listarProdutoSubgrupo(paginacao);
     }
 
     @Override
-    public ProdutoSubgrupo obterPorId(Long id) {
+    public ProdutoSubgrupo obterPorId(Long empresaId, Long id) {
         return obterProdutoSubgrupoPorIdPort.obterProdutoSubgrupoPorId(id);
     }
 
     @Override
-    public ProdutoSubgrupo atualizar(Long id, AtualizarProdutoSubgrupo atualizar) {
+    public ProdutoSubgrupo atualizar(Long empresaId, Long id, AtualizarProdutoSubgrupo atualizar) {
         return atualizarProdutoSubgrupoPort.atualizarProdutoSubgrupo(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirProdutoSubgrupoPorIdPort.excluirProdutoSubgrupoPorId(id);
     }
 }

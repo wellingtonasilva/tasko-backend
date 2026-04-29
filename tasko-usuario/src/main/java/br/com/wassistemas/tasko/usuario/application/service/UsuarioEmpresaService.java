@@ -25,27 +25,27 @@ public class UsuarioEmpresaService implements UsuarioEmpresaUseCases {
     private final ExcluirUsuarioEmpresaPort excluirUsuarioEmpresaPort;
 
     @Override
-    public UsuarioEmpresa adicionar(AdicionarUsuarioEmpresa adicionar) {
+    public UsuarioEmpresa adicionar(Long empresaId, AdicionarUsuarioEmpresa adicionar) {
         return adicionarUsuarioEmpresaPort.adicionarUsuarioEmpresa(adicionar);
     }
 
     @Override
-    public List<UsuarioEmpresa> listar(Paginacao paginacao) {
+    public List<UsuarioEmpresa> listar(Long empresaId, Paginacao paginacao) {
         return listarUsuarioEmpresaPort.listarUsuarioEmpresa(paginacao);
     }
 
     @Override
-    public UsuarioEmpresa obterPorId(Long id) {
+    public UsuarioEmpresa obterPorId(Long empresaId, Long id) {
         return obterUsuarioEmpresaPort.obterUsuarioEmpresa(id);
     }
 
     @Override
-    public UsuarioEmpresa atualizar(Long id, AtualizarUsuarioEmpresa atualizar) {
+    public UsuarioEmpresa atualizar(Long empresaId, Long id, AtualizarUsuarioEmpresa atualizar) {
         return atualizarUsuarioEmpresaPort.atualizarUsuarioEmpresa(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirUsuarioEmpresaPort.excluirUsuarioEmpresa(id);
     }
 }

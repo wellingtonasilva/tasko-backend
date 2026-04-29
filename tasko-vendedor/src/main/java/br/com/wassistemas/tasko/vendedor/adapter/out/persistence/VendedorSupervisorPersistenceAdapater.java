@@ -40,17 +40,17 @@ public class VendedorSupervisorPersistenceAdapater implements AdicionarVendedorS
     }
 
     @Override
-    public void excluirVendedorSupervisorPorId(Long id) {
+    public void excluirVendedorSupervisorPorId(Long empresaId, Long id) {
         vendedorSupervisorRepository.deleteById(id);
     }
 
     @Override
-    public VendedorSupervisor obterVendedorSupervisorPorId(Long id) {
+    public VendedorSupervisor obterVendedorSupervisorPorId(Long empresaId, Long id) {
         return vendedorMapper.toDomain(vendedorSupervisorRepository.findById(id).orElse(null));
     }
 
     @Override
-    public List<VendedorSupervisor> listarVendedorSupervisor(Paginacao paginacao) {
+    public List<VendedorSupervisor> listarVendedorSupervisor(Long empresaId, Paginacao paginacao) {
         Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
                 ? Sort.Direction.DESC
                 : Sort.Direction.ASC;

@@ -27,10 +27,11 @@ public class ProdutoSubgrupoController {
   @PostMapping
   @Operation(summary = "Criar novo Produto Subgrupo")
   public GeneralApiResponse<ProdutoSubgrupo> adicionar(
-      @RequestBody AdicionarProdutoSubgrupoRequest request) throws ResourceDuplicateException {
+      @RequestBody AdicionarProdutoSubgrupoRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) throws ResourceDuplicateException {
     return GeneralApiResponse.<ProdutoSubgrupo>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
         .build();
   }
 
@@ -40,10 +41,11 @@ public class ProdutoSubgrupoController {
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
-      @RequestParam(defaultValue = "asc") String sortDirection) {
+      @RequestParam(defaultValue = "asc") String sortDirection,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<List<ProdutoSubgrupo>>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.listar(Paginacao.builder()
+        .data(useCases.listar(empresaId, Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
             .build()))
         .build();
@@ -51,17 +53,19 @@ public class ProdutoSubgrupoController {
 
   @GetMapping("/{id}")
   @Operation(summary = "Buscar Produto Subgrupo por ID")
-  public GeneralApiResponse<ProdutoSubgrupo> obterPorId(@PathVariable Long id) {
+  public GeneralApiResponse<ProdutoSubgrupo> obterPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<ProdutoSubgrupo>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.obterPorId(id))
+        .data(useCases.obterPorId(empresaId, id))
         .build();
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Excluir Produto Subgrupo por ID")
-  public GeneralApiResponse<ProdutoSubgrupo> excluirPorId(@PathVariable Long id) {
-    useCases.excluirPorId(id);
+  public GeneralApiResponse<ProdutoSubgrupo> excluirPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    useCases.excluirPorId(empresaId, id);
     return GeneralApiResponse.<ProdutoSubgrupo>builder()
         .status(HttpStatus.OK.value())
         .build();

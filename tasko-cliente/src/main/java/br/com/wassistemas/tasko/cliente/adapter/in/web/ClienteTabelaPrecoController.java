@@ -26,10 +26,11 @@ public class ClienteTabelaPrecoController {
   @PostMapping
   @Operation(summary = "Vincular Tabela de Preço ao Cliente")
   public GeneralApiResponse<ClienteTabelaPreco> adicionar(
-      @RequestBody AdicionarClienteTabelaPrecoRequest request) throws Exception {
+      @RequestBody AdicionarClienteTabelaPrecoRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) throws Exception {
     return GeneralApiResponse.<ClienteTabelaPreco>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
         .build();
   }
 
@@ -39,10 +40,11 @@ public class ClienteTabelaPrecoController {
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
-      @RequestParam(defaultValue = "asc") String sortDirection) {
+      @RequestParam(defaultValue = "asc") String sortDirection,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<List<ClienteTabelaPreco>>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.listar(Paginacao.builder()
+        .data(useCases.listar(empresaId, Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
             .build()))
         .build();
@@ -50,17 +52,19 @@ public class ClienteTabelaPrecoController {
 
   @GetMapping("/{id}")
   @Operation(summary = "Buscar vinculação por ID")
-  public GeneralApiResponse<ClienteTabelaPreco> obterPorId(@PathVariable Long id) {
+  public GeneralApiResponse<ClienteTabelaPreco> obterPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<ClienteTabelaPreco>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.obterPorId(id))
+        .data(useCases.obterPorId(empresaId, id))
         .build();
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Remover vinculação por ID")
-  public GeneralApiResponse<ClienteTabelaPreco> excluirPorId(@PathVariable Long id) {
-    useCases.excluirPorId(id);
+  public GeneralApiResponse<ClienteTabelaPreco> excluirPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    useCases.excluirPorId(empresaId, id);
     return GeneralApiResponse.<ClienteTabelaPreco>builder()
         .status(HttpStatus.OK.value())
         .build();

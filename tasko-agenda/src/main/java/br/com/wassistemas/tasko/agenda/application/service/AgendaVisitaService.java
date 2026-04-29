@@ -28,27 +28,27 @@ public class AgendaVisitaService implements AgendaVisitaUseCases {
     private final ObterAgendaVisitaPorIdPort obterAgendaVisitaPorIdPort;
 
     @Override
-    public AgendaVisita adicionar(AdicionarAgendaVisita adicionar) {
+    public AgendaVisita adicionar(Long empresaId, AdicionarAgendaVisita adicionar) {
         return adicionarAgendaVisitaPort.adicionarAgendaVisita(adicionar);
     }
 
     @Override
-    public List<AgendaVisita> listar(Paginacao paginacao) {
+    public List<AgendaVisita> listar(Long empresaId, Paginacao paginacao) {
         return listarAgendaVisitaPort.listarAgendaVisita(paginacao);
     }
 
     @Override
-    public AgendaVisita obterPorId(Long id) {
+    public AgendaVisita obterPorId(Long empresaId, Long id) {
         return obterAgendaVisitaPorIdPort.obterAgendaVisitaPorId(id);
     }
 
     @Override
-    public AgendaVisita atualizar(Long id, AtualizarAgendaVisita atualizar) {
+    public AgendaVisita atualizar(Long empresaId, Long id, AtualizarAgendaVisita atualizar) {
         return atualizarAgendaVisitaPort.atualizarAgendaVisita(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirAgendaVisitaPorIdPort.excluirAgendaVisitaPorId(id);
     }
 }

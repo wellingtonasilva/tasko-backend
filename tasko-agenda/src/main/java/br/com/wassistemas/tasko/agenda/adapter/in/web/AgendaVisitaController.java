@@ -27,10 +27,11 @@ public class AgendaVisitaController {
   @PostMapping
   @Operation(summary = "Criar novo Agenda de Visitas")
   public GeneralApiResponse<AgendaVisita> adicionar(
-      @RequestBody AdicionarAgendaVisitaRequest request) throws ResourceDuplicateException {
+      @RequestBody AdicionarAgendaVisitaRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) throws ResourceDuplicateException {
     return GeneralApiResponse.<AgendaVisita>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
         .build();
   }
 
@@ -40,10 +41,11 @@ public class AgendaVisitaController {
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
-      @RequestParam(defaultValue = "asc") String sortDirection) {
+      @RequestParam(defaultValue = "asc") String sortDirection,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<List<AgendaVisita>>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.listar(Paginacao.builder()
+        .data(useCases.listar(empresaId, Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
             .build()))
         .build();
@@ -51,17 +53,19 @@ public class AgendaVisitaController {
 
   @GetMapping("/{id}")
   @Operation(summary = "Buscar Agenda de Visitas por ID")
-  public GeneralApiResponse<AgendaVisita> obterPorId(@PathVariable Long id) {
+  public GeneralApiResponse<AgendaVisita> obterPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<AgendaVisita>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.obterPorId(id))
+        .data(useCases.obterPorId(empresaId, id))
         .build();
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Excluir Agenda de Visitas por ID")
-  public GeneralApiResponse<AgendaVisita> excluirPorId(@PathVariable Long id) {
-    useCases.excluirPorId(id);
+  public GeneralApiResponse<AgendaVisita> excluirPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    useCases.excluirPorId(empresaId, id);
     return GeneralApiResponse.<AgendaVisita>builder()
         .status(HttpStatus.OK.value())
         .build();

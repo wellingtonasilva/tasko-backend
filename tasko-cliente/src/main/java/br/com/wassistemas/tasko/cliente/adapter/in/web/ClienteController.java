@@ -25,11 +25,11 @@ public class ClienteController {
 
   @PostMapping
   @Operation(summary = "Criar novo Cliente")
-  public GeneralApiResponse<Cliente> adicionar(@RequestBody AdicionarClienteRequest request)
-      throws Exception {
+  public GeneralApiResponse<Cliente> adicionar(@RequestBody AdicionarClienteRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) throws Exception {
     return GeneralApiResponse.<Cliente>builder()
         .status(HttpStatus.OK.value())
-        .data(clienteUseCases.adicionar(clienteWebMapper.toDomain(request)))
+        .data(clienteUseCases.adicionar(empresaId, clienteWebMapper.toDomain(request)))
         .build();
   }
 
@@ -38,10 +38,11 @@ public class ClienteController {
   public GeneralApiResponse<List<Cliente>> listar(@RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
-      @RequestParam(defaultValue = "asc") String sortDirection) {
+      @RequestParam(defaultValue = "asc") String sortDirection,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<List<Cliente>>builder()
         .status(HttpStatus.OK.value())
-        .data(clienteUseCases.listar(Paginacao.builder()
+        .data(clienteUseCases.listar(empresaId, Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
             .build()))
         .build();
@@ -49,17 +50,19 @@ public class ClienteController {
 
   @GetMapping("/{id}")
   @Operation(summary = "Buscar Cliente por ID")
-  public GeneralApiResponse<Cliente> obterPorId(@PathVariable Long id) {
+  public GeneralApiResponse<Cliente> obterPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<Cliente>builder()
         .status(HttpStatus.OK.value())
-        .data(clienteUseCases.obterPorId(id))
+        .data(clienteUseCases.obterPorId(empresaId, id))
         .build();
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Excluir Cliente por ID")
-  public GeneralApiResponse<Cliente> excluirPorId(@PathVariable Long id) {
-    clienteUseCases.excluirPorId(id);
+  public GeneralApiResponse<Cliente> excluirPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    clienteUseCases.excluirPorId(empresaId, id);
     return GeneralApiResponse.<Cliente>builder()
         .status(HttpStatus.OK.value())
         .build();
