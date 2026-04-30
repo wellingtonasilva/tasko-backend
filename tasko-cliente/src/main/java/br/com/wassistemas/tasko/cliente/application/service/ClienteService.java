@@ -34,7 +34,7 @@ public class ClienteService implements ClienteUseCases {
 
     @Override
     public List<Cliente> listar(Long empresaId, Paginacao paginacao) {
-        return listarClientePort.listarCliente(paginacao);
+        return listarClientePort.listarCliente(empresaId, paginacao);
     }
 
     @Override

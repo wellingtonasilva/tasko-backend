@@ -6,6 +6,6 @@ import br.com.wassistemas.tasko.cliente.domain.tabelapreco.ClienteTabelaPreco;
 import java.util.List;
 
 public interface ListarClienteTabelaPrecoPort {
-    List<ClienteTabelaPreco> listarClienteTabelaPreco(Paginacao paginacao);
+    List<ClienteTabelaPreco> listarClienteTabelaPreco(Long empresaId, Paginacao paginacao);
 }
 

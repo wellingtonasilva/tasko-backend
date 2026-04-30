@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/clientes-tabela-preco")
+@RequestMapping("/api/v1/clientes")
 @RequiredArgsConstructor
 @Tag(name = "Cliente Tabela de Preço", description = "Vinculação de Tabelas de Preço a Clientes")
 public class ClienteTabelaPrecoController {
@@ -23,18 +23,18 @@ public class ClienteTabelaPrecoController {
   private final ClienteTabelaPrecoUseCases useCases;
   private final ClienteTabelaPrecoWebMapper webMapper;
 
-  @PostMapping
+  @PostMapping("/{clienteId}/tabelas-preco")
   @Operation(summary = "Vincular Tabela de Preço ao Cliente")
   public GeneralApiResponse<ClienteTabelaPreco> adicionar(
       @RequestBody AdicionarClienteTabelaPrecoRequest request,
       @RequestHeader("X-Empresa-Id") Long empresaId) throws Exception {
     return GeneralApiResponse.<ClienteTabelaPreco>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(empresaId, request)))
         .build();
   }
 
-  @GetMapping
+  @GetMapping("/{clienteId}/tabelas-preco")
   @Operation(summary = "Listar vinculações de Tabelas de Preço")
   public GeneralApiResponse<List<ClienteTabelaPreco>> listar(
       @RequestParam(defaultValue = "0") int page,
@@ -50,7 +50,7 @@ public class ClienteTabelaPrecoController {
         .build();
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/{clienteId}/tabelas-preco/{id}")
   @Operation(summary = "Buscar vinculação por ID")
   public GeneralApiResponse<ClienteTabelaPreco> obterPorId(@PathVariable Long id,
       @RequestHeader("X-Empresa-Id") Long empresaId) {
@@ -60,7 +60,7 @@ public class ClienteTabelaPrecoController {
         .build();
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/{clienteId}/tabelas-preco/{id}")
   @Operation(summary = "Remover vinculação por ID")
   public GeneralApiResponse<ClienteTabelaPreco> excluirPorId(@PathVariable Long id,
       @RequestHeader("X-Empresa-Id") Long empresaId) {

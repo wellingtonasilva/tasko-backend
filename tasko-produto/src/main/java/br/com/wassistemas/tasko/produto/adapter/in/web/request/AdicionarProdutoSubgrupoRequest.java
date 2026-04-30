@@ -1,0 +1,14 @@
+package br.com.wassistemas.tasko.produto.adapter.in.web.request;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@NoArgsConstructor
+@Data
+@Schema(description = "Dados para Adicionar Subgrupo")
+public class AdicionarProdutoSubgrupoRequest {
+    @Schema(description = "Descrição do Subgrupo")
+    String descricaoSubgrupo;
+}

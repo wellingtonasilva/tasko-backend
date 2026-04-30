@@ -26,38 +26,43 @@ public class VendedorSupervisorPersistenceAdapater implements AdicionarVendedorS
     ObterVendedorSupervisorPorIdPort,
     ListarVendedorSupervisorPort {
 
-    private final VendedorSupervisorRepository vendedorSupervisorRepository;
-    private final VendedorEntityMapper vendedorMapper;
+  private final VendedorSupervisorRepository vendedorSupervisorRepository;
+  private final VendedorEntityMapper vendedorMapper;
 
-    @Override
-    public VendedorSupervisor adicionarVendedorSupervisor(AdicionarVendedorSupervisor adicionarVendedorSupervisor) {
-        return vendedorMapper.toDomain(vendedorSupervisorRepository.save(vendedorMapper.toEntity(adicionarVendedorSupervisor)));
-    }
+  @Override
+  public VendedorSupervisor adicionarVendedorSupervisor(
+      AdicionarVendedorSupervisor adicionarVendedorSupervisor) {
+    return vendedorMapper.toDomain(
+        vendedorSupervisorRepository.save(vendedorMapper.toEntity(adicionarVendedorSupervisor)));
+  }
 
-    @Override
-    public VendedorSupervisor atualizarVendedorSupervisor(Long id, AtualizarVendedorSupervisor atualizarVendedorSupervisor) {
-        return vendedorMapper.toDomain(vendedorSupervisorRepository.save(vendedorMapper.toEntity(id, atualizarVendedorSupervisor)));
-    }
+  @Override
+  public VendedorSupervisor atualizarVendedorSupervisor(Long id,
+      AtualizarVendedorSupervisor atualizarVendedorSupervisor) {
+    return vendedorMapper.toDomain(vendedorSupervisorRepository.save(
+        vendedorMapper.toEntity(id, atualizarVendedorSupervisor)));
+  }
 
-    @Override
-    public void excluirVendedorSupervisorPorId(Long empresaId, Long id) {
-        vendedorSupervisorRepository.deleteById(id);
-    }
+  @Override
+  public void excluirVendedorSupervisorPorId(Long empresaId, Long id) {
+    vendedorSupervisorRepository.deleteById(id);
+  }
 
-    @Override
-    public VendedorSupervisor obterVendedorSupervisorPorId(Long empresaId, Long id) {
-        return vendedorMapper.toDomain(vendedorSupervisorRepository.findById(id).orElse(null));
-    }
+  @Override
+  public VendedorSupervisor obterVendedorSupervisorPorId(Long empresaId, Long id) {
+    return vendedorMapper.toDomain(vendedorSupervisorRepository.findById(id).orElse(null));
+  }
 
-    @Override
-    public List<VendedorSupervisor> listarVendedorSupervisor(Long empresaId, Paginacao paginacao) {
-        Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
-                ? Sort.Direction.DESC
-                : Sort.Direction.ASC;
+  @Override
+  public List<VendedorSupervisor> listarVendedorSupervisor(Long empresaId, Paginacao paginacao) {
+    Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
+        ? Sort.Direction.DESC
+        : Sort.Direction.ASC;
 
-        Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
-                Sort.by(direction, paginacao.getSortBy()));
+    Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
+        Sort.by(direction, paginacao.getSortBy()));
 
-        return vendedorSupervisorRepository.findAll(pageable).map(vendedorMapper::toDomain).toList();
-    }
+    return vendedorSupervisorRepository.findByEmpresaId(empresaId, pageable)
+        .map(vendedorMapper::toDomain).toList();
+  }
 }

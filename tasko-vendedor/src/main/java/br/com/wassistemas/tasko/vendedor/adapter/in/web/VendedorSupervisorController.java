@@ -28,7 +28,7 @@ public class VendedorSupervisorController {
     return GeneralApiResponse.<VendedorSupervisor>builder()
         .status(HttpStatus.OK.value())
         .data(vendedorSupervisorUseCase.adicionar(empresaId,
-            vendedorSupervisorWebMapper.toDomain(request)))
+            vendedorSupervisorWebMapper.toDomain(empresaId, request)))
         .build();
   }
 

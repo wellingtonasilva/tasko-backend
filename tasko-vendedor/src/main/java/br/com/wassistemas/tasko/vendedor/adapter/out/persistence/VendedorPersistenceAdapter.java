@@ -50,7 +50,7 @@ public class VendedorPersistenceAdapter implements AdicionarVendedorPort, Atuali
         Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
                 Sort.by(direction, paginacao.getSortBy()));
 
-        return vendedorRepository.findAll(pageable).map(vendedorMapper::toDomain).toList();
+        return vendedorRepository.findByEmpresaId(empresaId, pageable).map(vendedorMapper::toDomain).toList();
     }
 
     @Override

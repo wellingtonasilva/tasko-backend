@@ -7,6 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ClienteTabelaPrecoWebMapper {
-    AdicionarClienteTabelaPreco toDomain(AdicionarClienteTabelaPrecoRequest request);
+    AdicionarClienteTabelaPreco toDomain(Long empresaId, AdicionarClienteTabelaPrecoRequest request);
 }
 

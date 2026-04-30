@@ -17,6 +17,9 @@ public class ClienteTabelaPrecoEntity {
     @Column(name = "cltb_id")
     private Long id;
 
+    @Column(name = "emp_id")
+    private Long empresaId;
+
     @Column(name = "clie_id")
     private Long clienteId;
 

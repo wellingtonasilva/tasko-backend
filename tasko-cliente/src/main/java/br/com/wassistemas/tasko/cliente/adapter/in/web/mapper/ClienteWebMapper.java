@@ -7,6 +7,6 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ClienteWebMapper {
-    AdicionarCliente toDomain(AdicionarClienteRequest request);
+    AdicionarCliente toDomain(Long empresaId, AdicionarClienteRequest request);
 }
 

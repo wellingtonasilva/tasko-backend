@@ -34,7 +34,7 @@ public class ClienteTabelaPrecoService implements ClienteTabelaPrecoUseCases {
 
     @Override
     public List<ClienteTabelaPreco> listar(Long empresaId, Paginacao paginacao) {
-        return listarPort.listarClienteTabelaPreco(paginacao);
+        return listarPort.listarClienteTabelaPreco(empresaId, paginacao);
     }
 
     @Override

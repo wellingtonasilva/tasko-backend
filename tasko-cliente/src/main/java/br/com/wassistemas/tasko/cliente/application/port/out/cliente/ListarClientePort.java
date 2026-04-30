@@ -6,6 +6,6 @@ import br.com.wassistemas.tasko.cliente.domain.cliente.Cliente;
 import java.util.List;
 
 public interface ListarClientePort {
-    List<Cliente> listarCliente(Paginacao paginacao);
+    List<Cliente> listarCliente(Long empresaId, Paginacao paginacao);
 }
 
