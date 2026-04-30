@@ -45,12 +45,12 @@ public class CondicaoPagamentoPersistenceAdapter implements AdicionarCondicaoPag
     }
 
     @Override
-    public List<CondicaoPagamento> listarCondicaoPagamento(Paginacao paginacao) {
+    public List<CondicaoPagamento> listarCondicaoPagamento(Long empresaId, Paginacao paginacao) {
         Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
                 ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
                 Sort.by(direction, paginacao.getSortBy()));
-        return repository.findAll(pageable).map(mapper::toDomain).toList();
+        return repository.findByEmpresaId(empresaId, pageable).map(mapper::toDomain).toList();
     }
 
     @Override

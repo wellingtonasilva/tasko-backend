@@ -34,7 +34,7 @@ public class PedidoService implements PedidoUseCases {
 
     @Override
     public List<Pedido> listar(Long empresaId, Paginacao paginacao) {
-        return listarPedidoPort.listarPedido(paginacao);
+        return listarPedidoPort.listarPedido(empresaId, paginacao);
     }
 
     @Override

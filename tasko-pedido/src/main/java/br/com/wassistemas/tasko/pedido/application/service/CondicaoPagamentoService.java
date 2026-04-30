@@ -34,7 +34,7 @@ public class CondicaoPagamentoService implements CondicaoPagamentoUseCases {
 
     @Override
     public List<CondicaoPagamento> listar(Long empresaId, Paginacao paginacao) {
-        return listarCondicaoPagamentoPort.listarCondicaoPagamento(paginacao);
+        return listarCondicaoPagamentoPort.listarCondicaoPagamento(empresaId, paginacao);
     }
 
     @Override

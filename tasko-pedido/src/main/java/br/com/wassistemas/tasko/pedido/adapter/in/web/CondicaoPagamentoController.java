@@ -31,7 +31,7 @@ public class CondicaoPagamentoController {
       @RequestHeader("X-Empresa-Id") Long empresaId) throws ResourceDuplicateException {
     return GeneralApiResponse.<CondicaoPagamento>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(empresaId, request)))
         .build();
   }
 

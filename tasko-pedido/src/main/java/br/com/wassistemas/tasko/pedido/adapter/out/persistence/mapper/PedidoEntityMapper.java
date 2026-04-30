@@ -19,6 +19,7 @@ public interface PedidoEntityMapper {
     @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+    @Mapping(target = "pedidoStatusTipoId", defaultValue = "2L")
     @Mapping(target = "id", ignore = true)
     PedidoEntity toEntity(AdicionarPedido domain);
 
