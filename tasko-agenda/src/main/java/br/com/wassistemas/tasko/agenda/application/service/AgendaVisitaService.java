@@ -34,7 +34,7 @@ public class AgendaVisitaService implements AgendaVisitaUseCases {
 
     @Override
     public List<AgendaVisita> listar(Long empresaId, Paginacao paginacao) {
-        return listarAgendaVisitaPort.listarAgendaVisita(paginacao);
+        return listarAgendaVisitaPort.listarAgendaVisita(empresaId, paginacao);
     }
 
     @Override

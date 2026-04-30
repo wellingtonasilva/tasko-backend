@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 
 @Value
 public class AdicionarAgendaVisita {
+    Long empresaId;
     LocalDateTime dataAgendada;
     Integer duracaoPrevista;
     String objetivo;

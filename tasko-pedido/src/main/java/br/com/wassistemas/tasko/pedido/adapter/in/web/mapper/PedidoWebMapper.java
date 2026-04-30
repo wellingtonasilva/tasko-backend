@@ -7,5 +7,5 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PedidoWebMapper {
-    AdicionarPedido toDomain(AdicionarPedidoRequest request);
+    AdicionarPedido toDomain(Long empresaId, AdicionarPedidoRequest request);
 }

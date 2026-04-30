@@ -31,7 +31,7 @@ public class PedidoController {
       throws ResourceDuplicateException {
     return GeneralApiResponse.<Pedido>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(empresaId, request)))
         .build();
   }
 

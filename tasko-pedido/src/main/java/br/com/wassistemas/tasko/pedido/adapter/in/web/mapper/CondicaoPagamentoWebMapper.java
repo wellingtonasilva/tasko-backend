@@ -7,5 +7,5 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CondicaoPagamentoWebMapper {
-    AdicionarCondicaoPagamento toDomain(AdicionarCondicaoPagamentoRequest request);
+    AdicionarCondicaoPagamento toDomain(Long empresaId, AdicionarCondicaoPagamentoRequest request);
 }

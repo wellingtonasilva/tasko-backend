@@ -43,12 +43,12 @@ public class ClientePersistenceAdapter implements AdicionarClientePort, Atualiza
     }
 
     @Override
-    public List<Cliente> listarCliente(Paginacao paginacao) {
+    public List<Cliente> listarCliente(Long empresaId, Paginacao paginacao) {
         Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
                 ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
                 Sort.by(direction, paginacao.getSortBy()));
-        return clienteRepository.findAll(pageable).map(clienteMapper::toDomain).toList();
+        return clienteRepository.findByEmpresaId(empresaId, pageable).map(clienteMapper::toDomain).toList();
     }
 
     @Override

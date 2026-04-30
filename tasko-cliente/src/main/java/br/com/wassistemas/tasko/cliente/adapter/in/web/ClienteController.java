@@ -29,7 +29,7 @@ public class ClienteController {
       @RequestHeader("X-Empresa-Id") Long empresaId) throws Exception {
     return GeneralApiResponse.<Cliente>builder()
         .status(HttpStatus.OK.value())
-        .data(clienteUseCases.adicionar(empresaId, clienteWebMapper.toDomain(request)))
+        .data(clienteUseCases.adicionar(empresaId, clienteWebMapper.toDomain(empresaId, request)))
         .build();
   }
 

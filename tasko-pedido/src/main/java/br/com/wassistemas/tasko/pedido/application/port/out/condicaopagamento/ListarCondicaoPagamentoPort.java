@@ -5,5 +5,5 @@ import br.com.wassistemas.tasko.pedido.domain.condicaopagamento.CondicaoPagament
 import java.util.List;
 
 public interface ListarCondicaoPagamentoPort {
-    List<CondicaoPagamento> listarCondicaoPagamento(Paginacao paginacao);
+    List<CondicaoPagamento> listarCondicaoPagamento(Long empresaId, Paginacao paginacao);
 }

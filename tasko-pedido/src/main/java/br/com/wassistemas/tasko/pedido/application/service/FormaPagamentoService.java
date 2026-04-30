@@ -34,7 +34,7 @@ public class FormaPagamentoService implements FormaPagamentoUseCases {
 
     @Override
     public List<FormaPagamento> listar(Long empresaId, Paginacao paginacao) {
-        return listarFormaPagamentoPort.listarFormaPagamento(paginacao);
+        return listarFormaPagamentoPort.listarFormaPagamento(empresaId, paginacao);
     }
 
     @Override

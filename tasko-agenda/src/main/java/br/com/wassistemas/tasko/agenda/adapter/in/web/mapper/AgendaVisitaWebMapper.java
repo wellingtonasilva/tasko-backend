@@ -7,5 +7,5 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AgendaVisitaWebMapper {
-    AdicionarAgendaVisita toDomain(AdicionarAgendaVisitaRequest request);
+    AdicionarAgendaVisita toDomain(Long empresaId, AdicionarAgendaVisitaRequest request);
 }
