@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/agenda-visitas")
+  @RequestMapping("/api/v1/agenda-visitas")
 @RequiredArgsConstructor
 @Tag(name = "Agenda de Visitas", description = "Gerenciamento de Agenda de Visitas")
 public class AgendaVisitaController {
@@ -31,7 +31,7 @@ public class AgendaVisitaController {
       @RequestHeader("X-Empresa-Id") Long empresaId) throws ResourceDuplicateException {
     return GeneralApiResponse.<AgendaVisita>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(empresaId, webMapper.toDomain(request)))
+        .data(useCases.adicionar(empresaId, webMapper.toDomain(empresaId, request)))
         .build();
   }
 

@@ -20,6 +20,7 @@ public class EmpresaInterceptorConfig implements WebMvcConfigurer {
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(empresaPermissionInterceptor)
         .addPathPatterns("/api/v1/vendedores/**",
+            "/api/v1/agenda-visitas/**",
             "/api/v1/clientes/**",
             "/api/v1/produtos/**",
             "/api/v1/pedidos/**",
