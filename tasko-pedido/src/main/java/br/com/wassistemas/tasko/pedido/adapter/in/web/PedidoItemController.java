@@ -5,6 +5,7 @@ import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.mapper.PedidoItemWebMapper;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.request.AdicionarPedidoItemRequest;
+import br.com.wassistemas.tasko.pedido.adapter.in.web.request.AtualizarPedidoItemRequest;
 import br.com.wassistemas.tasko.pedido.application.port.in.usecases.PedidoItemUseCases;
 import br.com.wassistemas.tasko.pedido.domain.pedidoitem.PedidoItem;
 import io.swagger.v3.oas.annotations.Operation;
@@ -55,6 +56,16 @@ public class PedidoItemController {
     return GeneralApiResponse.<PedidoItem>builder()
         .status(HttpStatus.OK.value())
         .data(useCases.obterPorId(id))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  @Operation(summary = "Atualizar Pedido Itens por ID")
+  public GeneralApiResponse<PedidoItem> atualizar(@PathVariable Long id,
+      @RequestBody AtualizarPedidoItemRequest request) {
+    return GeneralApiResponse.<PedidoItem>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.atualizar(id, webMapper.toDomain(request)))
         .build();
   }
 
