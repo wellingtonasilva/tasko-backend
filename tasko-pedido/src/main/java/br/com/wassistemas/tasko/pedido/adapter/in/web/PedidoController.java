@@ -5,6 +5,7 @@ import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.mapper.PedidoWebMapper;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.request.AdicionarPedidoRequest;
+import br.com.wassistemas.tasko.pedido.adapter.in.web.request.AtualizarPedidoRequest;
 import br.com.wassistemas.tasko.pedido.application.port.in.usecases.PedidoUseCases;
 import br.com.wassistemas.tasko.pedido.domain.pedido.Pedido;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,6 +59,16 @@ public class PedidoController {
     return GeneralApiResponse.<Pedido>builder()
         .status(HttpStatus.OK.value())
         .data(useCases.obterPorId(empresaId, id))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  public GeneralApiResponse<Pedido> atualizar(@PathVariable Long id,
+      @RequestBody AtualizarPedidoRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<Pedido>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.atualizar(empresaId, id,  webMapper.toDomain(empresaId, request)))
         .build();
   }
 
