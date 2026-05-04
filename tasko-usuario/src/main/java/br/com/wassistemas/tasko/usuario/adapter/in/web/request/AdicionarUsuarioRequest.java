@@ -5,6 +5,8 @@ import lombok.Value;
 @Value
 public class AdicionarUsuarioRequest {
     String nomeUsuario;
+    String nomeCompleto;
+    String numeroTelefone;
     String senha;
     Long vendedorId;
 }

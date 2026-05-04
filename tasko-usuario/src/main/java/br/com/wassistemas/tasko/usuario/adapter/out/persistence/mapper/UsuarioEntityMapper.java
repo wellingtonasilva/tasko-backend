@@ -1,11 +1,13 @@
 package br.com.wassistemas.tasko.usuario.adapter.out.persistence.mapper;
 
+import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import br.com.wassistemas.tasko.common.enumerations.PerfilTipo;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEmpresaEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilTipoEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioResetTokenEntity;
+import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.VendedorRefEntity;
 import br.com.wassistemas.tasko.usuario.domain.login.CriarResetToken;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLogin;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLoginEmpresa;
@@ -43,8 +45,9 @@ public interface UsuarioEntityMapper {
 
   UsuarioEntity toEntity(Usuario domain);
 
-  //@Mapping(target = "perfis", qualifiedByName = "toListIgnoreUsuario")
   Usuario toDomain(UsuarioEntity domain);
+
+  Vendedor toVendedor(VendedorRefEntity entity);
 
   @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
   @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")

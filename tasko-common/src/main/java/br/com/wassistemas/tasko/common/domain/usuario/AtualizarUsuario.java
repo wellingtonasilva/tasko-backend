@@ -8,7 +8,10 @@ import lombok.Value;
 public class AtualizarUsuario {
     Long id;
     String nomeUsuario;
+    String nomeCompleto;
+    String numeroTelefone;
     String senha;
     Long vendedorId;
+    boolean indicadorAtivo;
 }
 

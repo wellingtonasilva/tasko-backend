@@ -6,5 +6,5 @@ import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
 import java.util.List;
 
 public interface ListarUsuarioPort {
-    List<Usuario> listarUsuario(Paginacao paginacao);
+    List<Usuario> listarUsuario(Long empresaId, Paginacao paginacao);
 }
