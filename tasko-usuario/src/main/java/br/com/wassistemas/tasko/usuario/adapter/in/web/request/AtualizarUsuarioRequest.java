@@ -6,7 +6,10 @@ import lombok.Value;
 public class AtualizarUsuarioRequest {
     Long id;
     String nomeUsuario;
+    String nomeCompleto;
+    String numeroTelefone;
     String senha;
     Long vendedorId;
+    boolean indicadorAtivo;
 }
 

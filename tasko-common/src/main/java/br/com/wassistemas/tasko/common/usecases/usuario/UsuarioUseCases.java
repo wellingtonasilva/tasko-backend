@@ -7,4 +7,6 @@ import br.com.wassistemas.tasko.common.domain.usuario.AtualizarUsuario;
 
 public interface UsuarioUseCases extends
     TenantUseCase<Usuario, AdicionarUsuario, AtualizarUsuario> {
+
+  Usuario adicionarUsuarioComEmpresa(Long empresaId, AdicionarUsuario adicionarUsuario);
 }

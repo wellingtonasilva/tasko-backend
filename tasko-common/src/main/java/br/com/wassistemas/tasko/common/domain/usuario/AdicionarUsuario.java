@@ -7,6 +7,8 @@ import lombok.Value;
 @Builder
 public class AdicionarUsuario {
     String nomeUsuario;
+    String nomeCompleto;
+    String numeroTelefone;
     String senha;
     Long vendedorId;
 }

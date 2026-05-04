@@ -20,14 +20,24 @@ public class UsuarioEntity {
     @Column(name = "vend_id")
     private Long vendedorId;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vend_id", referencedColumnName = "vend_id", insertable = false, updatable = false)
+    private VendedorRefEntity vendedor;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<UsuarioPerfilEntity> perfis;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<UsuarioEmpresaEntity> empresas;
 
     @Column(name = "usur_nmusuario")
     private String nomeUsuario;
+
+    @Column(name = "usur_nmcompleto")
+    private String nomeCompleto;
+
+    @Column(name = "usur_nmtelefone")
+    private String numeroTelefone;
 
     @Column(name = "usur_dssenha")
     private String senha;

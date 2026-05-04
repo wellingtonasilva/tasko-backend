@@ -4,6 +4,7 @@ import br.com.wassistemas.tasko.common.domain.Paginacao;
 import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.exception.UserUnauthorizedException;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AdicionarUsuarioRequest;
+import br.com.wassistemas.tasko.usuario.adapter.in.web.request.AtualizarUsuarioRequest;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.response.UsuarioResponse;
 import br.com.wassistemas.tasko.usuario.adapter.in.web.mapper.UsuarioWebMapper;
 import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioUseCases;
@@ -28,7 +29,7 @@ public class UsuarioController {
     return GeneralApiResponse.<UsuarioResponse>builder()
         .status(HttpStatus.OK.value())
         .data(usuarioWebMapper.toResponse(
-            usuarioUseCases.adicionar(empresaId, usuarioWebMapper.toDomain(request))))
+            usuarioUseCases.adicionarUsuarioComEmpresa(empresaId, usuarioWebMapper.toDomain(request))))
         .build();
   }
 
@@ -57,6 +58,17 @@ public class UsuarioController {
     return GeneralApiResponse.<UsuarioResponse>builder()
         .status(HttpStatus.OK.value())
         .data(usuarioWebMapper.toResponse(usuarioUseCases.obterPorId(empresaId, id)))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  public GeneralApiResponse<UsuarioResponse> atualizar(@PathVariable Long id,
+      @RequestBody AtualizarUsuarioRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<UsuarioResponse>builder()
+        .status(HttpStatus.OK.value())
+        .data(usuarioWebMapper.toResponse(
+            usuarioUseCases.atualizar(empresaId, id, usuarioWebMapper.toDomain(request))))
         .build();
   }
 

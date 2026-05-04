@@ -28,6 +28,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import jakarta.persistence.EntityManager;
+
 import java.util.List;
 
 @Component
@@ -40,10 +42,19 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
   private final UsuarioRepository usuarioRepository;
   private final UsuarioEntityMapper usuarioMapper;
   private final UsuarioResetTokenRepository usuarioResetTokenRepository;
+  private final EntityManager entityManager;
 
   @Override
   public Usuario atualizarUsuario(Long id, AtualizarUsuario usuario) {
-    return usuarioMapper.toDomain(usuarioRepository.save(usuarioMapper.toEntity(id, usuario)));
+    usuarioRepository.atualizarUsuario(
+        id,
+        usuario.getVendedorId(),
+        usuario.getNomeCompleto(),
+        usuario.getNumeroTelefone(),
+        usuario.isIndicadorAtivo(),
+        LocalDateTime.now()
+    );
+    return usuarioMapper.toDomain(usuarioRepository.findById(id).orElse(null));
   }
 
   @Override
@@ -52,7 +63,7 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
   }
 
   @Override
-  public List<Usuario> listarUsuario(Paginacao paginacao) {
+  public List<Usuario> listarUsuario(Long empresaId, Paginacao paginacao) {
     Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
         ? Sort.Direction.DESC
         : Sort.Direction.ASC;
@@ -60,12 +71,16 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
     Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
         Sort.by(direction, paginacao.getSortBy()));
 
-    return usuarioRepository.findAll(pageable).map(usuarioMapper::toDomain).toList();
+    return usuarioRepository.findByEmpresaId(empresaId, pageable).map(usuarioMapper::toDomain)
+        .toList();
   }
 
   @Override
   public Usuario obterUsuarioPorId(Long id) {
-    return usuarioMapper.toDomain(usuarioRepository.findById(id).orElse(null));
+    //TODO Verificar e remover esse codigo
+    entityManager.flush();
+    entityManager.clear();
+    return usuarioMapper.toDomain(usuarioRepository.findDetalhadoById(id).orElse(null));
   }
 
   @Override

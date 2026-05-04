@@ -1,6 +1,9 @@
 package br.com.wassistemas.tasko.usuario.application.service;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.common.domain.usuario.empresa.AdicionarUsuarioEmpresa;
+import br.com.wassistemas.tasko.common.domain.usuario.perfil.AdicionarUsuarioPerfil;
+import br.com.wassistemas.tasko.common.enumerations.PerfilTipo;
 import br.com.wassistemas.tasko.common.usecases.usuario.UsuarioUseCases;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AdicionarUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AtualizarUsuarioPort;
@@ -10,14 +13,18 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuari
 import br.com.wassistemas.tasko.common.domain.usuario.AdicionarUsuario;
 import br.com.wassistemas.tasko.common.domain.usuario.AtualizarUsuario;
 import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
+import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.AdicionarUsuarioEmpresaPort;
+import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.AdicionarUsuarioPerfilPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UsuarioService implements UsuarioUseCases {
 
   private final AdicionarUsuarioPort adicionarUsuarioPort;
@@ -26,6 +33,8 @@ public class UsuarioService implements UsuarioUseCases {
   private final ObterUsuarioPort obterUsuarioPort;
   private final ExcluirUsuarioPort excluirUsuarioPort;
   private final BCryptPasswordEncoder passwordEncoder;
+  private final AdicionarUsuarioEmpresaPort adicionarUsuarioEmpresaPort;
+  private final AdicionarUsuarioPerfilPort adicionarUsuarioPerfilPort;
 
   @Override
   public Usuario adicionar(Long empresaId, AdicionarUsuario adicionar) {
@@ -38,7 +47,7 @@ public class UsuarioService implements UsuarioUseCases {
 
   @Override
   public List<Usuario> listar(Long empresaId, Paginacao paginacao) {
-    return listarUsuarioPort.listarUsuario(paginacao);
+    return listarUsuarioPort.listarUsuario(empresaId, paginacao);
   }
 
   @Override
@@ -54,5 +63,24 @@ public class UsuarioService implements UsuarioUseCases {
   @Override
   public void excluirPorId(Long empresaId, Long id) {
     excluirUsuarioPort.excluirUsuario(id);
+  }
+
+  @Override
+  @Transactional
+  public Usuario adicionarUsuarioComEmpresa(Long empresaId, AdicionarUsuario adicionarUsuario) {
+    Usuario usuario = adicionarUsuarioPort.adicionarUsuario(adicionarUsuario);
+
+    AdicionarUsuarioEmpresa adicionarUsuarioEmpresa = AdicionarUsuarioEmpresa.builder()
+        .usuarioId(usuario.getId())
+        .empresaId(empresaId)
+        .build();
+    adicionarUsuarioEmpresaPort.adicionarUsuarioEmpresa(adicionarUsuarioEmpresa);
+
+    adicionarUsuarioPerfilPort.adicionarUsuarioPerfil(AdicionarUsuarioPerfil.builder()
+        .usuarioId(usuario.getId())
+        .perfilTipo(PerfilTipo.ROLE_STAFF)
+        .build());
+
+    return obterPorId(empresaId, usuario.getId());
   }
 }
