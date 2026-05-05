@@ -8,6 +8,14 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuario", schema = "crm")
+@NamedEntityGraph(
+    name = "UsuarioEntity.comDetalhes",
+    attributeNodes = {
+        @NamedAttributeNode("vendedor"),
+        @NamedAttributeNode("perfis"),
+        @NamedAttributeNode("empresas")
+    }
+)
 @Data
 @NoArgsConstructor
 public class UsuarioEntity {

@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
-  @Query("SELECT u FROM UsuarioEntity u LEFT JOIN FETCH u.empresas WHERE u.nomeUsuario = :nomeUsuario")
+  @EntityGraph(value = "UsuarioEntity.comDetalhes", type = EntityGraph.EntityGraphType.LOAD)
   Optional<UsuarioEntity> findByNomeUsuario(String nomeUsuario);
 
   @Modifying
@@ -37,12 +38,11 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
       """)
   Page<UsuarioEntity> findByEmpresaId(Long empresaId, Pageable pageable);
 
-  @Query("""
-          SELECT DISTINCT u
-          FROM UsuarioEntity u
-          LEFT JOIN FETCH u.vendedor
-          LEFT JOIN FETCH u.perfis
-          WHERE u.id = :id
-      """)
-  Optional<UsuarioEntity> findDetalhadoById(Long id);
+   @EntityGraph(value = "UsuarioEntity.comDetalhes", type = EntityGraph.EntityGraphType.LOAD)
+   @Query("""
+           SELECT DISTINCT u
+           FROM UsuarioEntity u
+           WHERE u.id = :id
+       """)
+   Optional<UsuarioEntity> findDetalhadoById(Long id);
 }

@@ -26,11 +26,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Component;
-
-import jakarta.persistence.EntityManager;
-
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
@@ -42,7 +39,6 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
   private final UsuarioRepository usuarioRepository;
   private final UsuarioEntityMapper usuarioMapper;
   private final UsuarioResetTokenRepository usuarioResetTokenRepository;
-  private final EntityManager entityManager;
 
   @Override
   public Usuario atualizarUsuario(Long id, AtualizarUsuario usuario) {
@@ -77,9 +73,6 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
 
   @Override
   public Usuario obterUsuarioPorId(Long id) {
-    //TODO Verificar e remover esse codigo
-    entityManager.flush();
-    entityManager.clear();
     return usuarioMapper.toDomain(usuarioRepository.findDetalhadoById(id).orElse(null));
   }
 
