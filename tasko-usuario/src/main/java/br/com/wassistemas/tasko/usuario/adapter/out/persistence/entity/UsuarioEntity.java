@@ -30,11 +30,11 @@ public class UsuarioEntity {
     @Column(name = "vend_id")
     private Long vendedorId;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "vend_id", referencedColumnName = "vend_id", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vend_id", insertable = false, updatable = false)
     private VendedorRefEntity vendedor;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private Set<UsuarioPerfilEntity> perfis;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

@@ -1,7 +1,6 @@
 package br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity;
 
 import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,9 +22,8 @@ public class UsuarioPerfilEntity
     @JoinColumn(name = "uspt_id", foreignKey = @ForeignKey(name = "xfk2_usuario_perfil"))
     private UsuarioPerfilTipoEntity perfilTipo;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "usur_id", foreignKey = @ForeignKey(name = "xfk1_usuario_perfil"))
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usur_id")
     private UsuarioEntity usuario;
 
     @Embedded

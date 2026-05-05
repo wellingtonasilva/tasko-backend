@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.usuario.adapter.out.persistence.mapper;
 
+import br.com.wassistemas.tasko.common.domain.Auditoria;
 import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import br.com.wassistemas.tasko.common.enumerations.PerfilTipo;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEmpresaEntity;
@@ -8,6 +9,8 @@ import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPe
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilTipoEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioResetTokenEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.VendedorRefEntity;
+import br.com.wassistemas.tasko.usuario.adapter.out.persistence.projections.UsuarioDetalhadoProjection;
+import br.com.wassistemas.tasko.usuario.adapter.out.persistence.projections.UsuarioPerfilProjection;
 import br.com.wassistemas.tasko.usuario.domain.login.CriarResetToken;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLogin;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLoginEmpresa;
@@ -26,6 +29,8 @@ import br.com.wassistemas.tasko.common.domain.usuario.perfil.AdicionarUsuarioPer
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.AtualizarUsuarioPerfil;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfil;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -135,5 +140,64 @@ public interface UsuarioEntityMapper {
     UsuarioPerfilTipoEntity entity = new UsuarioPerfilTipoEntity();
     entity.setId((long) value.ordinal());
     return entity;
+  }
+
+  default Usuario toDomain(UsuarioDetalhadoProjection usuario, List<UsuarioPerfilProjection> perfis) {
+    if (usuario == null) {
+      return null;
+    }
+
+    return Usuario.builder()
+        .id(usuario.getId())
+        .nomeUsuario(usuario.getNomeUsuario())
+        .vendedor(toVendedor(usuario))
+        .numeroTelefone(usuario.getNumeroTelefone())
+        .nomeCompleto(usuario.getNomeCompleto())
+        .perfis(toPerfis(perfis))
+        .auditoria(toAuditoria(usuario.getCriadoEm(), usuario.getAtualizadoEm(),
+            usuario.getIndicadorAtivo()))
+        .build();
+  }
+
+  default Vendedor toVendedor(UsuarioDetalhadoProjection usuario) {
+    if (usuario == null || usuario.getVendedorId() == null) {
+      return null;
+    }
+
+    return Vendedor.builder()
+        .id(usuario.getVendedorId())
+        .codigoVendedor(usuario.getVendedorCodigo())
+        .nomeVendedor(usuario.getVendedorNome())
+        .numeroCPF(usuario.getVendedorCpf())
+        .email(usuario.getVendedorEmail())
+        .numeroTelefone(usuario.getVendedorTelefone())
+        .build();
+  }
+
+  default List<UsuarioPerfil> toPerfis(List<UsuarioPerfilProjection> perfis) {
+    if (perfis == null) {
+      return List.of();
+    }
+
+    return perfis.stream()
+        .filter(Objects::nonNull)
+        .map(perfil -> UsuarioPerfil.builder()
+            .id(perfil.getId())
+            .perfilTipo(perfil.getPerfilTipoId() == null
+                ? null
+                : PerfilTipo.from(perfil.getPerfilTipoId().intValue()))
+            .auditoria(toAuditoria(perfil.getCriadoEm(), perfil.getAtualizadoEm(),
+                perfil.getIndicadorAtivo()))
+            .build())
+        .collect(Collectors.toList());
+  }
+
+  default Auditoria toAuditoria(java.time.LocalDateTime criadoEm,
+      java.time.LocalDateTime atualizadoEm, Boolean indicadorAtivo) {
+    return Auditoria.builder()
+        .criadoEm(criadoEm)
+        .atualizadoEm(atualizadoEm)
+        .indicadorAtivo(indicadorAtivo)
+        .build();
   }
 }
