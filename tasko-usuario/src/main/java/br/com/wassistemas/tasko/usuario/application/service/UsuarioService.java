@@ -20,11 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class UsuarioService implements UsuarioUseCases {
 
   private final AdicionarUsuarioPort adicionarUsuarioPort;
@@ -41,6 +39,8 @@ public class UsuarioService implements UsuarioUseCases {
     return adicionarUsuarioPort.adicionarUsuario(AdicionarUsuario.builder()
         .nomeUsuario(adicionar.getNomeUsuario())
         .vendedorId(adicionar.getVendedorId())
+        .nomeCompleto(adicionar.getNomeCompleto())
+        .numeroTelefone(adicionar.getNumeroTelefone())
         .senha(passwordEncoder.encode(adicionar.getSenha()))
         .build());
   }
@@ -66,15 +66,13 @@ public class UsuarioService implements UsuarioUseCases {
   }
 
   @Override
-  @Transactional
   public Usuario adicionarUsuarioComEmpresa(Long empresaId, AdicionarUsuario adicionarUsuario) {
-    Usuario usuario = adicionarUsuarioPort.adicionarUsuario(adicionarUsuario);
+    Usuario usuario = this.adicionar(empresaId, adicionarUsuario);
 
-    AdicionarUsuarioEmpresa adicionarUsuarioEmpresa = AdicionarUsuarioEmpresa.builder()
+    adicionarUsuarioEmpresaPort.adicionarUsuarioEmpresa(AdicionarUsuarioEmpresa.builder()
         .usuarioId(usuario.getId())
         .empresaId(empresaId)
-        .build();
-    adicionarUsuarioEmpresaPort.adicionarUsuarioEmpresa(adicionarUsuarioEmpresa);
+        .build());
 
     adicionarUsuarioPerfilPort.adicionarUsuarioPerfil(AdicionarUsuarioPerfil.builder()
         .usuarioId(usuario.getId())
