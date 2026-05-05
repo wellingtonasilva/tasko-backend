@@ -4,12 +4,14 @@ import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuario_perfil", schema = "crm")
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "usuario")
 public class UsuarioPerfilEntity
 {
     @Id

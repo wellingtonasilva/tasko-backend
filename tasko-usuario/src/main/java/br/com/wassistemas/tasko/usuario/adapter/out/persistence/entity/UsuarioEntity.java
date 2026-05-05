@@ -2,8 +2,9 @@ package br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity;
 
 import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
 import jakarta.persistence.*;
-import java.util.List;
+import java.util.Set;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 )
 @Data
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"perfis", "empresas"})
 public class UsuarioEntity {
 
     @Id
@@ -32,11 +34,11 @@ public class UsuarioEntity {
     @JoinColumn(name = "vend_id", referencedColumnName = "vend_id", insertable = false, updatable = false)
     private VendedorRefEntity vendedor;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<UsuarioPerfilEntity> perfis;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UsuarioPerfilEntity> perfis;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<UsuarioEmpresaEntity> empresas;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<UsuarioEmpresaEntity> empresas;
 
     @Column(name = "usur_nmusuario")
     private String nomeUsuario;
