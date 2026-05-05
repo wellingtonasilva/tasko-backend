@@ -28,7 +28,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
   @Query("""
       UPDATE UsuarioEntity SET vendedorId = :vendedorId, nomeCompleto = :nomeCompleto,
           numeroTelefone = :numeroTelefone,  auditoria.atualizadoEm = :atualizadoEm,
-              auditoria.atualizadoEm = :indicadorAtivo WHERE id = :id
+              auditoria.indicadorAtivo = :indicadorAtivo WHERE id = :id
       """)
   void atualizarUsuario(Long id, Long vendedorId, String nomeCompleto, String numeroTelefone,
       boolean indicadorAtivo, LocalDateTime atualizadoEm);
@@ -41,13 +41,13 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
       """)
   Page<UsuarioEntity> findByEmpresaId(Long empresaId, Pageable pageable);
 
-   @EntityGraph(value = "UsuarioEntity.comDetalhes", type = EntityGraph.EntityGraphType.LOAD)
-   @Query("""
-           SELECT DISTINCT u
-           FROM UsuarioEntity u
-           WHERE u.id = :id
-       """)
-   Optional<UsuarioEntity> findDetalhadoById(Long id);
+  @EntityGraph(value = "UsuarioEntity.comDetalhes", type = EntityGraph.EntityGraphType.LOAD)
+  @Query("""
+          SELECT DISTINCT u
+          FROM UsuarioEntity u
+          WHERE u.id = :id
+      """)
+  Optional<UsuarioEntity> findDetalhadoById(Long id);
 
   @Query("""
       SELECT u.id AS id,
@@ -60,7 +60,9 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
              v.nomeVendedor AS vendedorNome,
              v.numeroCPF AS vendedorCpf,
              v.email AS vendedorEmail,
-             v.numeroTelefone AS vendedorTelefone
+             v.numeroTelefone AS vendedorTelefone,
+             u.nomeCompleto AS nomeCompleto,
+             u.numeroTelefone AS numeroTelefone
       FROM UsuarioEntity u
       LEFT JOIN u.vendedor v
       WHERE u.id = :id

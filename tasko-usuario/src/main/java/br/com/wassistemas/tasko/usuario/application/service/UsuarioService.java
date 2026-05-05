@@ -15,6 +15,7 @@ import br.com.wassistemas.tasko.common.domain.usuario.AtualizarUsuario;
 import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.AdicionarUsuarioEmpresaPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.AdicionarUsuarioPerfilPort;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,7 @@ public class UsuarioService implements UsuarioUseCases {
   }
 
   @Override
+  @Transactional
   public Usuario atualizar(Long empresaId, Long id, AtualizarUsuario atualizar) {
     return atualizarUsuarioPort.atualizarUsuario(id, atualizar);
   }
@@ -66,6 +68,7 @@ public class UsuarioService implements UsuarioUseCases {
   }
 
   @Override
+  @Transactional
   public Usuario adicionarUsuarioComEmpresa(Long empresaId, AdicionarUsuario adicionarUsuario) {
     Usuario usuario = this.adicionar(empresaId, adicionarUsuario);
 

@@ -13,6 +13,8 @@ public class Usuario {
     private Long id;
     private Vendedor vendedor;
     private String nomeUsuario;
+    private String nomeCompleto;
+    private String numeroTelefone;
     private String senha;
     private List<UsuarioPerfil> perfis;
     private Auditoria auditoria;

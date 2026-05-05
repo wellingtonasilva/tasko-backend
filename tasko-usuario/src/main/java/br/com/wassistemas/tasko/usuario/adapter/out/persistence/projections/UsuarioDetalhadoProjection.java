@@ -25,5 +25,9 @@ public interface UsuarioDetalhadoProjection {
   String getVendedorEmail();
 
   String getVendedorTelefone();
+
+  String getNomeCompleto();
+
+  String getNumeroTelefone();
 }
 

@@ -12,6 +12,8 @@ public class UsuarioResponse {
     private Long id;
     private Vendedor vendedor;
     private String nomeUsuario;
+    private String nomeCompleto;
+    private String numeroTelefone;
     private Auditoria auditoria;
     private List<UsuarioPerfilResponse> perfis;
 }

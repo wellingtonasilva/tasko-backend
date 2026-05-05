@@ -151,6 +151,8 @@ public interface UsuarioEntityMapper {
         .id(usuario.getId())
         .nomeUsuario(usuario.getNomeUsuario())
         .vendedor(toVendedor(usuario))
+        .numeroTelefone(usuario.getNumeroTelefone())
+        .nomeCompleto(usuario.getNomeCompleto())
         .perfis(toPerfis(perfis))
         .auditoria(toAuditoria(usuario.getCriadoEm(), usuario.getAtualizadoEm(),
             usuario.getIndicadorAtivo()))
