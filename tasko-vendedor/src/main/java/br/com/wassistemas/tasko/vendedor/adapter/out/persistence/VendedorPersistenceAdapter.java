@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.vendedor.adapter.out.persistence;
 
+import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorEntity;
 import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorEntityMapper;
 import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.repository.VendedorRepository;
 import br.com.wassistemas.tasko.common.domain.Paginacao;
@@ -23,38 +24,46 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VendedorPersistenceAdapter implements AdicionarVendedorPort, AtualizarVendedorPort,
     ExcluirVendedorPorIdPort, ListarVendedorPort, ObterVendedorPorIdPort {
-    private final VendedorRepository vendedorRepository;
-    private final VendedorEntityMapper vendedorMapper;
 
-    @Override
-    public Vendedor adicionarVendedor(AdicionarVendedor adicionarVendedor) {
-        return vendedorMapper.toDomain(vendedorRepository.save(vendedorMapper.toEntity(adicionarVendedor)));
-    }
+  private final VendedorRepository vendedorRepository;
+  private final VendedorEntityMapper vendedorMapper;
+  private final VendedorEntityMapper vendedorEntityMapper;
 
-    @Override
-    public Vendedor atualizar(Long id, AtualizarVendedor atualizarVendedor) {
-        return vendedorMapper.toDomain(vendedorRepository.save(vendedorMapper.toEntity(id, atualizarVendedor)));
-    }
+  @Override
+  public Vendedor adicionarVendedor(AdicionarVendedor adicionarVendedor) {
+    return vendedorMapper.toDomain(
+        vendedorRepository.save(vendedorMapper.toEntity(adicionarVendedor)));
+  }
 
-    @Override
-    public void excluirById(Long empresaId, Long id) {
-        vendedorRepository.deleteById(id);
-    }
+  @Override
+  public Vendedor atualizar(Long id, AtualizarVendedor atualizarVendedor) {
+    VendedorEntity entity = vendedorRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
+    vendedorEntityMapper.updateVendedorEntity(atualizarVendedor, entity);
 
-    @Override
-    public List<Vendedor> listarVendedor(Long empresaId, Paginacao paginacao) {
-        Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
-                ? Sort.Direction.DESC
-                : Sort.Direction.ASC;
+    return vendedorMapper.toDomain(vendedorRepository.save(entity));
+  }
 
-        Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
-                Sort.by(direction, paginacao.getSortBy()));
+  @Override
+  public void excluirById(Long empresaId, Long id) {
+    vendedorRepository.deleteById(id);
+  }
 
-        return vendedorRepository.findByEmpresaId(empresaId, pageable).map(vendedorMapper::toDomain).toList();
-    }
+  @Override
+  public List<Vendedor> listarVendedor(Long empresaId, Paginacao paginacao) {
+    Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
+        ? Sort.Direction.DESC
+        : Sort.Direction.ASC;
 
-    @Override
-    public Vendedor obterPorId(Long empresaId, Long id) {
-        return vendedorMapper.toDomain(vendedorRepository.findById(id).orElse(null));
-    }
+    Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
+        Sort.by(direction, paginacao.getSortBy()));
+
+    return vendedorRepository.findByEmpresaId(empresaId, pageable).map(vendedorMapper::toDomain)
+        .toList();
+  }
+
+  @Override
+  public Vendedor obterPorId(Long empresaId, Long id) {
+    return vendedorMapper.toDomain(vendedorRepository.findById(id).orElse(null));
+  }
 }

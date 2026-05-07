@@ -22,10 +22,13 @@ import br.com.wassistemas.tasko.vendedor.domain.territorio.cidade.VendedorTerrit
 import br.com.wassistemas.tasko.vendedor.domain.vendedor.AdicionarVendedor;
 import br.com.wassistemas.tasko.vendedor.domain.vendedor.AtualizarVendedor;
 import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface VendedorEntityMapper {
@@ -54,6 +57,12 @@ public interface VendedorEntityMapper {
     @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName="mapVendedorTerritorioId")
     VendedorTerritorioCidadeEntity toEntity(AdicionarVendedorTerritorioCidade domain);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mapping(target = "auditoria.indicadorAtivo", source = "domain.indicadorAtivo")
+    @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName="mapSupervisorId")
+    @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
+    void updateVendedorEntity(AtualizarVendedor domain, @MappingTarget VendedorEntity entity);
+
     @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
@@ -63,11 +72,6 @@ public interface VendedorEntityMapper {
     @Mapping(target = "codigoDispositivo", ignore = true)
     @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
     VendedorEntity toEntity(AdicionarVendedor domain);
-
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName="mapSupervisorId")
-    @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
-    VendedorEntity toEntity(Long id, AtualizarVendedor domain);
 
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName="mapSupervisorId")

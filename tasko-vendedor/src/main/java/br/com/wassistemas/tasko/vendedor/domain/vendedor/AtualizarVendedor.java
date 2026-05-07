@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 @Getter
 public class AtualizarVendedor {
     private Long id;
-    private Long empresaId;
     private String codigoVendedor;
     private String nomeVendedor;
     private String numeroCPF;
@@ -23,4 +22,5 @@ public class AtualizarVendedor {
     private String codigoDispositivo;
     private Long supervisorId;
     private Long territorioId;
+    boolean indicadorAtivo;
 }

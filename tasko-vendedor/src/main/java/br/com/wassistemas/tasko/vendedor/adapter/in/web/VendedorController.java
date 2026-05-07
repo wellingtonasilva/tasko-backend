@@ -5,6 +5,8 @@ import br.com.wassistemas.tasko.common.exception.UserUnauthorizedException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.mapper.VendedorWebMapper;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorRequest;
+import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AtualizarVendedorRequest;
+import br.com.wassistemas.tasko.vendedor.adapter.in.web.response.VendedorResponse;
 import br.com.wassistemas.tasko.vendedor.application.port.in.usecases.VendedorUseCases;
 import br.com.wassistemas.tasko.common.domain.Paginacao;
 import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
@@ -31,12 +33,14 @@ public class VendedorController {
 
   @PostMapping
   @Operation(summary = "Criar novo Vendedor")
-  public GeneralApiResponse<Vendedor> adicionar(@RequestBody AdicionarVendedorRequest request,
+  public GeneralApiResponse<VendedorResponse> adicionar(
+      @RequestBody AdicionarVendedorRequest request,
       @RequestHeader("X-Empresa-Id") Long empresaId)
       throws ResourceDuplicateException, UserUnauthorizedException {
 
-    return GeneralApiResponse.<Vendedor>builder().status(HttpStatus.OK.value())
-        .data(vendedorUseCases.adicionar(empresaId, vendedorWebMapper.toDomain(empresaId, request)))
+    return GeneralApiResponse.<VendedorResponse>builder().status(HttpStatus.OK.value())
+        .data(vendedorWebMapper.toResponse(
+            vendedorUseCases.adicionar(empresaId, vendedorWebMapper.toDomain(empresaId, request))))
         .build();
   }
 
@@ -62,12 +66,28 @@ public class VendedorController {
       @ApiResponse(responseCode = "200", description = "Vendedor encontrado", content = @Content(schema = @Schema(implementation = Vendedor.class))),
       @ApiResponse(responseCode = "404", description = "Vendedor não encontrado")})
   @GetMapping("/{id}")
-  public GeneralApiResponse<Vendedor> obterPorId(@PathVariable Long id,
+  public GeneralApiResponse<VendedorResponse> obterPorId(@PathVariable Long id,
       @RequestHeader("X-Empresa-Id") Long empresaId)
       throws UserUnauthorizedException {
 
-    return GeneralApiResponse.<Vendedor>builder().status(HttpStatus.OK.value())
-        .data(vendedorUseCases.obterPorId(empresaId, id)).build();
+    return GeneralApiResponse.<VendedorResponse>builder().status(HttpStatus.OK.value())
+        .data(vendedorWebMapper.toResponse(vendedorUseCases.obterPorId(empresaId, id))).build();
+  }
+
+  @Operation(summary = "Buscar Vendedor por ID", description = "Retorna os detalhes de um vendedor específico")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Vendedor encontrado", content = @Content(schema = @Schema(implementation = Vendedor.class))),
+      @ApiResponse(responseCode = "404", description = "Vendedor não encontrado")})
+  @PutMapping("/{id}")
+  public GeneralApiResponse<VendedorResponse> atualizar(@PathVariable Long id,
+      @RequestBody AtualizarVendedorRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+
+    return GeneralApiResponse.<VendedorResponse>builder()
+        .status(HttpStatus.OK.value())
+        .data(vendedorWebMapper.toResponse(
+            vendedorUseCases.atualizar(empresaId, id, vendedorWebMapper.toDomain(request))))
+        .build();
   }
 
   @Operation(summary = "Excluir Vendedor por ID", description = "Remove um Vendedor do sistema")

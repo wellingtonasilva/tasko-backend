@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Embeddable
 @Setter
@@ -16,6 +18,7 @@ public class AuditoriaEntity {
      * <p>Preenchido automaticamente no momento da inserção.
      * Não deve ser modificado após a criação.</p>
      */
+    @CreatedDate
     private LocalDateTime criadoEm;
 
 
@@ -24,6 +27,7 @@ public class AuditoriaEntity {
      *
      * <p>Preenchido automaticamente no momento da atualização.</p>
      */
+    @LastModifiedDate
     private LocalDateTime atualizadoEm;
 
 
