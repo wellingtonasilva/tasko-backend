@@ -1,13 +1,13 @@
-package br.com.wassistemas.tasko.common.domain.vendedor;
+package br.com.wassistemas.tasko.vendedor.adapter.in.web.response;
 
 import br.com.wassistemas.tasko.common.domain.Auditoria;
-import lombok.Builder;
-import lombok.Data;
 import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
-@Builder
-public class Vendedor {
+public class VendedorResponse {
     private Long id;
     private Long empresaId;
     private String codigoVendedor;
@@ -19,7 +19,7 @@ public class Vendedor {
     private Float percentualComissao;
     private LocalDateTime ultimoSincronismo;
     private String codigoDispositivo;
-    private VendedorSupervisor supervisor;
-    private VendedorTerritorio territorio;
+    private VendedorSupervisorResponse supervisor;
+    private VendedorTerritorioResponse territorio;
     private Auditoria auditoria;
 }
