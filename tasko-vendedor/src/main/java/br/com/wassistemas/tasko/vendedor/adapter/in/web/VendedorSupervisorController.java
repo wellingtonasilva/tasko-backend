@@ -4,6 +4,7 @@ import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.mapper.VendedorSupervisorWebMapper;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorSupervisorRequest;
+import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AtualizarVendedorSupervisorRequest;
 import br.com.wassistemas.tasko.vendedor.application.port.in.usecases.VendedorSupervisorUseCase;
 import br.com.wassistemas.tasko.common.domain.Paginacao;
 import br.com.wassistemas.tasko.common.domain.vendedor.VendedorSupervisor;
@@ -58,6 +59,17 @@ public class VendedorSupervisorController {
     return GeneralApiResponse.<VendedorSupervisor>builder()
         .status(HttpStatus.OK.value())
         .data(vendedorSupervisorUseCase.obterPorId(empresaId, id))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  public GeneralApiResponse<VendedorSupervisor> atualizar(
+      @PathVariable Long id,
+      @RequestBody AtualizarVendedorSupervisorRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<VendedorSupervisor>builder()
+        .status(HttpStatus.OK.value())
+        .data(vendedorSupervisorUseCase.atualizar(empresaId, id, vendedorSupervisorWebMapper.toDomain(request)))
         .build();
   }
 
