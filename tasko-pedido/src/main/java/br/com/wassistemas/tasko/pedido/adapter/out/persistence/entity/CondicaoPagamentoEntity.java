@@ -4,12 +4,14 @@ import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @Entity
 @Table(name = "condicao_pagamento", schema = "crm")
 @Data
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class CondicaoPagamentoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +20,9 @@ public class CondicaoPagamentoEntity {
 
     @Column(name = "emp_id")
     private Long empresaId;
+
+    @Column(name = "fpag_id")
+    private Long formaPagamentoId;
 
     @Column(name = "cndp_dscondicao_pagamento")
     private String descricaoCondicaoPagamento;

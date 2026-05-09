@@ -4,11 +4,12 @@ import br.com.wassistemas.tasko.common.domain.Auditoria;
 import lombok.Builder;
 import lombok.Data;
 
-
 @Data
 @Builder
 public class ProdutoUnidadeMedida {
-    private Long id;
-    private String descricaoUnidadeMedida;
-    private Auditoria auditoria;
+
+  private Long id;
+  private String codigo;
+  private String descricaoUnidadeMedida;
+  private Auditoria auditoria;
 }

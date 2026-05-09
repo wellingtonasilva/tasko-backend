@@ -10,6 +10,7 @@ import lombok.Data;
 public class CondicaoPagamento {
     private Long id;
     private Long empresaId;
+    private Long formaPagamentoId;
     private String descricaoCondicaoPagamento;
     private String condicaoPagamento;
     private Auditoria auditoria;

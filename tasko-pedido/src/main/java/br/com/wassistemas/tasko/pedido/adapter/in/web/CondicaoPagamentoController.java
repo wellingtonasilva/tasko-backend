@@ -5,6 +5,7 @@ import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.mapper.CondicaoPagamentoWebMapper;
 import br.com.wassistemas.tasko.pedido.adapter.in.web.request.AdicionarCondicaoPagamentoRequest;
+import br.com.wassistemas.tasko.pedido.adapter.in.web.request.AtualizarCondicaoPagamentoRequest;
 import br.com.wassistemas.tasko.pedido.application.port.in.usecases.CondicaoPagamentoUseCases;
 import br.com.wassistemas.tasko.pedido.domain.condicaopagamento.CondicaoPagamento;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,6 +59,17 @@ public class CondicaoPagamentoController {
     return GeneralApiResponse.<CondicaoPagamento>builder()
         .status(HttpStatus.OK.value())
         .data(useCases.obterPorId(empresaId, id))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  @Operation(summary = "Atualizar Condição de Pagamento por ID")
+  public GeneralApiResponse<CondicaoPagamento> obterPorId(@PathVariable Long id,
+      @RequestBody AtualizarCondicaoPagamentoRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<CondicaoPagamento>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.atualizar(empresaId, id, webMapper.toDomain(request)))
         .build();
   }
 

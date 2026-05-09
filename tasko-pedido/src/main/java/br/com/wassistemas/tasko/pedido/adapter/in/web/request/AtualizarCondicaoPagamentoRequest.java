@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class AtualizarCondicaoPagamentoRequest {
     private Long id;
     private Long empresaId;
+    private Long formaPagamentoId;
     private String descricaoCondicaoPagamento;
     private String condicaoPagamento;
 }
