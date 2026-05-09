@@ -11,6 +11,7 @@ import lombok.Value;
 public class AtualizarCondicaoPagamento {
     Long id;
     Long empresaId;
+    Long formaPagamentoId;
     String descricaoCondicaoPagamento;
     String condicaoPagamento;
 }

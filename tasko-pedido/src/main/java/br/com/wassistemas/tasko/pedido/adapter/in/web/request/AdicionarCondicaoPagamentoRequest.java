@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @Schema(description = "Dados para Adicionar Condição de Pagamento")
 public class AdicionarCondicaoPagamentoRequest {
+
+    @Schema(description = "Forma de Pagamento")
+    Long formaPagamentoId;
+
     @Schema(description = "Descrição")
     String descricaoCondicaoPagamento;
 

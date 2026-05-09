@@ -44,12 +44,12 @@ public class FormaPagamentoPersistenceAdapter implements AdicionarFormaPagamento
     }
 
     @Override
-    public List<FormaPagamento> listarFormaPagamento(Long empresaId, Paginacao paginacao) {
+    public List<FormaPagamento> listarFormaPagamento(Paginacao paginacao) {
         Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
                 ? Sort.Direction.DESC : Sort.Direction.ASC;
         Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
                 Sort.by(direction, paginacao.getSortBy()));
-        return repository.findByEmpresaId(empresaId, pageable).map(mapper::toDomain).toList();
+        return repository.findAll(pageable).map(mapper::toDomain).toList();
     }
 
     @Override

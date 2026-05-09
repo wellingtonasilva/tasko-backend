@@ -31,7 +31,7 @@ public class FormaPagamentoController {
       @RequestHeader("X-Empresa-Id") Long empresaId) throws ResourceDuplicateException {
     return GeneralApiResponse.<FormaPagamento>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(empresaId, webMapper.toDomain(empresaId, request)))
+        .data(useCases.adicionar(webMapper.toDomain(empresaId, request)))
         .build();
   }
 
@@ -45,7 +45,7 @@ public class FormaPagamentoController {
       @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<List<FormaPagamento>>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.listar(empresaId, Paginacao.builder()
+        .data(useCases.listar(Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
             .build()))
         .build();
@@ -57,7 +57,7 @@ public class FormaPagamentoController {
       @RequestHeader("X-Empresa-Id") Long empresaId) {
     return GeneralApiResponse.<FormaPagamento>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.obterPorId(empresaId, id))
+        .data(useCases.obterPorId(id))
         .build();
   }
 
@@ -65,7 +65,7 @@ public class FormaPagamentoController {
   @Operation(summary = "Excluir Forma de Pagamento por ID")
   public GeneralApiResponse<FormaPagamento> excluirPorId(@PathVariable Long id,
       @RequestHeader("X-Empresa-Id") Long empresaId) {
-    useCases.excluirPorId(empresaId, id);
+    useCases.excluirPorId(id);
     return GeneralApiResponse.<FormaPagamento>builder()
         .status(HttpStatus.OK.value())
         .build();

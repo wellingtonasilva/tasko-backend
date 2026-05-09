@@ -28,27 +28,27 @@ public class FormaPagamentoService implements FormaPagamentoUseCases {
     private final ObterFormaPagamentoPorIdPort obterFormaPagamentoPorIdPort;
 
     @Override
-    public FormaPagamento adicionar(Long empresaId, AdicionarFormaPagamento adicionar) {
+    public FormaPagamento adicionar(AdicionarFormaPagamento adicionar) {
         return adicionarFormaPagamentoPort.adicionarFormaPagamento(adicionar);
     }
 
     @Override
-    public List<FormaPagamento> listar(Long empresaId, Paginacao paginacao) {
-        return listarFormaPagamentoPort.listarFormaPagamento(empresaId, paginacao);
+    public List<FormaPagamento> listar(Paginacao paginacao) {
+        return listarFormaPagamentoPort.listarFormaPagamento(paginacao);
     }
 
     @Override
-    public FormaPagamento obterPorId(Long empresaId, Long id) {
+    public FormaPagamento obterPorId(Long id) {
         return obterFormaPagamentoPorIdPort.obterFormaPagamentoPorId(id);
     }
 
     @Override
-    public FormaPagamento atualizar(Long empresaId, Long id, AtualizarFormaPagamento atualizar) {
+    public FormaPagamento atualizar(Long id, AtualizarFormaPagamento atualizar) {
         return atualizarFormaPagamentoPort.atualizarFormaPagamento(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long empresaId, Long id) {
+    public void excluirPorId(Long id) {
         excluirFormaPagamentoPorIdPort.excluirFormaPagamentoPorId(id);
     }
 }

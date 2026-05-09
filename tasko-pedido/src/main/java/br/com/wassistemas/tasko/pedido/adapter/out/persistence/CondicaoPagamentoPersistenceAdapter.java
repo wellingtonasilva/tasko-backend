@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.pedido.adapter.out.persistence;
 
+import br.com.wassistemas.tasko.pedido.adapter.out.persistence.entity.CondicaoPagamentoEntity;
 import br.com.wassistemas.tasko.pedido.adapter.out.persistence.mapper.CondicaoPagamentoEntityMapper;
 import br.com.wassistemas.tasko.pedido.adapter.out.persistence.repository.CondicaoPagamentoRepository;
 import br.com.wassistemas.tasko.pedido.application.port.out.condicaopagamento.AdicionarCondicaoPagamentoPort;
@@ -36,7 +37,11 @@ public class CondicaoPagamentoPersistenceAdapter implements AdicionarCondicaoPag
 
     @Override
     public CondicaoPagamento atualizarCondicaoPagamento(Long id, AtualizarCondicaoPagamento atualizar) {
-        return mapper.toDomain(repository.save(mapper.toEntity(id, atualizar)));
+        CondicaoPagamentoEntity entity = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Condição de Pagamento não encontrado"));
+        mapper.updateCondicaoPagamentoEntity(atualizar, entity);
+
+        return mapper.toDomain(repository.save(entity));
     }
 
     @Override

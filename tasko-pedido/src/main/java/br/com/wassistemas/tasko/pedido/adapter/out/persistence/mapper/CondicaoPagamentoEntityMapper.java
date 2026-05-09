@@ -6,9 +6,12 @@ import br.com.wassistemas.tasko.pedido.adapter.out.persistence.entity.CondicaoPa
 import br.com.wassistemas.tasko.pedido.domain.condicaopagamento.AdicionarCondicaoPagamento;
 import br.com.wassistemas.tasko.pedido.domain.condicaopagamento.AtualizarCondicaoPagamento;
 import br.com.wassistemas.tasko.pedido.domain.condicaopagamento.CondicaoPagamento;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CondicaoPagamentoEntityMapper {
@@ -22,6 +25,6 @@ public interface CondicaoPagamentoEntityMapper {
     @Mapping(target = "id", ignore = true)
     CondicaoPagamentoEntity toEntity(AdicionarCondicaoPagamento domain);
 
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    CondicaoPagamentoEntity toEntity(Long id, AtualizarCondicaoPagamento domain);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateCondicaoPagamentoEntity(AtualizarCondicaoPagamento domain, @MappingTarget CondicaoPagamentoEntity entity);
 }

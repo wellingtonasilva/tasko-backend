@@ -5,8 +5,8 @@ import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.produto.adapter.in.web.mapper.ProdutoUnidadeMedidaWebMapper;
 import br.com.wassistemas.tasko.produto.adapter.in.web.request.AdicionarProdutoUnidadeMedidaRequest;
+import br.com.wassistemas.tasko.produto.adapter.in.web.response.ProdutoUnidadeMedidaResponse;
 import br.com.wassistemas.tasko.produto.application.port.in.usecases.ProdutoUnidadeMedidaUseCases;
-import br.com.wassistemas.tasko.produto.domain.unidademedida.ProdutoUnidadeMedida;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,43 +26,43 @@ public class ProdutoUnidadeMedidaController {
 
   @PostMapping
   @Operation(summary = "Criar novo Unidade de Medida")
-  public GeneralApiResponse<ProdutoUnidadeMedida> adicionar(
+  public GeneralApiResponse<ProdutoUnidadeMedidaResponse> adicionar(
       @RequestBody AdicionarProdutoUnidadeMedidaRequest request) throws ResourceDuplicateException {
-    return GeneralApiResponse.<ProdutoUnidadeMedida>builder()
+    return GeneralApiResponse.<ProdutoUnidadeMedidaResponse>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(webMapper.toDomain(request)))
+        .data(webMapper.toResponse(useCases.adicionar(webMapper.toDomain(request))))
         .build();
   }
 
   @GetMapping
   @Operation(summary = "Listar Unidade de Medida")
-  public GeneralApiResponse<List<ProdutoUnidadeMedida>> listar(
+  public GeneralApiResponse<List<ProdutoUnidadeMedidaResponse>> listar(
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
       @RequestParam(defaultValue = "asc") String sortDirection) {
-    return GeneralApiResponse.<List<ProdutoUnidadeMedida>>builder()
+    return GeneralApiResponse.<List<ProdutoUnidadeMedidaResponse>>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.listar(Paginacao.builder()
+        .data(webMapper.toList(useCases.listar(Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-            .build()))
+            .build())))
         .build();
   }
 
   @GetMapping("/{id}")
   @Operation(summary = "Buscar Unidade de Medida por ID")
-  public GeneralApiResponse<ProdutoUnidadeMedida> obterPorId(@PathVariable Long id) {
-    return GeneralApiResponse.<ProdutoUnidadeMedida>builder()
+  public GeneralApiResponse<ProdutoUnidadeMedidaResponse> obterPorId(@PathVariable Long id) {
+    return GeneralApiResponse.<ProdutoUnidadeMedidaResponse>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.obterPorId(id))
+        .data(webMapper.toResponse(useCases.obterPorId(id)))
         .build();
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Excluir Unidade de Medida por ID")
-  public GeneralApiResponse<ProdutoUnidadeMedida> excluirPorId(@PathVariable Long id) {
+  public GeneralApiResponse<ProdutoUnidadeMedidaResponse> excluirPorId(@PathVariable Long id) {
     useCases.excluirPorId(id);
-    return GeneralApiResponse.<ProdutoUnidadeMedida>builder()
+    return GeneralApiResponse.<ProdutoUnidadeMedidaResponse>builder()
         .status(HttpStatus.OK.value())
         .build();
   }

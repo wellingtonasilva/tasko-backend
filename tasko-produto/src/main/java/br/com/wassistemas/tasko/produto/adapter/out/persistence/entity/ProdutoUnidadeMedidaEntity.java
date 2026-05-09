@@ -16,6 +16,9 @@ public class ProdutoUnidadeMedidaEntity {
     @Column(name = "unmd_id")
     private Long id;
 
+    @Column(name = "unmd_cdunidade")
+    private String codigo;
+
     @Column(name = "unmd_dsunidade_medida")
     private String descricaoUnidadeMedida;
 

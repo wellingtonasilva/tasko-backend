@@ -10,6 +10,5 @@ import lombok.Value;
 @Getter
 public class AtualizarFormaPagamento {
     Long id;
-    Long empresaId;
     String descricaoFormaPagamento;
 }

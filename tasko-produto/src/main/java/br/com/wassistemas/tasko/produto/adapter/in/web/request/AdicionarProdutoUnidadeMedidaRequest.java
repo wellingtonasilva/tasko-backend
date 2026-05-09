@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @Schema(description = "Dados para Adicionar Unidade de Medida")
 public class AdicionarProdutoUnidadeMedidaRequest {
-    @Schema(description = "Descrição da Unidade de Medida")
+    @Schema(description = "Código da Unidade de Medida. Ex: CX")
+    String codigo;
+
+    @Schema(description = "Descrição da Unidade de Medida. Ex: Caixa")
     String descricaoUnidadeMedida;
 }
