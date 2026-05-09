@@ -9,7 +9,6 @@ import lombok.Data;
 @Builder
 public class FormaPagamento {
     private Long id;
-    private Long empresaId;
     private String descricaoFormaPagamento;
     private Auditoria auditoria;
 }

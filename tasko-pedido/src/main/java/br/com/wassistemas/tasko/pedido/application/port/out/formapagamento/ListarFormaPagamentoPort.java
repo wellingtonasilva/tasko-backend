@@ -5,5 +5,5 @@ import br.com.wassistemas.tasko.pedido.domain.formapagamento.FormaPagamento;
 import java.util.List;
 
 public interface ListarFormaPagamentoPort {
-    List<FormaPagamento> listarFormaPagamento(Long empresaId, Paginacao paginacao);
+    List<FormaPagamento> listarFormaPagamento(Paginacao paginacao);
 }
