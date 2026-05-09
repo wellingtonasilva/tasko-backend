@@ -80,6 +80,9 @@ public interface VendedorEntityMapper {
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     VendedorSupervisorEntity toEntity(Long id, AtualizarVendedorSupervisor domain);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateVendedorSupervisorEntity(AtualizarVendedorSupervisor domain, @MappingTarget VendedorSupervisorEntity entity);
+
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName="mapVendedorTerritorioId")
     VendedorTerritorioCidadeEntity toEntity(Long id, AtualizarVendedorTerritorioCidade domain);

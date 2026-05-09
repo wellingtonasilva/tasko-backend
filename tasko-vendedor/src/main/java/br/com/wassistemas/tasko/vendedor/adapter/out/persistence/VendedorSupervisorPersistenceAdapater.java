@@ -1,6 +1,8 @@
 package br.com.wassistemas.tasko.vendedor.adapter.out.persistence;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorEntity;
+import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorSupervisorEntity;
 import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorEntityMapper;
 import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.repository.VendedorSupervisorRepository;
 import br.com.wassistemas.tasko.vendedor.application.port.out.supervisor.AdicionarVendedorSupervisorPort;
@@ -39,8 +41,11 @@ public class VendedorSupervisorPersistenceAdapater implements AdicionarVendedorS
   @Override
   public VendedorSupervisor atualizarVendedorSupervisor(Long id,
       AtualizarVendedorSupervisor atualizarVendedorSupervisor) {
-    return vendedorMapper.toDomain(vendedorSupervisorRepository.save(
-        vendedorMapper.toEntity(id, atualizarVendedorSupervisor)));
+    VendedorSupervisorEntity entity = vendedorSupervisorRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Supervisor não encontrado"));
+    vendedorMapper.updateVendedorSupervisorEntity(atualizarVendedorSupervisor, entity);
+
+    return vendedorMapper.toDomain(vendedorSupervisorRepository.save(entity));
   }
 
   @Override
