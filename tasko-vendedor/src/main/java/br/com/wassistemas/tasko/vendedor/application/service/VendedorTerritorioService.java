@@ -28,27 +28,27 @@ public class VendedorTerritorioService implements VendedorTerritorioUseCases {
     private final ObterVendedorTerritorioPorIdPort obterVendedorTerritorioPorIdPort;
 
     @Override
-    public VendedorTerritorio adicionar(AdicionarVendedorTerritorio adicionar) {
+    public VendedorTerritorio adicionar(Long empresaId, AdicionarVendedorTerritorio adicionar) {
         return adicionarVendedorTerritorioPort.adicionarVendedorTerritorio(adicionar);
     }
 
     @Override
-    public List<VendedorTerritorio> listar(Paginacao paginacao) {
-        return listarVendedorTerritorioPort.listarVendedorTerritorio(paginacao);
+    public List<VendedorTerritorio> listar(Long empresaId, Paginacao paginacao) {
+        return listarVendedorTerritorioPort.listarVendedorTerritorio(empresaId, paginacao);
     }
 
     @Override
-    public VendedorTerritorio obterPorId(Long id) {
+    public VendedorTerritorio obterPorId(Long empresaId, Long id) {
         return obterVendedorTerritorioPorIdPort.obterVendedorTerritorioPorId(id);
     }
 
     @Override
-    public VendedorTerritorio atualizar(Long id, AtualizarVendedorTerritorio atualizar) {
+    public VendedorTerritorio atualizar(Long empresaId, Long id, AtualizarVendedorTerritorio atualizar) {
         return atualizarVendedorTerritorioPort.atualizarVendedorTerritorio(id, atualizar);
     }
 
     @Override
-    public void excluirPorId(Long id) {
+    public void excluirPorId(Long empresaId, Long id) {
         excluirVendedorTerritorioPorIdPort.excluirVendedorTerritorioPorId(id);
     }
 }

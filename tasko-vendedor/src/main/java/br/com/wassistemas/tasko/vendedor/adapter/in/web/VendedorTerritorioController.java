@@ -5,8 +5,9 @@ import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.mapper.VendedorTerritorioWebMapper;
 import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AdicionarVendedorTerritorioRequest;
+import br.com.wassistemas.tasko.vendedor.adapter.in.web.request.AtualizarVendedorTerritorioRequest;
+import br.com.wassistemas.tasko.vendedor.adapter.in.web.response.VendedorTerritorioResponse;
 import br.com.wassistemas.tasko.vendedor.application.port.in.usecases.VendedorTerritorioUseCases;
-import br.com.wassistemas.tasko.common.domain.vendedor.VendedorTerritorio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -22,43 +23,62 @@ public class VendedorTerritorioController {
   private final VendedorTerritorioWebMapper vendedorTerritorioWebMapper;
 
   @PostMapping
-  public GeneralApiResponse<VendedorTerritorio> adicionar(
-      @RequestBody AdicionarVendedorTerritorioRequest request) throws ResourceDuplicateException {
-    return GeneralApiResponse.<VendedorTerritorio>builder()
+  public GeneralApiResponse<VendedorTerritorioResponse> adicionar(
+      @RequestBody AdicionarVendedorTerritorioRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) throws ResourceDuplicateException {
+    return GeneralApiResponse.<VendedorTerritorioResponse>builder()
         .status(HttpStatus.OK.value())
-        .data(vendedorTerritorioUseCases.adicionar(vendedorTerritorioWebMapper.toDomain(request)))
+        .data(vendedorTerritorioWebMapper.toResponse(vendedorTerritorioUseCases.adicionar(empresaId,
+            vendedorTerritorioWebMapper.toDomain(empresaId, request))))
         .build();
   }
 
   @GetMapping
-  public GeneralApiResponse<List<VendedorTerritorio>> listar(
+  public GeneralApiResponse<List<VendedorTerritorioResponse>> listar(
+      @RequestHeader("X-Empresa-Id") Long empresaId,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
       @RequestParam(defaultValue = "asc") String sortDirection) {
-    return GeneralApiResponse.<List<VendedorTerritorio>>builder()
+    return GeneralApiResponse.<List<VendedorTerritorioResponse>>builder()
         .status(HttpStatus.OK.value())
-        .data(vendedorTerritorioUseCases.listar(Paginacao.builder()
-            .page(page)
-            .size(size)
-            .sortBy(sortBy)
-            .sortDirection(sortDirection)
-            .build()))
+        .data(vendedorTerritorioWebMapper.toList(
+            vendedorTerritorioUseCases.listar(empresaId, Paginacao.builder()
+                .page(page)
+                .size(size)
+                .sortBy(sortBy)
+                .sortDirection(sortDirection)
+                .build())))
         .build();
   }
 
   @GetMapping("/{id}")
-  public GeneralApiResponse<VendedorTerritorio> obterPorId(@PathVariable Long id) {
-    return GeneralApiResponse.<VendedorTerritorio>builder()
+  public GeneralApiResponse<VendedorTerritorioResponse> obterPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<VendedorTerritorioResponse>builder()
         .status(HttpStatus.OK.value())
-        .data(vendedorTerritorioUseCases.obterPorId(id))
+        .data(vendedorTerritorioWebMapper.toResponse(
+            vendedorTerritorioUseCases.obterPorId(empresaId, id)))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  public GeneralApiResponse<VendedorTerritorioResponse> atualizar(@PathVariable Long id,
+      @RequestBody AtualizarVendedorTerritorioRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<VendedorTerritorioResponse>builder()
+        .status(HttpStatus.OK.value())
+        .data(vendedorTerritorioWebMapper.toResponse(
+            vendedorTerritorioUseCases.atualizar(empresaId, id,
+                vendedorTerritorioWebMapper.toDomain(request))))
         .build();
   }
 
   @DeleteMapping("/{id}")
-  public GeneralApiResponse<VendedorTerritorio> excluirPorId(@PathVariable Long id) {
-    vendedorTerritorioUseCases.excluirPorId(id);
-    return GeneralApiResponse.<VendedorTerritorio>builder()
+  public GeneralApiResponse<VendedorTerritorioResponse> excluirPorId(@PathVariable Long id,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    vendedorTerritorioUseCases.excluirPorId(empresaId, id);
+    return GeneralApiResponse.<VendedorTerritorioResponse>builder()
         .status(HttpStatus.OK.value())
         .build();
   }

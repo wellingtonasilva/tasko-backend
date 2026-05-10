@@ -1,6 +1,7 @@
 package br.com.wassistemas.tasko.vendedor.adapter.out.persistence;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
+import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.entity.VendedorTerritorioEntity;
 import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.mapper.VendedorEntityMapper;
 import br.com.wassistemas.tasko.vendedor.adapter.out.persistence.repository.VendedorTerritorioRepository;
 import br.com.wassistemas.tasko.vendedor.application.port.out.territorio.AdicionarVendedorTerritorioPort;
@@ -26,38 +27,46 @@ public class VendedorTerritorioPersistenceAdapter implements AdicionarVendedorTe
     ListarVendedorTerritorioPort,
     ObterVendedorTerritorioPorIdPort {
 
-    private final VendedorTerritorioRepository vendedorTerritorioRepository;
-    private final VendedorEntityMapper vendedorMapper;
+  private final VendedorTerritorioRepository vendedorTerritorioRepository;
+  private final VendedorEntityMapper vendedorMapper;
 
-    @Override
-    public VendedorTerritorio adicionarVendedorTerritorio(AdicionarVendedorTerritorio adicionarVendedorTerritorio) {
-        return vendedorMapper.toDomain(vendedorTerritorioRepository.save(vendedorMapper.toEntity(adicionarVendedorTerritorio)));
-    }
+  @Override
+  public VendedorTerritorio adicionarVendedorTerritorio(
+      AdicionarVendedorTerritorio adicionarVendedorTerritorio) {
+    return vendedorMapper.toDomain(
+        vendedorTerritorioRepository.save(vendedorMapper.toEntity(adicionarVendedorTerritorio)));
+  }
 
-    @Override
-    public VendedorTerritorio atualizarVendedorTerritorio(Long id, AtualizarVendedorTerritorio atualizarVendedorTerritorio) {
-        return vendedorMapper.toDomain(vendedorTerritorioRepository.save(vendedorMapper.toEntity(id, atualizarVendedorTerritorio)));
-    }
+  @Override
+  public VendedorTerritorio atualizarVendedorTerritorio(Long id,
+      AtualizarVendedorTerritorio atualizarVendedorTerritorio) {
+    VendedorTerritorioEntity entity = vendedorTerritorioRepository.findById(id)
+        .orElseThrow(() -> new RuntimeException("Território não encontrado"));
+    vendedorMapper.updateVendedorTerritorioCidadeEntity(atualizarVendedorTerritorio, entity);
 
-    @Override
-    public void excluirVendedorTerritorioPorId(Long id) {
-        vendedorTerritorioRepository.deleteById(id);
-    }
+    return vendedorMapper.toDomain(vendedorTerritorioRepository.save(entity));
+  }
 
-    @Override
-    public List<VendedorTerritorio> listarVendedorTerritorio(Paginacao paginacao) {
-        Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
-                ? Sort.Direction.DESC
-                : Sort.Direction.ASC;
+  @Override
+  public void excluirVendedorTerritorioPorId(Long id) {
+    vendedorTerritorioRepository.deleteById(id);
+  }
 
-        Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
-                Sort.by(direction, paginacao.getSortBy()));
+  @Override
+  public List<VendedorTerritorio> listarVendedorTerritorio(Long empresaId, Paginacao paginacao) {
+    Sort.Direction direction = paginacao.getSortDirection().equalsIgnoreCase("desc")
+        ? Sort.Direction.DESC
+        : Sort.Direction.ASC;
 
-        return vendedorTerritorioRepository.findAll(pageable).map(vendedorMapper::toDomain).toList();
-    }
+    Pageable pageable = PageRequest.of(paginacao.getPage(), paginacao.getSize(),
+        Sort.by(direction, paginacao.getSortBy()));
 
-    @Override
-    public VendedorTerritorio obterVendedorTerritorioPorId(Long id) {
-        return vendedorMapper.toDomain(vendedorTerritorioRepository.findById(id).orElse(null));
-    }
+    return vendedorTerritorioRepository.findByEmpresaId(empresaId, pageable)
+        .map(vendedorMapper::toDomain).toList();
+  }
+
+  @Override
+  public VendedorTerritorio obterVendedorTerritorioPorId(Long id) {
+    return vendedorMapper.toDomain(vendedorTerritorioRepository.findById(id).orElse(null));
+  }
 }

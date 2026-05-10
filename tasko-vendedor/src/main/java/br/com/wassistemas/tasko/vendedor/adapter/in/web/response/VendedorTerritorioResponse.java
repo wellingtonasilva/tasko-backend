@@ -1,7 +1,6 @@
 
 package br.com.wassistemas.tasko.vendedor.adapter.in.web.response;
 
-import br.com.wassistemas.tasko.common.domain.Auditoria;
 import br.com.wassistemas.tasko.common.domain.vendedor.VendedorSupervisor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,5 +15,4 @@ public class VendedorTerritorioResponse {
     private String estado;
     private String coordenadasPoligono;
     private VendedorSupervisor supervisor;
-    private Auditoria auditoria;
 }

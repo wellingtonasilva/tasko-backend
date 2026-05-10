@@ -32,98 +32,110 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface VendedorEntityMapper {
-    Auditoria toDomain(AuditoriaEntity entity);
-    VendedorSupervisor toDomain(VendedorSupervisorEntity entity);
-    VendedorTerritorio toDomain(VendedorTerritorioEntity entity);
-    VendedorTerritorioCidade toDomain(VendedorTerritorioCidadeEntity entity);
-    Vendedor toDomain(VendedorEntity entity);
-    VendedorMeta toDomain(VendedorMetaEntity entity);
 
-    @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
-    @Mapping(target = "id", ignore = true)
-    VendedorSupervisorEntity toEntity(AdicionarVendedorSupervisor domain);
+  Auditoria toDomain(AuditoriaEntity entity);
 
-    @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
-    @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName="mapSupervisorId")
-    VendedorTerritorioEntity toEntity(AdicionarVendedorTerritorio domain);
+  VendedorSupervisor toDomain(VendedorSupervisorEntity entity);
 
-    @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
-    @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName="mapVendedorTerritorioId")
-    VendedorTerritorioCidadeEntity toEntity(AdicionarVendedorTerritorioCidade domain);
+  VendedorTerritorio toDomain(VendedorTerritorioEntity entity);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "auditoria.indicadorAtivo", source = "domain.indicadorAtivo")
-    @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName="mapSupervisorId")
-    @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
-    void updateVendedorEntity(AtualizarVendedor domain, @MappingTarget VendedorEntity entity);
+  VendedorTerritorioCidade toDomain(VendedorTerritorioCidadeEntity entity);
 
-    @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
-    @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName="mapSupervisorId")
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "ultimoSincronismo", ignore = true)
-    @Mapping(target = "codigoDispositivo", ignore = true)
-    @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
-    VendedorEntity toEntity(AdicionarVendedor domain);
+  Vendedor toDomain(VendedorEntity entity);
 
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName="mapSupervisorId")
-    VendedorTerritorioEntity toEntity(Long id, AtualizarVendedorTerritorio domain);
+  VendedorMeta toDomain(VendedorMetaEntity entity);
 
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    VendedorSupervisorEntity toEntity(Long id, AtualizarVendedorSupervisor domain);
+  @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+  @Mapping(target = "id", ignore = true)
+  VendedorSupervisorEntity toEntity(AdicionarVendedorSupervisor domain);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateVendedorSupervisorEntity(AtualizarVendedorSupervisor domain, @MappingTarget VendedorSupervisorEntity entity);
+  @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+  @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName = "mapSupervisorId")
+  VendedorTerritorioEntity toEntity(AdicionarVendedorTerritorio domain);
 
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName="mapVendedorTerritorioId")
-    VendedorTerritorioCidadeEntity toEntity(Long id, AtualizarVendedorTerritorioCidade domain);
+  @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+  @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
+  VendedorTerritorioCidadeEntity toEntity(AdicionarVendedorTerritorioCidade domain);
 
-    @Mapping(target = "vendedor", source = "domain.vendedorId", qualifiedByName="mapVendedorId")
-    @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
-    VendedorMetaEntity toEntity(AdicionarVendedorMeta domain);
+  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+  @Mapping(target = "auditoria.indicadorAtivo", source = "domain.indicadorAtivo")
+  @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName = "mapSupervisorId")
+  @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
+  void updateVendedorEntity(AtualizarVendedor domain, @MappingTarget VendedorEntity entity);
 
-    @Mapping(target = "vendedor", source = "domain.vendedorId", qualifiedByName="mapVendedorId")
-    @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
-    VendedorMetaEntity toEntity(Long id, AtualizarVendedorMeta domain);
+  @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+  @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName = "mapSupervisorId")
+  @Mapping(target = "id", ignore = true)
+  @Mapping(target = "ultimoSincronismo", ignore = true)
+  @Mapping(target = "codigoDispositivo", ignore = true)
+  @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
+  VendedorEntity toEntity(AdicionarVendedor domain);
 
-    @Named("mapVendedorId")
-    default VendedorEntity mapVendedorId(Long vendedorId) {
-        if (vendedorId == null) {
-            return null;
-        }
-        VendedorEntity vendedor = new VendedorEntity();
-        vendedor.setId(vendedorId);
-        return vendedor;
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName = "mapSupervisorId")
+  VendedorTerritorioEntity toEntity(Long id, AtualizarVendedorTerritorio domain);
+
+  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+  @Mapping(target = "supervisor", source = "domain.supervisorId", qualifiedByName = "mapSupervisorId")
+  void updateVendedorTerritorioCidadeEntity(
+      AtualizarVendedorTerritorio domain, @MappingTarget VendedorTerritorioEntity entity);
+
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  VendedorSupervisorEntity toEntity(Long id, AtualizarVendedorSupervisor domain);
+
+  @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+  void updateVendedorSupervisorEntity(AtualizarVendedorSupervisor domain,
+      @MappingTarget VendedorSupervisorEntity entity);
+
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "territorio", source = "domain.territorioId", qualifiedByName = "mapVendedorTerritorioId")
+  VendedorTerritorioCidadeEntity toEntity(Long id, AtualizarVendedorTerritorioCidade domain);
+
+  @Mapping(target = "vendedor", source = "domain.vendedorId", qualifiedByName = "mapVendedorId")
+  @Mapping(target = "auditoria.criadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+  VendedorMetaEntity toEntity(AdicionarVendedorMeta domain);
+
+  @Mapping(target = "vendedor", source = "domain.vendedorId", qualifiedByName = "mapVendedorId")
+  @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+  VendedorMetaEntity toEntity(Long id, AtualizarVendedorMeta domain);
+
+  @Named("mapVendedorId")
+  default VendedorEntity mapVendedorId(Long vendedorId) {
+    if (vendedorId == null) {
+      return null;
     }
+    VendedorEntity vendedor = new VendedorEntity();
+    vendedor.setId(vendedorId);
+    return vendedor;
+  }
 
-    @Named("mapSupervisorId")
-    default VendedorSupervisorEntity mapSupervisorId(Long supervisorId) {
-        if (supervisorId == null) {
-            return null;
-        }
-        VendedorSupervisorEntity supervisor = new VendedorSupervisorEntity();
-        supervisor.setId(supervisorId);
-        return supervisor;
+  @Named("mapSupervisorId")
+  default VendedorSupervisorEntity mapSupervisorId(Long supervisorId) {
+    if (supervisorId == null) {
+      return null;
     }
+    VendedorSupervisorEntity supervisor = new VendedorSupervisorEntity();
+    supervisor.setId(supervisorId);
+    return supervisor;
+  }
 
-    @Named("mapVendedorTerritorioId")
-    default VendedorTerritorioEntity mapVendedorTerritorioId(Long territorioId) {
-        if (territorioId == null) {
-            return null;
-        }
-        VendedorTerritorioEntity vendedorTerritorio = new VendedorTerritorioEntity();
-        vendedorTerritorio.setId(territorioId);
-        return vendedorTerritorio;
+  @Named("mapVendedorTerritorioId")
+  default VendedorTerritorioEntity mapVendedorTerritorioId(Long territorioId) {
+    if (territorioId == null) {
+      return null;
     }
+    VendedorTerritorioEntity vendedorTerritorio = new VendedorTerritorioEntity();
+    vendedorTerritorio.setId(territorioId);
+    return vendedorTerritorio;
+  }
 }
