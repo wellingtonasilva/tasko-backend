@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.usuario.adapter.out.persistence.mapper;
 
+import br.com.wassistemas.tasko.common.enumerations.PerfilTipo;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEmpresaEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilEntity;
@@ -20,9 +21,11 @@ import br.com.wassistemas.tasko.common.domain.usuario.empresa.UsuarioEmpresa;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.AdicionarUsuarioPerfil;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.AtualizarUsuarioPerfil;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfil;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UsuarioEntityMapper {
@@ -56,14 +59,19 @@ public interface UsuarioEntityMapper {
 
   UsuarioPerfilTipo toDomain(UsuarioPerfilTipoEntity domain);
 
-  @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
+  @Mapping(target = "perfilTipo", source = "entity.perfilTipoId", qualifiedByName = "mapPerfilTipo")
+  UsuarioPerfil toDomain(UsuarioPerfilEntity entity);
+
+  List<UsuarioPerfil> toDomain(List<UsuarioPerfilEntity> entities);
+
   @Mapping(target = "id", ignore = true)
+  @Mapping(target = "perfilTipoId", source = "domain.perfilTipo", qualifiedByName = "mapPerfilTipoId")
+  @Mapping(target = "auditoria.indicadorAtivo", expression = "java(Boolean.TRUE)")
   UsuarioPerfilEntity toEntity(AdicionarUsuarioPerfil domain);
 
   @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
   UsuarioPerfilEntity toEntity(Long id, AtualizarUsuarioPerfil domain);
 
-  UsuarioPerfil toDomain(UsuarioPerfilEntity entity);
 
   UsuarioLogin toUsuarioLogin(UsuarioEntity entity);
 
@@ -71,4 +79,20 @@ public interface UsuarioEntityMapper {
   UsuarioResetTokenEntity toEntity(CriarResetToken domain);
 
   UsuarioResetToken toDomain(UsuarioResetTokenEntity entity);
+
+  @Named("mapPerfilTipo")
+  default PerfilTipo mapPerfilTipo(Long value) {
+    if (value == null) {
+      return null;
+    }
+    return PerfilTipo.from(value.intValue());
+  }
+
+  @Named("mapPerfilTipoId")
+  default Long mapPerfilTipoId(PerfilTipo value) {
+    if (value == null) {
+      return null;
+    }
+    return (long) value.ordinal();
+  }
 }

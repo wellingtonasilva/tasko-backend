@@ -1,6 +1,5 @@
 package br.com.wassistemas.tasko.usuario.adapter.in.web.response;
 
-import br.com.wassistemas.tasko.common.domain.Auditoria;
 import br.com.wassistemas.tasko.common.enumerations.PerfilTipo;
 import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -14,5 +13,4 @@ public class UsuarioPerfilResponse {
     private Long id;
     private PerfilTipo perfilTipo;
     private Usuario usuario;
-    private Auditoria auditoria;
 }

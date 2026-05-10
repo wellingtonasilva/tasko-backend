@@ -11,6 +11,7 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.Obt
 import br.com.wassistemas.tasko.common.domain.usuario.empresa.AdicionarUsuarioEmpresa;
 import br.com.wassistemas.tasko.common.domain.usuario.empresa.AtualizarUsuarioEmpresa;
 import br.com.wassistemas.tasko.common.domain.usuario.empresa.UsuarioEmpresa;
+import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.ObterUsuarioEmpresaUsuarioIdPort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,7 +24,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsuarioEmpresaPersistenceAdapter implements AdicionarUsuarioEmpresaPort,
     AtualizarUsuarioEmpresaPort, ListarUsuarioEmpresaPort, ObterUsuarioEmpresaPort,
-    ExcluirUsuarioEmpresaPort {
+    ExcluirUsuarioEmpresaPort, ObterUsuarioEmpresaUsuarioIdPort {
 
   private final UsuarioEntityMapper usuarioEntityMapper;
   private final UsuarioEmpresaRepository usuarioEmpresaRepository;
@@ -61,5 +62,12 @@ public class UsuarioEmpresaPersistenceAdapter implements AdicionarUsuarioEmpresa
   @Override
   public UsuarioEmpresa obterUsuarioEmpresa(Long id) {
     return usuarioEntityMapper.toDomain(usuarioEmpresaRepository.findById(id).orElse(null));
+  }
+
+  @Override
+  public List<UsuarioEmpresa> obterUsuarioEmpresaUsuarioId(Long usuarioId) {
+    return usuarioEmpresaRepository.findByUsuarioId(usuarioId).stream()
+        .map(usuarioEntityMapper::toDomain)
+        .toList();
   }
 }

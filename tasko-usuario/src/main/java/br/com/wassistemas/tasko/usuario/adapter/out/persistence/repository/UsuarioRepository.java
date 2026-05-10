@@ -28,7 +28,7 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
   void atualizarUsuario(Long id, Long vendedorId, String nomeCompleto, String numeroTelefone,
       boolean indicadorAtivo, LocalDateTime atualizadoEm);
 
-  @Query("SELECT u FROM UsuarioEntity u WHERE u.id IN (SELECT v.id FROM UsuarioEmpresaEntity v WHERE v.id = :empresaId)")
+  @Query("SELECT u FROM UsuarioEntity u WHERE u.id IN (SELECT v.usuarioId FROM UsuarioEmpresaEntity v WHERE v.empresaId = :empresaId)")
   Page<UsuarioEntity> findByEmpresaId(Long empresaId, Pageable pageable);
 
   Optional<UsuarioEntity> findDetalhadoById(Long id);

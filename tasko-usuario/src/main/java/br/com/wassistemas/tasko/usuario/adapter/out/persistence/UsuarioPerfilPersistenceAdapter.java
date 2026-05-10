@@ -11,6 +11,7 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.Obte
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.AdicionarUsuarioPerfil;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.AtualizarUsuarioPerfil;
 import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfil;
+import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.ObterUsuarioPerfilPorUsuarioIdPort;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UsuarioPerfilPersistenceAdapter implements AdicionarUsuarioPerfilPort,
     AtualizarUsuarioPerfilPort, ListarUsuarioPerfilPort, ObterUsuarioPerfilPorIdPort,
-    ExcluirUsuarioPerfilPort {
+    ExcluirUsuarioPerfilPort, ObterUsuarioPerfilPorUsuarioIdPort {
 
   private final UsuarioPerfilRepository usuarioPerfilRepository;
   private final UsuarioEntityMapper usuarioEntityMapper;
@@ -59,5 +60,10 @@ public class UsuarioPerfilPersistenceAdapter implements AdicionarUsuarioPerfilPo
   @Override
   public UsuarioPerfil obterUsuarioPerfilPorId(Long id) {
     return usuarioEntityMapper.toDomain(usuarioPerfilRepository.findById(id).orElse(null));
+  }
+
+  @Override
+  public List<UsuarioPerfil> obterUsuarioPerfilPorUsuarioId(Long usuarioId) {
+    return usuarioEntityMapper.toDomain(usuarioPerfilRepository.findByUsuarioId(usuarioId));
   }
 }
