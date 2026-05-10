@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.usuario.application.service;
 
+import br.com.wassistemas.tasko.common.domain.usuario.empresa.UsuarioEmpresa;
 import br.com.wassistemas.tasko.common.exception.ResourceNotFoundException;
 import br.com.wassistemas.tasko.common.security.JwtTokenProvider;
 import br.com.wassistemas.tasko.usuario.application.port.in.usecases.UsuarioLoginUseCases;
@@ -9,6 +10,8 @@ import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AtualizarUs
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.EnviarEmailRecuperacaoSenhaPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuarioPorNomeUsuarioPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.ObterUsuarioTokenPorTokenPort;
+import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.ObterUsuarioEmpresaUsuarioIdPort;
+import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.ObterUsuarioPerfilPorUsuarioIdPort;
 import br.com.wassistemas.tasko.usuario.domain.login.AtualizarUsuarioResetToken;
 import br.com.wassistemas.tasko.usuario.domain.login.CriarResetToken;
 import br.com.wassistemas.tasko.usuario.domain.login.Login;
@@ -41,6 +44,8 @@ public class UsuarioLoginService implements UsuarioLoginUseCases {
   private final AtualizarUsuarioResetTokenPort atualizarUsuarioResetTokenPort;
   private final ObterUsuarioTokenPorTokenPort obterUsuarioTokenPorTokenPort;
   private final AtualizarUsuarioSenhaPort atualizarUsuarioSenhaPort;
+  private final ObterUsuarioPerfilPorUsuarioIdPort obterUsuarioPerfilPorUsuarioIdPort;
+  private final ObterUsuarioEmpresaUsuarioIdPort obterUsuarioEmpresaUsuarioIdPort;
 
   @Override
   public UsuarioLogin login(Login login) throws ResourceNotFoundException {
@@ -55,6 +60,10 @@ public class UsuarioLoginService implements UsuarioLoginUseCases {
       throw new ResourceNotFoundException("Usuário ou senha inválidos");
     }
 
+    usuarioLogin.setPerfis(obterUsuarioPerfilPorUsuarioIdPort.obterUsuarioPerfilPorUsuarioId(
+        usuarioLogin.getId()));
+    usuarioLogin.setEmpresas(obterUsuarioEmpresaUsuarioIdPort.obterUsuarioEmpresaUsuarioId(
+        usuarioLogin.getId()));
     usuarioLogin.setToken(gerarToken(usuarioLogin));
     return usuarioLogin;
   }
@@ -108,7 +117,7 @@ public class UsuarioLoginService implements UsuarioLoginUseCases {
 
     if (Objects.nonNull(usuarioLogin.getEmpresas()) && !usuarioLogin.getEmpresas().isEmpty()) {
       claims.put("empresas",
-          usuarioLogin.getEmpresas().stream().map(UsuarioLoginEmpresa::getEmpresaId).toList());
+          usuarioLogin.getEmpresas().stream().map(UsuarioEmpresa::getEmpresaId).toList());
     }
 
     if (Objects.nonNull(usuarioLogin.getPerfis()) && !usuarioLogin.getPerfis().isEmpty()) {

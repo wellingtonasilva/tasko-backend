@@ -1,6 +1,5 @@
 package br.com.wassistemas.tasko.usuario.adapter.in.web.response;
 
-import br.com.wassistemas.tasko.common.domain.usuario.perfil.UsuarioPerfil;
 import br.com.wassistemas.tasko.common.domain.vendedor.Vendedor;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.List;
@@ -15,6 +14,6 @@ public class UsuarioLoginResponse {
   private Vendedor vendedor;
   private String nomeUsuario;
   private String token;
-  private List<UsuarioPerfil> perfis;
+  private List<UsuarioPerfilResponse> perfis;
   private List<UsuarioEmpresaResponse> empresas;
 }

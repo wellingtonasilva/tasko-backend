@@ -15,6 +15,7 @@ import br.com.wassistemas.tasko.common.domain.usuario.AtualizarUsuario;
 import br.com.wassistemas.tasko.common.domain.usuario.Usuario;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.empresa.AdicionarUsuarioEmpresaPort;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.AdicionarUsuarioPerfilPort;
+import br.com.wassistemas.tasko.usuario.application.port.out.usuario.perfil.ObterUsuarioPerfilPorUsuarioIdPort;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -34,6 +35,7 @@ public class UsuarioService implements UsuarioUseCases {
   private final BCryptPasswordEncoder passwordEncoder;
   private final AdicionarUsuarioEmpresaPort adicionarUsuarioEmpresaPort;
   private final AdicionarUsuarioPerfilPort adicionarUsuarioPerfilPort;
+  private final ObterUsuarioPerfilPorUsuarioIdPort obterUsuarioPerfilPorUsuarioIdPort;
 
   @Override
   public Usuario adicionar(Long empresaId, AdicionarUsuario adicionar) {
@@ -53,7 +55,9 @@ public class UsuarioService implements UsuarioUseCases {
 
   @Override
   public Usuario obterPorId(Long empresaId, Long id) {
-    return obterUsuarioPort.obterUsuarioPorId(id);
+    Usuario usuario = obterUsuarioPort.obterUsuarioPorId(id);
+    usuario.setPerfis(obterUsuarioPerfilPorUsuarioIdPort.obterUsuarioPerfilPorUsuarioId(id));
+    return usuario;
   }
 
   @Override

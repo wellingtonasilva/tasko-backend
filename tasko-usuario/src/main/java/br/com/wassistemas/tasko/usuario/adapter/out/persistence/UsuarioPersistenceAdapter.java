@@ -75,14 +75,9 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
 
   @Override
   public Usuario obterUsuarioPorId(Long id) {
-    UsuarioDetalhadoProjection usuario = usuarioRepository.findDetalhadoProjectionById(id)
+    return usuarioRepository.findDetalhadoById(id)
+        .map(usuarioMapper::toDomain)
         .orElse(null);
-    if (usuario == null) {
-      return null;
-    }
-
-    List<UsuarioPerfilProjection> perfis = usuarioRepository.findPerfisProjectionByUsuarioId(id);
-    return usuarioMapper.toDomain(usuario, perfis);
   }
 
   @Override

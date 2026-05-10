@@ -9,5 +9,4 @@ import lombok.Data;
 public class UsuarioPerfilTipoResponse {
     private Long id;
     private String descricaoPerfilTipo;
-    private Auditoria auditoria;
 }

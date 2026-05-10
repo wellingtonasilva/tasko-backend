@@ -3,14 +3,14 @@ package br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity;
 import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "usuario_perfil", schema = "crm")
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "usuario")
+@EntityListeners(AuditingEntityListener.class)
 public class UsuarioPerfilEntity
 {
     @Id
@@ -18,13 +18,11 @@ public class UsuarioPerfilEntity
     @Column(name = "uspf_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "uspt_id", foreignKey = @ForeignKey(name = "xfk2_usuario_perfil"))
-    private UsuarioPerfilTipoEntity perfilTipo;
+    @Column(name = "uspt_id")
+    private Long perfilTipoId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usur_id")
-    private UsuarioEntity usuario;
+    @Column(name = "usur_id")
+    private Long usuarioId;
 
     @Embedded
     @AttributeOverride(name = "criadoEm", column = @Column(name = "usur_tmcriado_em"))

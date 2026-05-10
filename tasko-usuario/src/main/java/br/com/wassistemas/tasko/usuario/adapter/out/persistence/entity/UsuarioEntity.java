@@ -2,24 +2,15 @@ package br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity;
 
 import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
 import jakarta.persistence.*;
-import java.util.Set;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "usuario", schema = "crm")
-@NamedEntityGraph(
-    name = "UsuarioEntity.comDetalhes",
-    attributeNodes = {
-        @NamedAttributeNode("vendedor"),
-        @NamedAttributeNode("perfis"),
-        @NamedAttributeNode("empresas")
-    }
-)
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = {"perfis", "empresas"})
+@EntityListeners(AuditingEntityListener.class)
 public class UsuarioEntity {
 
     @Id
@@ -29,16 +20,6 @@ public class UsuarioEntity {
 
     @Column(name = "vend_id")
     private Long vendedorId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vend_id", insertable = false, updatable = false)
-    private VendedorRefEntity vendedor;
-
-    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
-    private Set<UsuarioPerfilEntity> perfis;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<UsuarioEmpresaEntity> empresas;
 
     @Column(name = "usur_nmusuario")
     private String nomeUsuario;

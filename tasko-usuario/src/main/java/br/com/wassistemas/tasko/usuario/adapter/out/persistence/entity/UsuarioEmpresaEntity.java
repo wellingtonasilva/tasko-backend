@@ -1,17 +1,16 @@
 package br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity;
 
 import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "usuario_empresa", schema = "crm")
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(exclude = "usuario")
+@EntityListeners(AuditingEntityListener.class)
 public class UsuarioEmpresaEntity {
 
     @Id
@@ -19,10 +18,8 @@ public class UsuarioEmpresaEntity {
     @Column(name = "usem_id")
     private Long id;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "usur_id", foreignKey = @ForeignKey(name = "xfk2_usuario_empresa"))
-    private UsuarioEntity usuario;
+    @Column(name = "usur_id")
+    private Long usuarioId;
 
     @Column(name = "emp_id")
     private Long empresaId;
