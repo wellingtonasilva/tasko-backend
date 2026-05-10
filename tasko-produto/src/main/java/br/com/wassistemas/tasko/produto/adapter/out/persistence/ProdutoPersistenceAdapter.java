@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.produto.adapter.out.persistence;
 
+import br.com.wassistemas.tasko.produto.adapter.out.persistence.entity.ProdutoEntity;
 import br.com.wassistemas.tasko.produto.adapter.out.persistence.mapper.ProdutoEntityMapper;
 import br.com.wassistemas.tasko.produto.adapter.out.persistence.repository.ProdutoRepository;
 import br.com.wassistemas.tasko.produto.application.port.out.produto.AdicionarProdutoPort;
@@ -34,7 +35,11 @@ public class ProdutoPersistenceAdapter implements AdicionarProdutoPort, Atualiza
 
     @Override
     public Produto atualizarProduto(Long id, AtualizarProduto atualizar) {
-        return mapper.toDomain(repository.save(mapper.toEntity(id, atualizar)));
+        ProdutoEntity entity = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        mapper.updateProdutoEntity(atualizar, entity);
+
+        return mapper.toDomain(repository.save(entity));
     }
 
     @Override

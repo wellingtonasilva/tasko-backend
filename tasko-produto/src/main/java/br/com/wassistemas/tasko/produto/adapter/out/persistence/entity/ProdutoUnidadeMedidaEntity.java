@@ -4,12 +4,14 @@ import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @Entity
 @Table(name = "produto_unidade_medida", schema = "crm")
 @Data
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class ProdutoUnidadeMedidaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
