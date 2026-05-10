@@ -5,11 +5,13 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "produto_precos", schema = "crm")
 @Data
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class ProdutoPrecoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

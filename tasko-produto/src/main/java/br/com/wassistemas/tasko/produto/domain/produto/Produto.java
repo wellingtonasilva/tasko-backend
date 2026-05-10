@@ -29,4 +29,9 @@ public class Produto {
     private BigDecimal quantidadeDisponivel;
     private BigDecimal quantidadeReservada;
     private Auditoria auditoria;
+    //
+    private String descricaoGrupo;
+    private String descricaoSubgrupo;
+    private String descricaoUnidadeMedida;
+    private String descricaoUnidadeMedidaCodigo;
 }
