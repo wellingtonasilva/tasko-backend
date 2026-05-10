@@ -5,8 +5,9 @@ import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.produto.adapter.in.web.mapper.ProdutoGrupoWebMapper;
 import br.com.wassistemas.tasko.produto.adapter.in.web.request.AdicionarProdutoGrupoRequest;
+import br.com.wassistemas.tasko.produto.adapter.in.web.request.AtualizarProdutoGrupoRequest;
+import br.com.wassistemas.tasko.produto.adapter.in.web.response.ProdutoGrupoResponse;
 import br.com.wassistemas.tasko.produto.application.port.in.usecases.ProdutoGrupoUseCases;
-import br.com.wassistemas.tasko.produto.domain.grupo.ProdutoGrupo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -26,47 +27,59 @@ public class ProdutoGrupoController {
 
   @PostMapping
   @Operation(summary = "Criar novo Produto Grupo")
-  public GeneralApiResponse<ProdutoGrupo> adicionar(
+  public GeneralApiResponse<ProdutoGrupoResponse> adicionar(
       @RequestBody AdicionarProdutoGrupoRequest request,
       @RequestHeader("X-Empresa-Id") Long empresaId) throws ResourceDuplicateException {
-    return GeneralApiResponse.<ProdutoGrupo>builder()
+    return GeneralApiResponse.<ProdutoGrupoResponse>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.adicionar(empresaId, webMapper.toDomain(empresaId, request)))
+        .data(webMapper.toResponse(
+            useCases.adicionar(empresaId, webMapper.toDomain(empresaId, request))))
         .build();
   }
 
   @GetMapping
   @Operation(summary = "Listar Produto Grupo")
-  public GeneralApiResponse<List<ProdutoGrupo>> listar(
+  public GeneralApiResponse<List<ProdutoGrupoResponse>> listar(
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "10") int size,
       @RequestParam(defaultValue = "id") String sortBy,
       @RequestParam(defaultValue = "asc") String sortDirection,
       @RequestHeader("X-Empresa-Id") Long empresaId) {
-    return GeneralApiResponse.<List<ProdutoGrupo>>builder()
+    return GeneralApiResponse.<List<ProdutoGrupoResponse>>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.listar(empresaId, Paginacao.builder()
+        .data(webMapper.toList(useCases.listar(empresaId, Paginacao.builder()
             .page(page).size(size).sortBy(sortBy).sortDirection(sortDirection)
-            .build()))
+            .build())))
         .build();
   }
 
   @GetMapping("/{id}")
   @Operation(summary = "Buscar Produto Grupo por ID")
-  public GeneralApiResponse<ProdutoGrupo> obterPorId(@PathVariable Long id,
+  public GeneralApiResponse<ProdutoGrupoResponse> obterPorId(@PathVariable Long id,
       @RequestHeader("X-Empresa-Id") Long empresaId) {
-    return GeneralApiResponse.<ProdutoGrupo>builder()
+    return GeneralApiResponse.<ProdutoGrupoResponse>builder()
         .status(HttpStatus.OK.value())
-        .data(useCases.obterPorId(empresaId, id))
+        .data(webMapper.toResponse(useCases.obterPorId(empresaId, id)))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  @Operation(summary = "Buscar Produto Grupo por ID")
+  public GeneralApiResponse<ProdutoGrupoResponse> atualizar(@PathVariable Long id,
+      @RequestBody AtualizarProdutoGrupoRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<ProdutoGrupoResponse>builder()
+        .status(HttpStatus.OK.value())
+        .data(webMapper.toResponse(useCases.atualizar(empresaId, id, webMapper.toDomain(request))))
         .build();
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Excluir Produto Grupo por ID")
-  public GeneralApiResponse<ProdutoGrupo> excluirPorId(@PathVariable Long id,
+  public GeneralApiResponse<ProdutoGrupoResponse> excluirPorId(@PathVariable Long id,
       @RequestHeader("X-Empresa-Id") Long empresaId) {
     useCases.excluirPorId(empresaId, id);
-    return GeneralApiResponse.<ProdutoGrupo>builder()
+    return GeneralApiResponse.<ProdutoGrupoResponse>builder()
         .status(HttpStatus.OK.value())
         .build();
   }

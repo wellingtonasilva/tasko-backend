@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.produto.adapter.out.persistence;
 
+import br.com.wassistemas.tasko.produto.adapter.out.persistence.entity.ProdutoGrupoEntity;
 import br.com.wassistemas.tasko.produto.adapter.out.persistence.mapper.ProdutoGrupoEntityMapper;
 import br.com.wassistemas.tasko.produto.adapter.out.persistence.repository.ProdutoGrupoRepository;
 import br.com.wassistemas.tasko.produto.application.port.out.grupo.AdicionarProdutoGrupoPort;
@@ -35,7 +36,11 @@ public class ProdutoGrupoPersistenceAdapter implements AdicionarProdutoGrupoPort
 
     @Override
     public ProdutoGrupo atualizarProdutoGrupo(Long id, AtualizarProdutoGrupo atualizar) {
-        return mapper.toDomain(repository.save(mapper.toEntity(id, atualizar)));
+        ProdutoGrupoEntity entity = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Território não encontrado"));
+        mapper.updateProdutoGrupoEntity(atualizar, entity);
+
+        return mapper.toDomain(repository.save(entity));
     }
 
     @Override

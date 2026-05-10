@@ -8,6 +8,5 @@ import lombok.Data;
 @Builder
 public class AtualizarProdutoGrupoRequest {
     private Long id;
-    private Long empresaId;
     private String descricaoGrupo;
 }

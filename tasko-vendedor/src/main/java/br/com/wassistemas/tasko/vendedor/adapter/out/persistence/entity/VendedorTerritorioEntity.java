@@ -4,16 +4,21 @@ import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "vendedor_territorio", schema = "crm")
 @Data
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class VendedorTerritorioEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vter_id")
     private Long id;
+
+    @Column(name = "emp_id")
+    private Long empresaId;
 
     @Column(name = "vter_nmterritorio")
     private String nomeTerritorio;
