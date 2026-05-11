@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.cliente.adapter.in.web;
 
+import br.com.wassistemas.tasko.cliente.adapter.in.web.request.AtualizarClienteRequest;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.cliente.adapter.in.web.mapper.ClienteWebMapper;
 import br.com.wassistemas.tasko.cliente.adapter.in.web.request.AdicionarClienteRequest;
@@ -57,6 +58,18 @@ public class ClienteController {
         .data(clienteUseCases.obterPorId(empresaId, id))
         .build();
   }
+
+  @PutMapping("/{id}")
+  @Operation(summary = "Atualizar Cliente por ID")
+  public GeneralApiResponse<Cliente> obterPorId(@PathVariable Long id,
+      @RequestBody AtualizarClienteRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<Cliente>builder()
+        .status(HttpStatus.OK.value())
+        .data(clienteUseCases.atualizar(empresaId, id, clienteWebMapper.toDomain(request)))
+        .build();
+  }
+
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Excluir Cliente por ID")

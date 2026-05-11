@@ -6,11 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "cliente_tabela_preco", schema = "crm")
 @Data
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class ClienteTabelaPrecoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,15 +1,14 @@
 package br.com.wassistemas.tasko.cliente.adapter.in.web.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 
 @NoArgsConstructor
 @Data
 @Schema(description = "Dados para Adicionar um Cliente")
-public class AdicionarClienteRequest {
+public class AtualizarClienteRequest {
     @Schema(description = "Id. do Vendedor Responsável", example = "1")
     Long vendedorId;
 
@@ -78,7 +77,7 @@ public class AdicionarClienteRequest {
 
     @Schema(description = "Motivo do Bloqueio")
     String motivoBloqueio;
-
+    
     @Schema(description = "Telefone Principal")
     String numeroTelefone;
 

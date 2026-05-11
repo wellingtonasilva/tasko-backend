@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Getter
 public class AtualizarCliente {
     Long id;
-    Long empresaId;
     Long vendedorId;
     String codigoCliente;
     String razaoSocial;
@@ -24,6 +23,7 @@ public class AtualizarCliente {
     String categoria;
     String cep;
     String logradouro;
+    String logradouroNumero;
     String complemento;
     String bairro;
     String cidade;
@@ -36,5 +36,9 @@ public class AtualizarCliente {
     BigDecimal valorUltimaCompra;
     Boolean bloqueado;
     String motivoBloqueio;
+    String numeroTelefone;
+    String numeroTelefoneSecundario;
+    String email;
+    String observacao;
 }
 

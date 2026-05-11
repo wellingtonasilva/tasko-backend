@@ -7,11 +7,13 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Table(name = "cliente", schema = "crm")
 @Data
 @NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 public class ClienteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,6 +56,9 @@ public class ClienteEntity {
     @Column(name = "clie_nmlogradouro")
     private String logradouro;
 
+    @Column(name = "clie_nnlogradouro")
+    private String logradouroNumero;
+
     @Column(name = "clie_dscomplemento")
     private String complemento;
 
@@ -89,6 +94,18 @@ public class ClienteEntity {
 
     @Column(name = "clie_dsmotivo_bloqueio")
     private String motivoBloqueio;
+
+    @Column(name = "clie_nntelefone")
+    private String numeroTelefone;
+
+    @Column(name = "clie_nntelefonesecundario")
+    private String numeroTelefoneSecundario;
+
+    @Column(name = "clie_dsemail")
+    private String email;
+
+    @Column(name = "clie_dsobservacao")
+    private String observacao;
 
     @Embedded
     @AttributeOverride(name = "criadoEm", column = @Column(name = "clie_tmcriado_em"))

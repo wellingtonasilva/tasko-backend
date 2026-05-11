@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.cliente.domain.cliente;
 
+import jakarta.persistence.Column;
 import lombok.Value;
 
 import java.math.BigDecimal;
@@ -18,6 +19,7 @@ public class AdicionarCliente {
     String categoria;
     String cep;
     String logradouro;
+    String logradouroNumero;
     String complemento;
     String bairro;
     String cidade;
@@ -29,5 +31,9 @@ public class AdicionarCliente {
     BigDecimal valorUltimaCompra;
     Boolean bloqueado;
     String motivoBloqueio;
+    String numeroTelefone;
+    String numeroTelefoneSecundario;
+    String email;
+    String observacao;
 }
 

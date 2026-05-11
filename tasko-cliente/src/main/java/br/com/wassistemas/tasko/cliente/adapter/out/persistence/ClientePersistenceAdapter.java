@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.cliente.adapter.out.persistence;
 
+import br.com.wassistemas.tasko.cliente.adapter.out.persistence.entity.ClienteEntity;
 import br.com.wassistemas.tasko.cliente.adapter.out.persistence.mapper.ClienteEntityMapper;
 import br.com.wassistemas.tasko.cliente.adapter.out.persistence.repository.ClienteRepository;
 import br.com.wassistemas.tasko.common.domain.Paginacao;
@@ -34,7 +35,11 @@ public class ClientePersistenceAdapter implements AdicionarClientePort, Atualiza
 
     @Override
     public Cliente atualizarCliente(Long id, AtualizarCliente atualizarCliente) {
-        return clienteMapper.toDomain(clienteRepository.save(clienteMapper.toEntity(id, atualizarCliente)));
+        ClienteEntity entity = clienteRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        clienteMapper.updateClienteEntity(atualizarCliente, entity);
+
+        return clienteMapper.toDomain(clienteRepository.save(entity));
     }
 
     @Override
