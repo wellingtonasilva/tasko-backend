@@ -10,9 +10,12 @@ import br.com.wassistemas.tasko.cliente.domain.cliente.Cliente;
 import br.com.wassistemas.tasko.cliente.domain.tabelapreco.AdicionarClienteTabelaPreco;
 import br.com.wassistemas.tasko.cliente.domain.tabelapreco.AtualizarClienteTabelaPreco;
 import br.com.wassistemas.tasko.cliente.domain.tabelapreco.ClienteTabelaPreco;
+import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ClienteEntityMapper {
@@ -39,5 +42,8 @@ public interface ClienteEntityMapper {
 
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     ClienteTabelaPrecoEntity toEntity(Long id, AtualizarClienteTabelaPreco domain);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateClienteEntity(AtualizarCliente domain, @MappingTarget ClienteEntity entity);
 }
 

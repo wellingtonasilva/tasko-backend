@@ -23,6 +23,7 @@ public class Cliente {
     private String categoria;
     private String cep;
     private String logradouro;
+    private String logradouroNumero;
     private String complemento;
     private String bairro;
     private String cidade;
@@ -35,6 +36,10 @@ public class Cliente {
     private BigDecimal valorUltimaCompra;
     private Boolean bloqueado;
     private String motivoBloqueio;
+    private String numeroTelefone;
+    private String numeroTelefoneSecundario;
+    private String email;
+    private String observacao;
     private Auditoria auditoria;
 }
 
