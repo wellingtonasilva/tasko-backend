@@ -32,4 +32,9 @@ public class Pedido {
     private Boolean criadoOffline;
     private String uuidOffline;
     private Auditoria auditoria;
+    private String descricaoCondicaoPagamento;
+    private String descricaoFormaPagamento;
+    private String nomeVendedor;
+    private String nomeFantasiaCliente;
+    private String descricaoStatusTipo;
 }

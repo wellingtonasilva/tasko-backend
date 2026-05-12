@@ -2,8 +2,6 @@ package br.com.wassistemas.tasko.usuario.adapter.out.persistence;
 
 import br.com.wassistemas.tasko.common.domain.Paginacao;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.mapper.UsuarioEntityMapper;
-import br.com.wassistemas.tasko.usuario.adapter.out.persistence.projections.UsuarioDetalhadoProjection;
-import br.com.wassistemas.tasko.usuario.adapter.out.persistence.projections.UsuarioPerfilProjection;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.repository.UsuarioRepository;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.repository.UsuarioResetTokenRepository;
 import br.com.wassistemas.tasko.usuario.application.port.out.usuario.AdicionarUsuarioPort;
@@ -88,7 +86,7 @@ public class UsuarioPersistenceAdapter implements AdicionarUsuarioPort, Atualiza
   @Override
   public UsuarioLogin obterUsuarioPorNomeUsuario(String nomeUsuario) {
     return usuarioRepository.findByNomeUsuario(nomeUsuario)
-        .map(usuarioMapper::toUsuarioLogin)
+        .map(usuarioMapper::toDomain)
         .orElse(null);
   }
 
