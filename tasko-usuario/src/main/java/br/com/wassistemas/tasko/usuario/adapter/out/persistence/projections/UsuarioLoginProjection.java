@@ -2,7 +2,7 @@ package br.com.wassistemas.tasko.usuario.adapter.out.persistence.projections;
 
 import java.time.LocalDateTime;
 
-public interface UsuarioDetalhadoProjection {
+public interface UsuarioLoginProjection {
 
   Long getId();
 
@@ -29,5 +29,7 @@ public interface UsuarioDetalhadoProjection {
   String getNomeCompleto();
 
   String getNumeroTelefone();
+
+  String getSenha();
 }
 

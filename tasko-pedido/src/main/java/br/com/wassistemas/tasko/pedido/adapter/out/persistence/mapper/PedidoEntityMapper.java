@@ -3,6 +3,7 @@ package br.com.wassistemas.tasko.pedido.adapter.out.persistence.mapper;
 import br.com.wassistemas.tasko.common.domain.Auditoria;
 import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
 import br.com.wassistemas.tasko.pedido.adapter.out.persistence.entity.PedidoEntity;
+import br.com.wassistemas.tasko.pedido.adapter.out.persistence.projections.PedidoProjection;
 import br.com.wassistemas.tasko.pedido.domain.pedido.AdicionarPedido;
 import br.com.wassistemas.tasko.pedido.domain.pedido.AtualizarPedido;
 import br.com.wassistemas.tasko.pedido.domain.pedido.Pedido;
@@ -25,4 +26,6 @@ public interface PedidoEntityMapper {
 
     @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     PedidoEntity toEntity(Long id, AtualizarPedido domain);
+
+    Pedido toDomain(PedidoProjection projection);
 }

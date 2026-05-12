@@ -6,6 +6,7 @@ import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioEn
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioPerfilTipoEntity;
 import br.com.wassistemas.tasko.usuario.adapter.out.persistence.entity.UsuarioResetTokenEntity;
+import br.com.wassistemas.tasko.usuario.adapter.out.persistence.projections.UsuarioLoginProjection;
 import br.com.wassistemas.tasko.usuario.domain.login.CriarResetToken;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioLogin;
 import br.com.wassistemas.tasko.usuario.domain.login.UsuarioResetToken;
@@ -72,6 +73,13 @@ public interface UsuarioEntityMapper {
   @Mapping(target = "auditoria.atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
   UsuarioPerfilEntity toEntity(Long id, AtualizarUsuarioPerfil domain);
 
+  @Mapping(target = "vendedor.id", source = "projection.vendedorId")
+  @Mapping(target = "vendedor.codigoVendedor", source = "projection.vendedorCodigo")
+  @Mapping(target = "vendedor.nomeVendedor", source = "projection.vendedorNome")
+  @Mapping(target = "vendedor.numeroCPF", source = "projection.vendedorCpf")
+  @Mapping(target = "vendedor.email", source = "projection.vendedorEmail")
+  @Mapping(target = "vendedor.numeroTelefone", source = "projection.vendedorTelefone")
+  UsuarioLogin toDomain(UsuarioLoginProjection projection);
 
   UsuarioLogin toUsuarioLogin(UsuarioEntity entity);
 
