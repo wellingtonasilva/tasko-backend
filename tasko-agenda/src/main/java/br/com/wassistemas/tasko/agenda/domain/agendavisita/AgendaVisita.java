@@ -30,4 +30,7 @@ public class AgendaVisita {
     private Boolean criadoOffline;
     private String uuidOffline;
     private Auditoria auditoria;
+    private String razaoSocial;
+    private String nomeVendedor;
+    private String descricaoVisitaStatus;
 }
