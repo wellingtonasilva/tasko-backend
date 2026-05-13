@@ -1,6 +1,9 @@
-package br.com.wassistemas.tasko.pedido.adapter.out.persistence.entity;
+package br.com.wassistemas.tasko.common.entity.cliente;
 
+import br.com.wassistemas.tasko.common.entity.AuditoriaEntity;
+import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -107,5 +110,11 @@ public class RefClienteEntity {
 
     @Column(name = "clie_dsobservacao")
     private String observacao;
+
+    @Embedded
+    @AttributeOverride(name = "criadoEm", column = @Column(name = "clie_tmcriado_em"))
+    @AttributeOverride(name = "atualizadoEm", column = @Column(name = "clie_tmatualizado_em"))
+    @AttributeOverride(name = "indicadorAtivo", column = @Column(name = "clie_icativo"))
+    private AuditoriaEntity auditoria;
 }
 

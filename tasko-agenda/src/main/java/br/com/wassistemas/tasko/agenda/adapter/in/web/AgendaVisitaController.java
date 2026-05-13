@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.agenda.adapter.in.web;
 
+import br.com.wassistemas.tasko.agenda.adapter.in.web.request.AtualizarAgendaVisitaRequest;
 import br.com.wassistemas.tasko.common.domain.Paginacao;
 import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
@@ -58,6 +59,17 @@ public class AgendaVisitaController {
     return GeneralApiResponse.<AgendaVisita>builder()
         .status(HttpStatus.OK.value())
         .data(useCases.obterPorId(empresaId, id))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  @Operation(summary = "Atualizar Agenda de Visitas por ID")
+  public GeneralApiResponse<AgendaVisita> atualizar(@PathVariable Long id,
+      @RequestBody AtualizarAgendaVisitaRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<AgendaVisita>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.atualizar(empresaId, id, webMapper.toDomain(request)))
         .build();
   }
 

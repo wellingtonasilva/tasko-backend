@@ -1,5 +1,6 @@
 package br.com.wassistemas.tasko.agenda.adapter.out.persistence;
 
+import br.com.wassistemas.tasko.agenda.adapter.out.persistence.entity.AgendaVisitaEntity;
 import br.com.wassistemas.tasko.agenda.adapter.out.persistence.mapper.AgendaVisitaEntityMapper;
 import br.com.wassistemas.tasko.agenda.adapter.out.persistence.repository.AgendaVisitaRepository;
 import br.com.wassistemas.tasko.agenda.application.port.out.agendavisita.AdicionarAgendaVisitaPort;
@@ -35,7 +36,11 @@ public class AgendaVisitaPersistenceAdapter implements AdicionarAgendaVisitaPort
 
     @Override
     public AgendaVisita atualizarAgendaVisita(Long id, AtualizarAgendaVisita atualizar) {
-        return mapper.toDomain(repository.save(mapper.toEntity(id, atualizar)));
+        AgendaVisitaEntity entity = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
+        mapper.updateAgendaVisitaEntity(atualizar, entity);
+
+        return mapper.toDomain(repository.save(entity));
     }
 
     @Override
