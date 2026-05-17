@@ -1,5 +1,7 @@
 package br.com.wassistemas.tasko.produto.adapter.out.persistence;
 
+import br.com.wassistemas.tasko.produto.adapter.out.persistence.entity.ProdutoGrupoEntity;
+import br.com.wassistemas.tasko.produto.adapter.out.persistence.entity.ProdutoSubgrupoEntity;
 import br.com.wassistemas.tasko.produto.adapter.out.persistence.mapper.ProdutoSubgrupoEntityMapper;
 import br.com.wassistemas.tasko.produto.adapter.out.persistence.repository.ProdutoSubgrupoRepository;
 import br.com.wassistemas.tasko.produto.application.port.out.subgrupo.AdicionarProdutoSubgrupoPort;
@@ -35,7 +37,11 @@ public class ProdutoSubgrupoPersistenceAdapter implements AdicionarProdutoSubgru
 
     @Override
     public ProdutoSubgrupo atualizarProdutoSubgrupo(Long id, AtualizarProdutoSubgrupo atualizar) {
-        return mapper.toDomain(repository.save(mapper.toEntity(id, atualizar)));
+        ProdutoSubgrupoEntity entity = repository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Subgrupo não encontrado"));
+        mapper.updateProdutoSubgrupoEntity(atualizar, entity);
+
+        return mapper.toDomain(repository.save(entity));
     }
 
     @Override
