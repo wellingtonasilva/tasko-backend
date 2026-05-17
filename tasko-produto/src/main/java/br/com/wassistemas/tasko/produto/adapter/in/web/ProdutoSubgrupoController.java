@@ -5,6 +5,7 @@ import br.com.wassistemas.tasko.common.exception.ResourceDuplicateException;
 import br.com.wassistemas.tasko.common.response.GeneralApiResponse;
 import br.com.wassistemas.tasko.produto.adapter.in.web.mapper.ProdutoSubgrupoWebMapper;
 import br.com.wassistemas.tasko.produto.adapter.in.web.request.AdicionarProdutoSubgrupoRequest;
+import br.com.wassistemas.tasko.produto.adapter.in.web.request.AtualizarProdutoSubgrupoRequest;
 import br.com.wassistemas.tasko.produto.application.port.in.usecases.ProdutoSubgrupoUseCases;
 import br.com.wassistemas.tasko.produto.domain.subgrupo.ProdutoSubgrupo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -58,6 +59,17 @@ public class ProdutoSubgrupoController {
     return GeneralApiResponse.<ProdutoSubgrupo>builder()
         .status(HttpStatus.OK.value())
         .data(useCases.obterPorId(empresaId, id))
+        .build();
+  }
+
+  @PutMapping("/{id}")
+  @Operation(summary = "Atualizar Produto Subgrupo por ID")
+  public GeneralApiResponse<ProdutoSubgrupo> atualizar(@PathVariable Long id,
+      @RequestBody AtualizarProdutoSubgrupoRequest request,
+      @RequestHeader("X-Empresa-Id") Long empresaId) {
+    return GeneralApiResponse.<ProdutoSubgrupo>builder()
+        .status(HttpStatus.OK.value())
+        .data(useCases.atualizar(empresaId, id, webMapper.toDomain(request)))
         .build();
   }
 
